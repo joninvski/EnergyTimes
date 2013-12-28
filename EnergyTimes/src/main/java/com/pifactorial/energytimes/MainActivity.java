@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
      * Send a sample notification using the NotificationCompat API.
      */
     public void sendNotification(View view) {
-        Log.e("EnergyTimes", "Started");
+        Log.e(Constants.LOG, "Started");
 
         /** Create an intent that will be fired when the user clicks the notification.
          * The intent needs to be packaged into a {@link android.app.PendingIntent} so that the
