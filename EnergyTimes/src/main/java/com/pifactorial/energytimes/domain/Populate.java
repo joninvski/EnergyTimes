@@ -20,19 +20,25 @@ public class Populate {
         MyDate firstDayWinterSecondPart = new MyDate(1, MyDate.Month.NOV);
         MyDate lastDayYear = new MyDate(31, MyDate.Month.DEZ);
 
-        MyHours morning = new MyHours(0,0, 9,0);
+        MyHours morning = new MyHours(0, 0, 7, 59);
+        MyHours day = new MyHours(8, 0, 21,59);
+        MyHours night = new MyHours(22,0, 23,59);
 
-        Schedule winterFirstPart = new Schedule(firstDayYear, lastDayWinter, morning);
-        Schedule summerTime = new Schedule(firstDaySummer, lastDaySummer,morning);
-        Schedule winterSecondPart = new Schedule(firstDayWinterSecondPart, lastDayYear, morning);
+        Schedule winterFirstPart_morning = new Schedule(firstDayYear, lastDayWinter, morning);
+        Schedule summerTime_morning = new Schedule(firstDaySummer, lastDaySummer,morning);
+        Schedule winterSecondPart_morning = new Schedule(firstDayWinterSecondPart, lastDayYear, morning);
 
-        btnCicloDiario.addSchedule(summerTime);
-        btnCicloDiario.addSchedule(winterFirstPart);
-        btnCicloDiario.addSchedule(winterSecondPart);
+        Schedule winterFirstPart_day = new Schedule(firstDayYear, lastDayWinter, day);
+        Schedule summerTime_day = new Schedule(firstDaySummer, lastDaySummer, day);
+        Schedule winterSecondPart_day = new Schedule(firstDayWinterSecondPart, lastDayYear, day);
 
-        btnCicloSemanal.addSchedule(summerTime);
-        btnCicloSemanal.addSchedule(winterFirstPart);
-        btnCicloSemanal.addSchedule(winterSecondPart);
+        btnCicloDiario.addSchedule(summerTime_morning);
+        btnCicloDiario.addSchedule(winterFirstPart_morning);
+        btnCicloDiario.addSchedule(winterSecondPart_morning);
+
+        btnCicloSemanal.addSchedule(summerTime_morning);
+        btnCicloSemanal.addSchedule(winterFirstPart_morning);
+        btnCicloSemanal.addSchedule(winterSecondPart_morning);
 
         edp.addPlan(btnCicloSemanal);
         edp.addPlan(btnCicloDiario);

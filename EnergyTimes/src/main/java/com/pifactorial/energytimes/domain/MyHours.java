@@ -17,7 +17,7 @@ public class MyHours{
     }
 
     public boolean isInInterval(int hour, int minute) {
-        if (hour >= _start_hour && hour < _end_hour)
+        if (hour >= _start_hour && hour <= _end_hour)
             return minute >= _start_minute && minute <= _end_minute;
         return false;
     }
