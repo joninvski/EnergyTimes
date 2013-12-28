@@ -2,9 +2,6 @@ package com.pifactorial.energytimes.domain;
 
 import android.text.format.Time;
 
-import com.pifactorial.energytimes.domain.MyDate;
-import java.util.Calendar;
-
 public class Populate {
     public Company edp;
 
@@ -21,12 +18,13 @@ public class Populate {
         MyDate lastDaySummer = new MyDate(31, MyDate.Month.OCT);
 
         MyDate firstDayWinterSecondPart = new MyDate(1, MyDate.Month.NOV);
-
         MyDate lastDayYear = new MyDate(31, MyDate.Month.DEZ);
 
-        Schedule winterFirstPart = new Schedule(firstDayYear, lastDayWinter);
-        Schedule summerTime = new Schedule(firstDaySummer, lastDaySummer);
-        Schedule winterSecondPart = new Schedule(firstDayWinterSecondPart, lastDayYear);
+        MyHours morning = new MyHours(0,0, 9,0);
+
+        Schedule winterFirstPart = new Schedule(firstDayYear, lastDayWinter, morning);
+        Schedule summerTime = new Schedule(firstDaySummer, lastDaySummer,morning);
+        Schedule winterSecondPart = new Schedule(firstDayWinterSecondPart, lastDayYear, morning);
 
         btnCicloDiario.addSchedule(summerTime);
         btnCicloDiario.addSchedule(winterFirstPart);
@@ -43,5 +41,4 @@ public class Populate {
     public Schedule checkTime(Time t, Plan p) throws DayWithoutPlanException {
         return p.checkTime(t);
     }
-
 }

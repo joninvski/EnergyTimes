@@ -6,6 +6,8 @@ import java.util.Set;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.pifactorial.energytimes.Constants;
+
 public class Plan {
     private String _name;
     private Set<Schedule> _scheduleSet;
@@ -25,14 +27,14 @@ public class Plan {
     }
 
     public Schedule checkTime(Time t) throws DayWithoutPlanException {
-         Log.d("EnergyTimes", String.format("Checking time: %d", _scheduleSet.size()));
+         Log.d(Constants.LOG, String.format("Checking time: %d", _scheduleSet.size()));
 
          for(Schedule s : _scheduleSet){
              if(s.matches(t))
                 return s;
         }
 
-         Log.d("EnergyTimes", "It did not match");
+         Log.d(Constants.LOG, "It did not match");
          throw new DayWithoutPlanException(this.toString());
     }
 

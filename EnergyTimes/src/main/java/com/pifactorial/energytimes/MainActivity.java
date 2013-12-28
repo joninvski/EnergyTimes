@@ -1,22 +1,16 @@
 package com.pifactorial.energytimes;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.text.format.Time;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.Plan;
 import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.Schedule;
-
-import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.view.View;
-import android.widget.TextView;
-import android.util.Log;
-import android.text.format.Time;
 
 /**
  * The entry point to the BasicNotification sample.
@@ -113,7 +107,7 @@ public class MainActivity extends Activity {
         Time now = new Time();
         now.setToNow();
         textView.setText(now.format2445());
-        Log.e("EnergyTimes", "Mudei");
+        Log.e(Constants.LOG, "Mudei");
 
         Populate state = new Populate();
         Schedule schedule;
@@ -121,9 +115,9 @@ public class MainActivity extends Activity {
         try {
             Plan plan = (Plan) state.edp.getPlanSet().toArray()[0];
             schedule = state.checkTime(now, plan);
-            Log.d("EnergyTimes", schedule.toString());
+            Log.d(Constants.LOG, schedule.toString());
         } catch (DayWithoutPlanException e) {
-            Log.e("EnergyTimes", e.getMessage());
+            Log.e(Constants.LOG, e.getMessage());
         }
     }
 }

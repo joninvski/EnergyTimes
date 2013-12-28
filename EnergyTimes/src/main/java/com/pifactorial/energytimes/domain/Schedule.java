@@ -7,14 +7,18 @@ import java.util.Set;
 import android.text.format.Time;
 import android.util.Log;
 
+import com.pifactorial.energytimes.Constants;
+
 public class Schedule {
         private MyDate _start;
         private MyDate _end;
+        private MyHours _hours;
         private Set<TypeDay> _validOnDaySet;
 
-        public Schedule(MyDate start, MyDate end){
+        public Schedule(MyDate start, MyDate end, MyHours hours){
             _start = start;
             _end = end;
+            _hours = hours;
             _validOnDaySet = new HashSet<TypeDay>();
         }
 
@@ -23,9 +27,9 @@ public class Schedule {
         }
 
         public boolean matches(Time t) {
-            Log.d("EnergyTimes", String.format("Checking\nDay:\t%d\t%d", t.monthDay, t.month));
-            Log.d("EnergyTimes", String.format("Start\t%s", _start.toString()));
-            Log.d("EnergyTimes", String.format("End\t%s", _end.toString()));
+            Log.d(Constants.LOG, String.format("Checking\nDay:\t%d\t%d", t.monthDay, t.month));
+            Log.d(Constants.LOG, String.format("Start\t%s", _start.toString()));
+            Log.d(Constants.LOG, String.format("End\t%s", _end.toString()));
 
             // Start time
             Time s = new Time();
