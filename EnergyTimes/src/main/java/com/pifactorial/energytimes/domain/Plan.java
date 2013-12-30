@@ -13,8 +13,7 @@ public class Plan {
     private Set<Schedule> _scheduleSet;
 
     public Plan(String name) {
-        this._name = name;
-        _scheduleSet = new HashSet<Schedule>();
+        this(name, new HashSet<Schedule>());
     }
 
     public Plan(String name, Set<Schedule> scheduleSet) {
@@ -22,10 +21,19 @@ public class Plan {
         _scheduleSet = scheduleSet;
     }
 
+    public String getName() {
+        return _name;
+    }
+
     public synchronized void addSchedule(Schedule s){
         _scheduleSet.add(s);
     }
 
+    public synchronized void addSchedule(Schedule[] sArray){
+        for (Schedule s : sArray)
+        	addSchedule(s);
+    }
+    
     public Schedule checkTime(Time t) throws DayWithoutPlanException {
          Log.d(Constants.LOG, String.format("Checking time: %d", _scheduleSet.size()));
 

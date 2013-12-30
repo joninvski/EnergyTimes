@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.Plan;
+import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.Schedule;
 
@@ -110,13 +111,14 @@ public class MainActivity extends Activity {
         Log.e(Constants.LOG, "Mudei");
 
         Populate state = new Populate();
-        Schedule schedule;
 
         try {
-            Plan plan = (Plan) state.edp.getPlanSet().toArray()[0];
-            schedule = state.checkTime(now, plan);
-            Log.d(Constants.LOG, schedule.toString());
+            Schedule s = state.edp.checkCurrentSchedule(now, "BTN Ciclo Semanal");
+            textView.setText(String.format("%s ---> %s", now.format2445(), s.toString()));
+            Log.d(Constants.LOG, "Found schedule " + s.toString());
         } catch (DayWithoutPlanException e) {
+            Log.e(Constants.LOG, e.getMessage());
+        } catch (PlanNotFoundException e) {
             Log.e(Constants.LOG, e.getMessage());
         }
     }

@@ -1,10 +1,10 @@
 package com.pifactorial.energytimes.domain;
 
-public class DayWithoutPlanException extends Exception {
-
+public class PlanNotFoundException extends Exception {
+	
 	private static final long serialVersionUID = 1L;
 
-	public DayWithoutPlanException(String msg) {
+	public PlanNotFoundException(String msg) {
         super(msg);
-    }
+	}
 }
