@@ -15,10 +15,10 @@ public final class R {
         public static final int ic_stat_notification=0x7f020001;
     }
     public static final class id {
-        public static final int button=0x7f060002;
         public static final int coreLayout=0x7f060000;
-        public static final int currentTime=0x7f060003;
         public static final int description=0x7f060001;
+        public static final int tvCurrentPeriod=0x7f060002;
+        public static final int tvMoreInfo=0x7f060003;
     }
     public static final class layout {
         public static final int main_layout=0x7f030000;

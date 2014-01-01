@@ -14,7 +14,7 @@ public class Schedule {
     private Hours _hours;
     private Set<TypeDay> _validOnDaySet;
     private PricePlan _price;
-
+    
     public Schedule(MyDate start, MyDate end, Hours hours, Set<TypeDay> typeDays, PricePlan price){
         _start = start;
         _end = end;
@@ -23,9 +23,14 @@ public class Schedule {
         _price = price;
     }
 
-    public PricePlan get_price() {
+    public PricePlan getPrice() {
         return _price;
     }
+    
+    public Hours getHours() {
+		return _hours;
+	}
+
 
     public void addTypeDay(TypeDay t){
         _validOnDaySet.add(t);
@@ -92,5 +97,5 @@ public class Schedule {
 
         Schedule allYear = new Schedule(firstDay, lastDay, hours, typeDays, price);
         return new Schedule[] {allYear};
-    }
+    }    
 }
