@@ -70,9 +70,9 @@ public class Schedule {
     public static Schedule[] getWinterSchedule(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
         MyDate firstDayYear = new MyDate(1, MyDate.Month.JAN);
-        MyDate lastDayWinter = new MyDate(27, MyDate.Month.FEV);
+        MyDate lastDayWinter = new MyDate(29, MyDate.Month.MAR);
 
-        MyDate firstDayWinterSecondPart = new MyDate(1, MyDate.Month.NOV);
+        MyDate firstDayWinterSecondPart = new MyDate(26, MyDate.Month.OCT);
         MyDate lastDayYear = new MyDate(31, MyDate.Month.DEC);
 
         Schedule winterPart1 = new Schedule(firstDayYear, lastDayWinter, hours, typeDays, price);
@@ -83,8 +83,8 @@ public class Schedule {
 
     public static Schedule[] getSummerSchedule(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
-        MyDate firstDaySummer = new MyDate(1, MyDate.Month.MAR);
-        MyDate lastDaySummer = new MyDate(31, MyDate.Month.OCT);
+        MyDate firstDaySummer = new MyDate(30, MyDate.Month.MAR);
+        MyDate lastDaySummer = new MyDate(25, MyDate.Month.OCT);
 
         Schedule summer = new Schedule(firstDaySummer, lastDaySummer, hours, typeDays, price);
         return new Schedule[] {summer};
