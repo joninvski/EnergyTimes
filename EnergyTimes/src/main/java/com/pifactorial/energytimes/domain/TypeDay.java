@@ -95,9 +95,9 @@ public enum TypeDay {
         	else if(m == 7 && d == 15)
         		return true;
         	
-        	// 5 October - Republic day
-        	else if(m == 9 && d == 5)
-        		return true;
+        	// No longer a holiday - 5 October - Republic day
+        	//else if(m == 9 && d == 5)
+        	//	return true;
 
         	// No longer a holiday - 1 November - All saints
         	//else if(m == 10 && d == 1)
@@ -121,10 +121,6 @@ public enum TypeDay {
     		
         	// GOOD Friday - This changes year - Update code when year changes or do algorithm
         	else if(m == 3 && d == 18)
-        		return true;
-        	
-        	// GOOD Friday - This changes year - Update code when year changes or do algorithm
-        	else if(m == 0 && d == 1)
         		return true;
         	
         	return false;
