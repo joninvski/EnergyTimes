@@ -19,7 +19,8 @@ along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-    <string name="app_name">EnergyTimes</string>
-    <string name="description">The current energy period is:</string>
+    <string name="app_name">Horário Electricidade</string>
+    <string name="description">A tarifa actual é:</string>
+    <string name="current_plan">Horário da tarifa actual</string>
 
 </resources>

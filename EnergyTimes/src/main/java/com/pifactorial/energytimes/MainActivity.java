@@ -68,9 +68,9 @@ public class MainActivity extends Activity {
 			int endHour = s.getHours().getEndHour();
 			int endMinute = s.getHours().getEndMinute();
 
-			tvMoreInfo.setText(String.format(
-					"Current time plan: %02dh%02dm ---> %02dh%02dm", startHour,
-					startMinute, endHour, endMinute));
+			tvMoreInfo.setText(String.format("%s: %02dh%02dm ---> %02dh%02dm",
+					getString(R.string.current_plan), startHour, startMinute,
+					endHour, endMinute));
 
 			Log.d(Constants.LOG, "Found schedule " + s.toString());
 		} catch (DayWithoutPlanException e) {

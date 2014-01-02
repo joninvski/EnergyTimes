@@ -2,3 +2,4 @@
 *.data
 .gradle
 gen
+R.java
