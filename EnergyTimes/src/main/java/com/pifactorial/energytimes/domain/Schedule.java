@@ -23,6 +23,14 @@ public class Schedule {
         _price = price;
     }
 
+    public Schedule(int startH, int startM, int endH, int endM, MyDate end, Hours hours, Set<TypeDay> typeDays, PricePlan price){
+        _start = new Hours(startH, startM);
+        _end = new Hours(endH, endM);
+        _hours = hours;
+        _validOnDaySet = typeDays;
+        _price = price;
+    }
+
     public PricePlan getPrice() {
         return _price;
     }
@@ -67,6 +75,11 @@ public class Schedule {
         return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(), _end.toString(), _price.toString(), _hours.toString(), daysString);
     }
 
+    
+    public static Schedule[] getWinterSchedule(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
+        return getWinterSchedule(new Hours(startH, startM, endH, endM), typeDays, price);
+    }
+
     public static Schedule[] getWinterSchedule(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
         MyDate firstDayYear = new MyDate(1, MyDate.Month.JAN);
@@ -81,6 +94,10 @@ public class Schedule {
         return new Schedule[] {winterPart1, winterPart2};
     }
 
+    public static Schedule[] getSummerSchedule(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
+        return getSummerSchedule(new Hours(startH, startM, endH, endM), typeDays, price);
+    }
+
     public static Schedule[] getSummerSchedule(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
         MyDate firstDaySummer = new MyDate(30, MyDate.Month.MAR);
@@ -88,6 +105,10 @@ public class Schedule {
 
         Schedule summer = new Schedule(firstDaySummer, lastDaySummer, hours, typeDays, price);
         return new Schedule[] {summer};
+    }
+
+    public static Schedule[] getAllYear(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
+        return getAllYear(new Hours(startH, startM, endH, endM), typeDays, price) {
     }
 
     public static Schedule[] getAllYear(Hours hours, Set<TypeDay> typeDays, PricePlan price) {

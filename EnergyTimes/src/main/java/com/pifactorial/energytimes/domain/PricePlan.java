@@ -1,7 +1,7 @@
 package com.pifactorial.energytimes.domain;
 
 public enum PricePlan {
-    PONTA("Ponta"), CHEIAS("Cheias"), VAZIO("Vazio");
+    PONTA("Ponta"), CHEIAS("Cheias"), VAZIO("Vazio"), SUPER_VAZIO("Super Vazio");
 
     private String name;
 
