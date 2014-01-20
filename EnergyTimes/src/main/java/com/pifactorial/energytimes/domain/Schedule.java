@@ -14,7 +14,7 @@ public class Schedule {
     private Hours _hours;
     private Set<TypeDay> _validOnDaySet;
     private PricePlan _price;
-    
+
     public Schedule(MyDate start, MyDate end, Hours hours, Set<TypeDay> typeDays, PricePlan price){
         _start = start;
         _end = end;
@@ -23,18 +23,10 @@ public class Schedule {
         _price = price;
     }
 
-    public Schedule(int startH, int startM, int endH, int endM, MyDate end, Hours hours, Set<TypeDay> typeDays, PricePlan price){
-        _start = new Hours(startH, startM);
-        _end = new Hours(endH, endM);
-        _hours = hours;
-        _validOnDaySet = typeDays;
-        _price = price;
-    }
-
     public PricePlan getPrice() {
         return _price;
     }
-    
+
     public Hours getHours() {
 		return _hours;
 	}
@@ -75,7 +67,7 @@ public class Schedule {
         return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(), _end.toString(), _price.toString(), _hours.toString(), daysString);
     }
 
-    
+
     public static Schedule[] getWinterSchedule(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
         return getWinterSchedule(new Hours(startH, startM, endH, endM), typeDays, price);
     }
@@ -107,8 +99,8 @@ public class Schedule {
         return new Schedule[] {summer};
     }
 
-    public static Schedule[] getAllYear(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
-        return getAllYear(new Hours(startH, startM, endH, endM), typeDays, price) {
+    public static Schedule[] getAllYear(int startH, int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
+        return getAllYear(new Hours(startH, startM, endH, endM), typeDays, price);
     }
 
     public static Schedule[] getAllYear(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
@@ -118,5 +110,5 @@ public class Schedule {
 
         Schedule allYear = new Schedule(firstDay, lastDay, hours, typeDays, price);
         return new Schedule[] {allYear};
-    }    
+    }
 }
