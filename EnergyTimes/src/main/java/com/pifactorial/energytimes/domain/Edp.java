@@ -29,6 +29,7 @@ public class Edp {
         cicloSemanal.addSchedule(sWeekdayWinterA);
         cicloSemanal.addSchedule(sWeekdayWinterB);
         cicloSemanal.addSchedule(sWeekdayWinterC);
+        cicloSemanal.addSchedule(sWeekdayWinterD);
         cicloSemanal.addSchedule(sWeekdayWinterE);
         cicloSemanal.addSchedule(sWeekdayWinterF);
         cicloSemanal.addSchedule(sWeekdayWinterG);
@@ -37,6 +38,7 @@ public class Edp {
         cicloSemanal.addSchedule(sWeekdaySummerA);
         cicloSemanal.addSchedule(sWeekdaySummerB);
         cicloSemanal.addSchedule(sWeekdaySummerC);
+        cicloSemanal.addSchedule(sWeekdaySummerD);
         cicloSemanal.addSchedule(sWeekdaySummerE);
         cicloSemanal.addSchedule(sWeekdaySummerF);
 

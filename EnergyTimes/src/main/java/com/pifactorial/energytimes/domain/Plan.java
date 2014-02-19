@@ -33,7 +33,7 @@ public class Plan {
         for (Schedule s : sArray)
         	addSchedule(s);
     }
-    
+
     public Schedule checkTime(Time t) throws DayWithoutPlanException {
          Log.d(Constants.LOG, String.format("Checking time: %d", _scheduleSet.size()));
 
