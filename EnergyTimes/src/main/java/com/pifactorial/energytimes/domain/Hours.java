@@ -32,9 +32,14 @@ public class Hours {
     }
 
     public boolean matches(int hour, int minute){
-        if (_startHour <= hour && _endHour >= hour)
-            if(_startMinute <= minute && _endMinute >= minute)
-                return true;
+        if (_startHour <= hour && _endHour >= hour){
+            if(_startHour == hour && _startMinute > minute)
+                return false;
+            if(_endHour == hour && _endMinute < minute)
+                return false;
+            return true;
+        }
+
         return false;
     }
 

@@ -7,7 +7,7 @@ import android.text.format.Time;
 
 public enum TypeDay {
 
-        Weekday(0), Saturday(1), Sunday(2), Holiday(3);
+        Workday(0), Saturday(1), Sunday(2), Holiday(3);
 
         private int code;
 
@@ -30,7 +30,7 @@ public enum TypeDay {
         public static Set<TypeDay> Weekday(){
             Set<TypeDay> s = new HashSet<TypeDay>();
 
-            s.add(Weekday);
+            s.add(Workday);
             return s;
         }
 
@@ -44,7 +44,7 @@ public enum TypeDay {
         public static Set<TypeDay> All(){
             Set<TypeDay> s = new HashSet<TypeDay>();
 
-            s.add(Weekday);
+            s.add(Workday);
             s.add(Saturday);
             s.add(Sunday);
             s.add(Holiday);
@@ -58,10 +58,11 @@ public enum TypeDay {
         	if(isPortugueseHoliday(t))
                 return true;
         	
+            // If it is sunday
         	if(t.weekDay == 0 && s.contains(Sunday))
                 return true;
 
-            if(t.weekDay >=1 && t.weekDay <= 5 && s.contains(Weekday))
+            if(t.weekDay >=1 && t.weekDay <= 5 && s.contains(Workday))
                 return true;
 
             if(t.weekDay == 6 && s.contains(Saturday))

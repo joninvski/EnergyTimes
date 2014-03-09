@@ -71,6 +71,7 @@ public class MainActivity extends Activity {
 
 		Time now = new Time();
 		now.setToNow();
+		tvCurrentPeriod.setText("");
 
 		Populate state = new Populate();
 
@@ -89,8 +90,15 @@ public class MainActivity extends Activity {
 			Log.d(Constants.LOG, "Found schedule " + s.toString());
 		} catch (DayWithoutPlanException e) {
 			Log.e(Constants.LOG, e.getMessage());
+            warnUser();
 		} catch (PlanNotFoundException e) {
 			Log.e(Constants.LOG, e.getMessage());
+            warnUser();
 		}
 	}
+
+    private void warnUser(){
+		TextView tvCurrentPeriod = (TextView) findViewById(R.id.tvCurrentPeriod);
+        tvCurrentPeriod.setText("Exception");
+    }
 }
