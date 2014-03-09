@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="plans_array">
+        <item>Plano Semanal</item>
+        <item>Plano Diário</item>
+    </string-array>
+</resources>

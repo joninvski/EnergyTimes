@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.format.Time;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
@@ -46,38 +48,43 @@ public class MainActivity extends Activity {
 
 		// schedule the task to run starting now and then every hour...
 		timer.schedule(hourlyTask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
+
+        Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.plans_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 	}
 
     @Override
 	public void onResume() {
         super.onResume();
-		TextView tvClock = (TextView) findViewById(R.id.clock);
-
-        tvClock.setText("Clock");
     }
 
 	public void setCurrentTime() {
-		TextView tvCurrentPeriod = (TextView) findViewById(R.id.tvCurrentPeriod);
-		TextView tvMoreInfo = (TextView) findViewById(R.id.tvMoreInfo);
+		TextView tvPlan = (TextView) findViewById(R.id.plan);
+		TextView tvStart = (TextView) findViewById(R.id.start);
+		TextView tvEnd = (TextView) findViewById(R.id.end);
 
 		Time now = new Time();
 		now.setToNow();
-		tvCurrentPeriod.setText(now.format2445());
 
 		Populate state = new Populate();
 
 		try {
 			Schedule s = state.edp.checkCurrentSchedule(now,
 					"BTN Ciclo Semanal");
-			tvCurrentPeriod.setText(String.format("%s", s.getPrice().getPricePlan()));
+			tvPlan.setText(String.format("%s", s.getPrice().getPricePlan()));
 			int startHour = s.getHours().getStartHour();
 			int startMinute = s.getHours().getStartMinute();
 			int endHour = s.getHours().getEndHour();
 			int endMinute = s.getHours().getEndMinute();
 
-			tvMoreInfo.setText(String.format("%s: %02dh%02dm ---> %02dh%02dm",
-					getString(R.string.current_plan), startHour, startMinute,
-					endHour, endMinute));
+			tvStart.setText(String.format("%02dh%02dm", startHour, startMinute));
+			tvEnd.setText(String.format("%02dh%02dm", endHour, endMinute));
 
 			Log.d(Constants.LOG, "Found schedule " + s.toString());
 		} catch (DayWithoutPlanException e) {
