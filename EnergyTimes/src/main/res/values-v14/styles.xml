@@ -1,22 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
-Copyright 2013 Joao Trindade
-
-This file is part of EnergyTimes.
-
-EnergyTimes is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-EnergyTimes is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
--->
 <resources>
 
     <!--
@@ -24,7 +5,7 @@ along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
-    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+    <style name="AppBaseTheme" parent="android:Theme.Holo">
         <!-- API 14 theme customizations can go here. -->
     </style>
 

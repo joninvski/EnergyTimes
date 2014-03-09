@@ -48,6 +48,14 @@ public class MainActivity extends Activity {
 		timer.schedule(hourlyTask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
 	}
 
+    @Override
+	public void onResume() {
+        super.onResume();
+		TextView tvClock = (TextView) findViewById(R.id.clock);
+
+        tvClock.setText("Clock");
+    }
+
 	public void setCurrentTime() {
 		TextView tvCurrentPeriod = (TextView) findViewById(R.id.tvCurrentPeriod);
 		TextView tvMoreInfo = (TextView) findViewById(R.id.tvMoreInfo);
@@ -55,14 +63,13 @@ public class MainActivity extends Activity {
 		Time now = new Time();
 		now.setToNow();
 		tvCurrentPeriod.setText(now.format2445());
-		Log.e(Constants.LOG, "Mudei");
 
 		Populate state = new Populate();
 
 		try {
 			Schedule s = state.edp.checkCurrentSchedule(now,
 					"BTN Ciclo Semanal");
-			tvCurrentPeriod.setText(String.format("%s", s.getPrice()));
+			tvCurrentPeriod.setText(String.format("%s", s.getPrice().getPricePlan()));
 			int startHour = s.getHours().getStartHour();
 			int startMinute = s.getHours().getStartMinute();
 			int endHour = s.getHours().getEndHour();
