@@ -1,12 +1,17 @@
 package com.pifactorial.energytimes;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
+
 import android.os.Bundle;
+
 import android.text.format.Time;
+
 import android.util.Log;
+
+import android.view.View;
+
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,6 +20,9 @@ import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.Schedule;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * The entry point to the BasicNotification sample.
@@ -27,6 +35,8 @@ public class MainActivity extends Activity {
      */
     public static final int NOTIFICATION_ID = 1;
     public static final int REFRESH_TIME_IN_MINUTES = 1;
+
+    private String selectedPlan = "BTN Ciclo Semanal";
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +67,36 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
+                Log.d(Constants.LOG, "Spinner selected pos: " + Integer.toString(position));
+                // Log.d(Constants.LOG, "Spinner selected: " + ((TextView) selectedItemView).getText());
+
+                if(position == 0){
+                    selectedPlan = "BTN Ciclo Semanal";
+                }
+                else{
+                    selectedPlan = "BTN Ciclo Diario";
+                }
+                setCurrentTime();
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView){
+                Log.d(Constants.LOG, "Spinner with nothing selected");
+
+            }
+        });
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        setCurrentTime();
     }
 
     public void setCurrentTime() {
@@ -75,8 +110,7 @@ public class MainActivity extends Activity {
         Populate state = new Populate();
 
         try {
-            Schedule s = state.edp.checkCurrentSchedule(now,
-                    "BTN Ciclo Semanal");
+            Schedule s = state.edp.checkCurrentSchedule(now, selectedPlan);
             tvPlan.setText(String.format("%s", s.getPrice().getPricePlan()));
             int startHour = s.getHours().getStartHour();
             int startMinute = s.getHours().getStartMinute();
@@ -98,6 +132,6 @@ public class MainActivity extends Activity {
 
     private void warnUser(){
         TextView tvPlan = (TextView) findViewById(R.id.plan);
-        tvPlan.setText("Exception");
+        tvPlan.setText("No plan found for this day");
     }
 }
