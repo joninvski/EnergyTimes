@@ -1,12 +1,17 @@
 package com.pifactorial.energytimes;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Activity;
+
 import android.os.Bundle;
+
 import android.text.format.Time;
+
 import android.util.Log;
+
+import android.view.View;
+
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,6 +20,11 @@ import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.Schedule;
+
+import java.util.Timer;
+import java.util.TimerTask;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 /**
  * The entry point to the BasicNotification sample.
@@ -27,6 +37,11 @@ public class MainActivity extends Activity {
      */
     public static final int NOTIFICATION_ID = 1;
     public static final int REFRESH_TIME_IN_MINUTES = 1;
+    public static final String PLAN_SHARED_PREFERENCE = "planPreference";
+
+    private String selectedPlan = "BTN Ciclo Semanal";
+    private SharedPreferences mPrefs;
+    private Spinner spinner;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +51,6 @@ public class MainActivity extends Activity {
         TimerTask hourlyTask = new TimerTask() {
             @Override
             public void run() {
-                Log.d(Constants.LOG, "Timer called schedule ");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -49,7 +63,9 @@ public class MainActivity extends Activity {
         // schedule the task to run starting now and then every hour...
         timer.schedule(hourlyTask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
 
-        Spinner spinner = (Spinner) findViewById(R.id.planets_spinner);
+        spinner = (Spinner) findViewById(R.id.planets_spinner);
+
+		mPrefs = getSharedPreferences("TESTE", Context.MODE_PRIVATE);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.plans_array, android.R.layout.simple_spinner_item);
@@ -57,11 +73,48 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
+                Log.d(Constants.LOG, "Spinner selected pos: " + Integer.toString(position));
+
+                if(position == 0){
+                    selectedPlan = "BTN Ciclo Semanal";
+                    setPlanPreference("BTN Ciclo Semanal");
+                }
+                else{
+                    selectedPlan = "BTN Ciclo Diario";
+                    setPlanPreference("BTN Ciclo Diario");
+                }
+                setCurrentTime();
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView){
+                Log.d(Constants.LOG, "Spinner with nothing selected");
+
+            }
+        });
+    }
+
+    private String getPlanPreference(){
+        Log.d("ASDASD", mPrefs.getString(PLAN_SHARED_PREFERENCE, "BTN Ciclo Semanal"));
+        return mPrefs.getString(PLAN_SHARED_PREFERENCE, "BTN Ciclo Semanal");
+    }
+
+    private void setPlanPreference(String plan) {
+        SharedPreferences.Editor editor = mPrefs.edit();
+        editor.putString(PLAN_SHARED_PREFERENCE, plan);
+        editor.apply(); // TODO - Check the return value
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        selectedPlan = getPlanPreference();
+        setCurrentTime();
     }
 
     public void setCurrentTime() {
@@ -75,9 +128,15 @@ public class MainActivity extends Activity {
         Populate state = new Populate();
 
         try {
-            Schedule s = state.edp.checkCurrentSchedule(now,
-                    "BTN Ciclo Semanal");
+            Schedule s = state.edp.checkCurrentSchedule(now, selectedPlan);
             tvPlan.setText(String.format("%s", s.getPrice().getPricePlan()));
+
+            if(selectedPlan.equals("BTN Ciclo Semanal")){
+                spinner.setSelection(0);
+            }
+            else{
+                spinner.setSelection(1);
+            }
             int startHour = s.getHours().getStartHour();
             int startMinute = s.getHours().getStartMinute();
             int endHour = s.getHours().getEndHour();
@@ -85,8 +144,6 @@ public class MainActivity extends Activity {
 
             tvStart.setText(String.format("%02dh%02dm", startHour, startMinute));
             tvEnd.setText(String.format("%02dh%02dm", endHour, endMinute));
-
-            Log.d(Constants.LOG, "Found schedule " + s.toString());
         } catch (DayWithoutPlanException e) {
             Log.e(Constants.LOG, e.getMessage());
             warnUser();
@@ -98,6 +155,6 @@ public class MainActivity extends Activity {
 
     private void warnUser(){
         TextView tvPlan = (TextView) findViewById(R.id.plan);
-        tvPlan.setText("Exception");
+        tvPlan.setText("No plan found for this day");
     }
 }
