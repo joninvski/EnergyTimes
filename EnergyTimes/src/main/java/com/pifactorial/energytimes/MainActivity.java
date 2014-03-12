@@ -20,11 +20,16 @@ import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.Schedule;
+import com.pifactorial.energytimes.domain.PricePlan;
+import android.util.TypedValue;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import android.content.SharedPreferences;
 import android.content.Context;
+
+import android.graphics.Color;
+
 
 /**
  * The entry point to the BasicNotification sample.
@@ -118,9 +123,12 @@ public class MainActivity extends Activity {
     }
 
     public void setCurrentTime() {
-        TextView tvPlan = (TextView) findViewById(R.id.plan);
         TextView tvStart = (TextView) findViewById(R.id.start);
         TextView tvEnd = (TextView) findViewById(R.id.end);
+
+        TextView tvVazio = (TextView) findViewById(R.id.vazio);
+        TextView tvCheia = (TextView) findViewById(R.id.cheias);
+        TextView tvPonta = (TextView) findViewById(R.id.ponta);
 
         Time now = new Time();
         now.setToNow();
@@ -129,7 +137,35 @@ public class MainActivity extends Activity {
 
         try {
             Schedule s = state.edp.checkCurrentSchedule(now, selectedPlan);
-            tvPlan.setText(String.format("%s", s.getPrice().getPricePlan()));
+            PricePlan price = s.getPrice();
+
+            if(price.isVazio()) {
+                tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+                tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                tvVazio.setTextColor(Color.parseColor("#ffbb33"));
+                tvCheia.setTextColor(Color.DKGRAY);
+                tvPonta.setTextColor(Color.DKGRAY);
+            }
+
+            if(price.isCheia()) {
+                tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+                tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                tvVazio.setTextColor(Color.DKGRAY);
+                tvCheia.setTextColor(Color.parseColor("#ffbb33"));
+                tvPonta.setTextColor(Color.DKGRAY);
+            }
+
+            if(price.isPonta()) {
+                tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+                tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+                tvVazio.setTextColor(Color.DKGRAY);
+                tvCheia.setTextColor(Color.DKGRAY);
+                tvPonta.setTextColor(Color.parseColor("#ffbb33"));
+            }
+
 
             if(selectedPlan.equals("BTN Ciclo Semanal")){
                 spinner.setSelection(0);
@@ -146,15 +182,9 @@ public class MainActivity extends Activity {
             tvEnd.setText(String.format("%02dh%02dm", endHour, endMinute));
         } catch (DayWithoutPlanException e) {
             Log.e(Constants.LOG, e.getMessage());
-            warnUser();
         } catch (PlanNotFoundException e) {
             Log.e(Constants.LOG, e.getMessage());
-            warnUser();
         }
     }
 
-    private void warnUser(){
-        TextView tvPlan = (TextView) findViewById(R.id.plan);
-        tvPlan.setText("No plan found for this day");
-    }
 }

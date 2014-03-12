@@ -1,7 +1,7 @@
 package com.pifactorial.energytimes.domain;
 
 public enum PricePlan {
-    PONTA("Ponta"), CHEIAS("Cheias"), VAZIO("Vazio"), SUPER_VAZIO("Super Vazio");
+    PONTA("Ponta"), CHEIA("Cheia"), VAZIO("Vazio"), SUPER_VAZIO("Super Vazio");
 
     private String name;
 
@@ -17,4 +17,15 @@ public enum PricePlan {
         return (otherName == null)? false:name.equals(otherName);
     }
 
+    public boolean isVazio(){
+        return name.equals(VAZIO.getPricePlan()) || name.equals(SUPER_VAZIO.getPricePlan());
+    }
+
+    public boolean isCheia(){
+        return name.equals(CHEIA.getPricePlan());
+    }
+
+    public boolean isPonta(){
+        return name.equals(PONTA.getPricePlan());
+    }
 }

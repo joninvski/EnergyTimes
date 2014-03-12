@@ -9,8 +9,8 @@ android {
     buildToolsVersion "19.0.3"
 
     defaultConfig {
-        versionCode 8
-        versionName "0.0.8-ALPHA"
+        versionCode 9
+        versionName "0.0.9-ALPHA"
         minSdkVersion 9
         targetSdkVersion 19
     }
