@@ -65,7 +65,7 @@ public class MainActivity extends Activity {
 
         spinner = (Spinner) findViewById(R.id.planets_spinner);
 
-		mPrefs = getSharedPreferences("TESTE", Context.MODE_PRIVATE);
+		mPrefs = getPreferences(Context.MODE_PRIVATE);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.plans_array, android.R.layout.simple_spinner_item);
