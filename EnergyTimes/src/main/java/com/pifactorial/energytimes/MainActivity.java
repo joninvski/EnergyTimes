@@ -34,7 +34,6 @@ import java.util.TimerTask;
 
 import junit.runner.Version;
 import android.content.BroadcastReceiver;
-import com.pifactorial.energytimes.domain.Manel;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 
