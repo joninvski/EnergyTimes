@@ -2,11 +2,18 @@ package com.pifactorial.energytimes;
 
 import android.app.Activity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import android.graphics.Color;
+
+import android.os.Build;
 import android.os.Bundle;
 
 import android.text.format.Time;
 
 import android.util.Log;
+import android.util.TypedValue;
 
 import android.view.View;
 
@@ -19,16 +26,17 @@ import android.widget.TextView;
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.Populate;
-import com.pifactorial.energytimes.domain.Schedule;
 import com.pifactorial.energytimes.domain.PricePlan;
-import android.util.TypedValue;
+import com.pifactorial.energytimes.domain.Schedule;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import android.content.SharedPreferences;
-import android.content.Context;
 
-import android.graphics.Color;
+import junit.runner.Version;
+import android.content.BroadcastReceiver;
+import com.pifactorial.energytimes.domain.Manel;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 
 
 /**
@@ -47,11 +55,27 @@ public class MainActivity extends Activity {
     private String selectedPlan = "BTN Ciclo Semanal";
     private SharedPreferences mPrefs;
     private Spinner spinner;
+    private int sdk_version;
+
+    TextView tvVazio;
+    TextView tvCheia;
+    TextView tvPonta;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
+        sdk_version = android.os.Build.VERSION.SDK_INT;
 
+        // Store view references
+        tvVazio = (TextView) findViewById(R.id.vazio);
+        tvCheia = (TextView) findViewById(R.id.cheias);
+        tvPonta = (TextView) findViewById(R.id.ponta);
+        spinner = (Spinner) findViewById(R.id.planets_spinner);
+
+        // Get a reference to the preferences
+		mPrefs = getPreferences(Context.MODE_PRIVATE);
+
+        // Create an update schedule thread
         Timer timer = new Timer();
         TimerTask hourlyTask = new TimerTask() {
             @Override
@@ -68,10 +92,7 @@ public class MainActivity extends Activity {
         // schedule the task to run starting now and then every hour...
         timer.schedule(hourlyTask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
 
-        spinner = (Spinner) findViewById(R.id.planets_spinner);
-
-		mPrefs = getPreferences(Context.MODE_PRIVATE);
-
+        // Configure the spinner
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.plans_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
@@ -99,20 +120,23 @@ public class MainActivity extends Activity {
             @Override
             public void onNothingSelected(AdapterView<?> parentView){
                 Log.d(Constants.LOG, "Spinner with nothing selected");
-
             }
         });
     }
 
     private String getPlanPreference(){
-        Log.d("ASDASD", mPrefs.getString(PLAN_SHARED_PREFERENCE, "BTN Ciclo Semanal"));
         return mPrefs.getString(PLAN_SHARED_PREFERENCE, "BTN Ciclo Semanal");
     }
 
     private void setPlanPreference(String plan) {
         SharedPreferences.Editor editor = mPrefs.edit();
         editor.putString(PLAN_SHARED_PREFERENCE, plan);
-        editor.apply(); // TODO - Check the return value
+        if( sdk_version < 9) {
+            editor.commit(); // TODO - Check the return value
+        }
+        else{
+            editor.apply();
+        }
     }
 
     @Override
@@ -126,10 +150,6 @@ public class MainActivity extends Activity {
         TextView tvStart = (TextView) findViewById(R.id.start);
         TextView tvEnd = (TextView) findViewById(R.id.end);
 
-        TextView tvVazio = (TextView) findViewById(R.id.vazio);
-        TextView tvCheia = (TextView) findViewById(R.id.cheias);
-        TextView tvPonta = (TextView) findViewById(R.id.ponta);
-
         Time now = new Time();
         now.setToNow();
 
@@ -140,30 +160,15 @@ public class MainActivity extends Activity {
             PricePlan price = s.getPrice();
 
             if(price.isVazio()) {
-                tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-                tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                tvVazio.setTextColor(Color.parseColor("#ffbb33"));
-                tvCheia.setTextColor(Color.DKGRAY);
-                tvPonta.setTextColor(Color.DKGRAY);
+                highlight(tvVazio);
             }
 
             if(price.isCheia()) {
-                tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-                tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                tvVazio.setTextColor(Color.DKGRAY);
-                tvCheia.setTextColor(Color.parseColor("#ffbb33"));
-                tvPonta.setTextColor(Color.DKGRAY);
+                highlight(tvCheia);
             }
 
             if(price.isPonta()) {
-                tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
-                tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
-                tvVazio.setTextColor(Color.DKGRAY);
-                tvCheia.setTextColor(Color.DKGRAY);
-                tvPonta.setTextColor(Color.parseColor("#ffbb33"));
+                highlight(tvPonta);
             }
 
 
@@ -173,6 +178,7 @@ public class MainActivity extends Activity {
             else{
                 spinner.setSelection(1);
             }
+
             int startHour = s.getHours().getStartHour();
             int startMinute = s.getHours().getStartMinute();
             int endHour = s.getHours().getEndHour();
@@ -185,6 +191,31 @@ public class MainActivity extends Activity {
         } catch (PlanNotFoundException e) {
             Log.e(Constants.LOG, e.getMessage());
         }
+    }
+
+    private void removeAllHighlights() {
+        tvVazio.setText(tvVazio.getText().toString());
+        tvCheia.setText(tvCheia.getText().toString());
+        tvPonta.setText(tvPonta.getText().toString());
+
+        tvVazio.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+        tvCheia.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+        tvPonta.setTextSize(TypedValue.COMPLEX_UNIT_SP, 26);
+
+        tvVazio.setTextColor(Color.DKGRAY);
+        tvCheia.setTextColor(Color.DKGRAY);
+        tvPonta.setTextColor(Color.DKGRAY);
+    }
+
+    private void highlight(TextView tv){
+        removeAllHighlights();
+
+        tv.setTextColor(Color.parseColor("#ffbb33"));
+        SpannableString content = new SpannableString(tv.getText().toString());
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        tv.setText(content);
+
+        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
     }
 
 }
