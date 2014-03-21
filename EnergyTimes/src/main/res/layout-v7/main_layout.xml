@@ -52,7 +52,7 @@
                 android:gravity="center"
                 android:layout_height="wrap_content"
                 android:weightSum = "3"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
                 >
 
                 <TextView
@@ -152,8 +152,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:paddingTop="20sp"
                 >
 
@@ -162,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Periodo da tarifa: "
-                    android:textSize="15dip"
+                    android:textSize="15sp"
                     />
 
                 <TextView
