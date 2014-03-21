@@ -8,6 +8,10 @@ android {
     compileSdkVersion 19
     buildToolsVersion "19.0.3"
 
+    lintOptions {
+        abortOnError false
+    }
+
     defaultConfig {
         versionCode 11
         versionName "0.0.11-ALPHA"
