@@ -37,13 +37,6 @@ public class Schedule {
     }
 
     public boolean matches(Time t) {
-        // if(_start.month < 2 && TypeDay.MatchTypeDay(t, _validOnDaySet))
-        // {
-            // Log.d(Constants.LOG, String.format("Day: %d\t\t\tMonth: %d", t.monthDay, t.month));
-            // Log.d(Constants.LOG, String.format("Start Month:%s\t\tEndMonth: %s", _start.toString(), _end.toString()));
-            // Log.d(Constants.LOG, String.format("StartHours: %d:%d\t\tEndHours: %d:%d", _hours.getStartHour(), _hours.getStartMinute(), _hours.getEndHour(), _hours.getEndMinute()));
-        // }
-
 
         // Start time
         Time s = new Time();
@@ -55,12 +48,10 @@ public class Schedule {
 
         if(t.after(s) && t.before(e) && TypeDay.MatchTypeDay(t, _validOnDaySet)){
             if(_hours.matches(t.hour, t.minute)){
-                // Log.d("EnergyTimes", "Matched");
                 return true;
             }
         }
 
-        // Log.d("EnergyTimes", "Not matched");
         return false;
     }
 
@@ -69,7 +60,8 @@ public class Schedule {
         for(TypeDay d : _validOnDaySet)
             daysString = daysString.concat(d.toString());
 
-        return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(), _end.toString(), _price.toString(), _hours.toString(), daysString);
+        return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(),
+                _end.toString(), _price.toString(), _hours.toString(), daysString);
     }
 
 

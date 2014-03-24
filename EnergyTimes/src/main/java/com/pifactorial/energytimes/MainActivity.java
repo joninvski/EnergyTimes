@@ -38,16 +38,7 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 
 
-/**
- * The entry point to the BasicNotification sample.
- */
 public class MainActivity extends Activity {
-    /**
-     * A numeric value that identifies the notification that we'll be sending.
-     * This value needs to be unique within this app, but it doesn't need to be
-     * unique system-wide.
-     */
-    public static final int NOTIFICATION_ID = 1;
     public static final int REFRESH_TIME_IN_MINUTES = 1;
     public static final String PLAN_SHARED_PREFERENCE = "planPreference";
 
@@ -102,7 +93,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
-                Log.d(Constants.LOG, "Spinner selected pos: " + Integer.toString(position));
 
                 if(position == 0){
                     selectedPlan = "BTN Ciclo Semanal";
@@ -185,6 +175,7 @@ public class MainActivity extends Activity {
 
             tvStart.setText(String.format("%02dh%02dm", startHour, startMinute));
             tvEnd.setText(String.format("%02dh%02dm", endHour, endMinute));
+
         } catch (DayWithoutPlanException e) {
             Log.e(Constants.LOG, e.getMessage());
         } catch (PlanNotFoundException e) {
