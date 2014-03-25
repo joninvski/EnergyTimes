@@ -36,6 +36,8 @@ import junit.runner.Version;
 import android.content.BroadcastReceiver;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.view.ViewTreeObserver;
+import java.util.Locale;
 
 
 public class MainActivity extends Activity {
@@ -50,6 +52,8 @@ public class MainActivity extends Activity {
     TextView tvVazio;
     TextView tvCheia;
     TextView tvPonta;
+    TextView tvStart;
+    TextView tvEnd;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +65,9 @@ public class MainActivity extends Activity {
         tvCheia = (TextView) findViewById(R.id.cheias);
         tvPonta = (TextView) findViewById(R.id.ponta);
         spinner = (Spinner) findViewById(R.id.planets_spinner);
+
+        tvStart = (TextView) findViewById(R.id.start);
+        tvEnd = (TextView) findViewById(R.id.end);
 
         // Get a reference to the preferences
 		mPrefs = getPreferences(Context.MODE_PRIVATE);
@@ -111,6 +118,20 @@ public class MainActivity extends Activity {
                 Log.d(Constants.LOG, "Spinner with nothing selected");
             }
         });
+
+        // Make sure that the the current plan time fits in a single line
+        ViewTreeObserver vto = tvEnd.getViewTreeObserver();
+        ViewTreeObserver.OnGlobalLayoutListener listener = new ViewTreeObserver.OnGlobalLayoutListener () {
+            @Override
+            public void onGlobalLayout() {
+                final int MIN_PIXEL_SIZE = 10;
+                if (tvEnd.getLineCount() > 1 && tvEnd.getTextSize() > MIN_PIXEL_SIZE) {
+                    tvStart.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvStart.getTextSize() - 1);
+                    tvEnd.setTextSize(TypedValue.COMPLEX_UNIT_PX, tvEnd.getTextSize() - 1);
+                }
+            }
+        };
+        vto.addOnGlobalLayoutListener(listener);
     }
 
     private String getPlanPreference(){
@@ -136,8 +157,6 @@ public class MainActivity extends Activity {
     }
 
     public void setCurrentTime() {
-        TextView tvStart = (TextView) findViewById(R.id.start);
-        TextView tvEnd = (TextView) findViewById(R.id.end);
 
         Time now = new Time();
         now.setToNow();
@@ -173,8 +192,8 @@ public class MainActivity extends Activity {
             int endHour = s.getHours().getEndHour();
             int endMinute = s.getHours().getEndMinute();
 
-            tvStart.setText(String.format("%02dh%02dm", startHour, startMinute));
-            tvEnd.setText(String.format("%02dh%02dm", endHour, endMinute));
+            tvStart.setText(String.format(Locale.US, "%02dh%02dm", startHour, startMinute));
+            tvEnd.setText(String.format(Locale.US, "%02dh%02dm", endHour, endMinute));
 
         } catch (DayWithoutPlanException e) {
             Log.e(Constants.LOG, e.getMessage());

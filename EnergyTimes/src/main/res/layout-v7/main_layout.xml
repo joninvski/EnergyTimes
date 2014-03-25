@@ -60,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="Vazio"
-                    android:paddingRight="10sp"
+                    android:paddingRight="10dp"
                     android:gravity="bottom"
                     />
 
@@ -69,7 +69,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="Cheias"
-                    android:paddingRight="10sp"
+                    android:paddingRight="10dp"
                     android:gravity="bottom"
                     />
 
@@ -79,7 +79,7 @@
                     android:layout_height="fill_parent"
                     android:text="Ponta"
                     android:gravity="bottom"
-                    android:paddingRight="10sp"
+                    android:paddingRight="10dp"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -95,7 +95,7 @@
                 <!--         android:layout_width="wrap_content" -->
                 <!--         android:layout_height="fill_parent" -->
                 <!--         android:text="Tarifa: " -->
-                <!--         android:paddingRight="40sp" -->
+                <!--         android:paddingRight="40dp" -->
                 <!--         android:layout_gravity="right" -->
                 <!--         android:textSize="40sp" -->
                 <!--         /> -->
@@ -134,7 +134,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight = "1"
-                    android:paddingRight="40sp"
+                    android:paddingRight="40dp"
                     android:text="Plano: "
                     android:textSize="30sp"
                     />
@@ -152,7 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="20sp"
+                android:paddingTop="20dp"
                 >
 
                 <TextView
@@ -160,7 +160,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Periodo da tarifa: "
-                    android:textSize="15sp"
                     />
 
                 <TextView
@@ -184,6 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#FFBB33"
+                    android:singleLine="false"
                     />
             </LinearLayout>
         </LinearLayout>
