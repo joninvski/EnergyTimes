@@ -31,19 +31,17 @@ public class Plan {
 
     public synchronized void addSchedule(Schedule[] sArray){
         for (Schedule s : sArray)
-        	addSchedule(s);
+            addSchedule(s);
     }
 
     public Schedule checkTime(Time t) throws DayWithoutPlanException {
-         Log.d(Constants.LOG, String.format("Checking time: %d", _scheduleSet.size()));
-
-         for(Schedule s : _scheduleSet){
-             if(s.matches(t))
+        for(Schedule s : _scheduleSet){
+            if(s.matches(t))
                 return s;
         }
 
-         Log.d(Constants.LOG, "It did not match");
-         throw new DayWithoutPlanException(this.toString());
+        Log.w(Constants.LOG, "Now plan was found for the selected Time");
+        throw new DayWithoutPlanException(this.toString());
     }
 
     public String toString() {
