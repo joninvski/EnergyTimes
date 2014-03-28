@@ -38,6 +38,14 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.ViewTreeObserver;
 import java.util.Locale;
+import android.view.MenuItem;
+import android.view.MenuInflater;
+import android.view.Menu;
+import android.preference.PreferenceFragment;
+import android.preference.Preference;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 
 
 public class MainActivity extends Activity {
@@ -225,6 +233,30 @@ public class MainActivity extends Activity {
         tv.setText(content);
 
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+
+            case R.id.set_plan:
+                Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
+                startActivityForResult(intentSetPref, 0);
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
 }

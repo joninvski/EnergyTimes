@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:enabled="true"
+        android:entries="@array/company"
+        android:entryValues="@array/company"
+        android:key="@string/company_preference_key"
+        android:persistent="true"
+        android:summary="EDP ou Endesa"
+        android:title="Companhia"
+        />
+
+    <ListPreference
+        android:enabled="true"
+        android:entries="@array/type_of_hours"
+        android:entryValues="@array/type_of_hours"
+        android:key="@string/hours_preference_key"
+        android:persistent="true"
+        android:summary="Escolher bi-horário ou tri-horário"
+        android:title="Horário"
+        />
+
+</PreferenceScreen>
