@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.pifactorial.energytimes.Constants;
 
-public class Schedule {
+public class Period {
 
     private MyDate _start;
     private MyDate _end;
@@ -15,7 +15,7 @@ public class Schedule {
     private Set<TypeDay> _validOnDaySet;
     private PricePlan _price;
 
-    public Schedule(MyDate start, MyDate end, Hours hours, Set<TypeDay> typeDays, PricePlan price){
+    public Period(MyDate start, MyDate end, Hours hours, Set<TypeDay> typeDays, PricePlan price) {
         _start = start;
         _end = end;
         _hours = hours;
@@ -65,11 +65,11 @@ public class Schedule {
     }
 
 
-    public static Schedule[] getWinterSchedule(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
-        return getWinterSchedule(new Hours(startH, startM, endH, endM), typeDays, price);
+    public static Period[] getWinterPeriod(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
+        return getWinterPeriod(new Hours(startH, startM, endH, endM), typeDays, price);
     }
 
-    public static Schedule[] getWinterSchedule(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getWinterPeriod(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
         MyDate firstDayYear = new MyDate(1, MyDate.Month.JAN);
         MyDate lastDayWinter = new MyDate(29, MyDate.Month.MAR);
@@ -77,35 +77,35 @@ public class Schedule {
         MyDate firstDayWinterSecondPart = new MyDate(26, MyDate.Month.OCT);
         MyDate lastDayYear = new MyDate(31, MyDate.Month.DEC);
 
-        Schedule winterPart1 = new Schedule(firstDayYear, lastDayWinter, hours, typeDays, price);
-        Schedule winterPart2 = new Schedule( firstDayWinterSecondPart, lastDayYear, hours, typeDays, price);
+        Period winterPart1 = new Period(firstDayYear, lastDayWinter, hours, typeDays, price);
+        Period winterPart2 = new Period( firstDayWinterSecondPart, lastDayYear, hours, typeDays, price);
 
-        return new Schedule[] {winterPart1, winterPart2};
+        return new Period[] {winterPart1, winterPart2};
     }
 
-    public static Schedule[] getSummerSchedule(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
-        return getSummerSchedule(new Hours(startH, startM, endH, endM), typeDays, price);
+    public static Period[] getSummerPeriod(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
+        return getSummerPeriod(new Hours(startH, startM, endH, endM), typeDays, price);
     }
 
-    public static Schedule[] getSummerSchedule(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getSummerPeriod(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
         MyDate firstDaySummer = new MyDate(30, MyDate.Month.MAR);
         MyDate lastDaySummer = new MyDate(25, MyDate.Month.OCT);
 
-        Schedule summer = new Schedule(firstDaySummer, lastDaySummer, hours, typeDays, price);
-        return new Schedule[] {summer};
+        Period summer = new Period(firstDaySummer, lastDaySummer, hours, typeDays, price);
+        return new Period[] {summer};
     }
 
-    public static Schedule[] getAllYear(int startH, int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getAllYear(int startH, int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
         return getAllYear(new Hours(startH, startM, endH, endM), typeDays, price);
     }
 
-    public static Schedule[] getAllYear(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getAllYear(Hours hours, Set<TypeDay> typeDays, PricePlan price) {
 
         MyDate firstDay = new MyDate(1, MyDate.Month.JAN);
         MyDate lastDay = new MyDate(31, MyDate.Month.DEC);
 
-        Schedule allYear = new Schedule(firstDay, lastDay, hours, typeDays, price);
-        return new Schedule[] {allYear};
+        Period allYear = new Period(firstDay, lastDay, hours, typeDays, price);
+        return new Period[] {allYear};
     }
 }
