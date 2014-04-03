@@ -22,3 +22,27 @@ Install on device
 
     # Make sure emulator is running or connected to real device
     ./gradlew installDebug
+
+Class diagram
+=============
+
+        +––––––––––––+
+        |  Company   |
+        +–––––+––––––+
+              | 1
+              |
+              | *
+        +–––––+––––––+
+        |    Plan    |
+        +––––––––––––+
+              | 1
+              |
+              | *
+   +––––––––––+––––––––––+
+   |       Period        |
+   +–––––––––––––––––––––+
+   |   MonthDayInterval  | 1       * +–––––+––––––+
+   |   LocalTimeInterval |–––––––––––|   TypeDay  |
+   |   Price             |           +–––––+––––––+
+   +–––––––––––––––––––––+
+

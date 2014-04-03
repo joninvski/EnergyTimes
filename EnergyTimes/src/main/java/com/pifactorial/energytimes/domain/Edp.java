@@ -70,13 +70,13 @@ public class Edp {
     public static Plan cicloDiario() {
         Plan cicloDiario  = new Plan("BTN Ciclo Diario");
 
-        Hours winterMorning = new Hours(0, 0, 7, 59);
-        Hours winterDay = new Hours(8, 0, 21,59);
-        Hours winterNight = new Hours(22, 0, 23, 59);
+        LocalTimeInterval winterMorning = new LocalTimeInterval(0, 0, 7, 59);
+        LocalTimeInterval winterDay = new LocalTimeInterval(8, 0, 21,59);
+        LocalTimeInterval winterNight = new LocalTimeInterval(22, 0, 23, 59);
 
-        Hours summerMorning = new Hours(0, 0, 7, 59);
-        Hours summerDay = new Hours(8, 0, 21,59);
-        Hours summerNight = new Hours(22, 0, 23 ,59);
+        LocalTimeInterval summerMorning = new LocalTimeInterval(0, 0, 7, 59);
+        LocalTimeInterval summerDay = new LocalTimeInterval(8, 0, 21,59);
+        LocalTimeInterval summerNight = new LocalTimeInterval(22, 0, 23 ,59);
 
         Period[] sWinterMorning = Period.getWinterPeriod(winterMorning, TypeDay.All(), PricePlan.VAZIO);
         Period[] sWinterDay = Period.getWinterPeriod(winterDay, TypeDay.All(), PricePlan.CHEIA);
