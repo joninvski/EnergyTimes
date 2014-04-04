@@ -9,62 +9,62 @@ public class Endesa {
     public static Plan cicloSemanal() {
         Plan cicloSemanal  = new Plan("BTN Ciclo Semanal");
 
-        Hours morning = new Hours(0, 0, 6, 59);
-        Hours day = new Hours(7, 0, 23,59);
+        LocalTimeInterval morning = new LocalTimeInterval(0, 0, 6, 59);
+        LocalTimeInterval day = new LocalTimeInterval(7, 0, 23,59);
 
         // Weekdays
-        Schedule[] sWeekdayWinterMorning = Schedule.getWinterSchedule(morning, TypeDay.Weekday(), PricePlan.VAZIO);
-        Schedule[] sWeekdayWinterDay = Schedule.getWinterSchedule(day, TypeDay.Weekday(), PricePlan.CHEIA);
+        Period[] sWeekdayWinterMorning = Period.getWinterPeriod(morning, TypeDay.Weekday(), PricePlan.VAZIO);
+        Period[] sWeekdayWinterDay = Period.getWinterPeriod(day, TypeDay.Weekday(), PricePlan.CHEIA);
 
-        Schedule[] sWeekdaySummerMorning = Schedule.getSummerSchedule(morning, TypeDay.Weekday(), PricePlan.VAZIO);
-        Schedule[] sWeekdaySummerDay = Schedule.getSummerSchedule(day, TypeDay.Weekday(), PricePlan.CHEIA);
+        Period[] sWeekdaySummerMorning = Period.getSummerPeriod(morning, TypeDay.Weekday(), PricePlan.VAZIO);
+        Period[] sWeekdaySummerDay = Period.getSummerPeriod(day, TypeDay.Weekday(), PricePlan.CHEIA);
 
-        cicloSemanal.addSchedule(sWeekdayWinterMorning);
-        cicloSemanal.addSchedule(sWeekdayWinterDay);
-        cicloSemanal.addSchedule(sWeekdaySummerMorning);
-        cicloSemanal.addSchedule(sWeekdaySummerDay);
+        cicloSemanal.addPeriod(sWeekdayWinterMorning);
+        cicloSemanal.addPeriod(sWeekdayWinterDay);
+        cicloSemanal.addPeriod(sWeekdaySummerMorning);
+        cicloSemanal.addPeriod(sWeekdaySummerDay);
 
         // Saturday
-        Hours saturdayWinterA = new Hours(0, 0, 9, 29);
-        Hours saturdayWinterB = new Hours(9, 30, 12, 59);
-        Hours saturdayWinterC = new Hours(13, 0, 18, 29);
-        Hours saturdayWinterD = new Hours(18, 30, 21, 59);
-        Hours saturdayWinterE = new Hours(22, 0, 23, 59);
+        LocalTimeInterval saturdayWinterA = new LocalTimeInterval(0, 0, 9, 29);
+        LocalTimeInterval saturdayWinterB = new LocalTimeInterval(9, 30, 12, 59);
+        LocalTimeInterval saturdayWinterC = new LocalTimeInterval(13, 0, 18, 29);
+        LocalTimeInterval saturdayWinterD = new LocalTimeInterval(18, 30, 21, 59);
+        LocalTimeInterval saturdayWinterE = new LocalTimeInterval(22, 0, 23, 59);
 
-        Schedule[] sSaturdayWinterA = Schedule.getWinterSchedule(saturdayWinterA, TypeDay.Saturday(), PricePlan.VAZIO);
-        Schedule[] sSaturdayWinterB = Schedule.getWinterSchedule(saturdayWinterB, TypeDay.Saturday(), PricePlan.CHEIA);
-        Schedule[] sSaturdayWinterC = Schedule.getWinterSchedule(saturdayWinterC, TypeDay.Saturday(), PricePlan.VAZIO);
-        Schedule[] sSaturdayWinterD = Schedule.getWinterSchedule(saturdayWinterD, TypeDay.Saturday(), PricePlan.CHEIA);
-        Schedule[] sSaturdayWinterE = Schedule.getWinterSchedule(saturdayWinterE, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdayWinterA = Period.getWinterPeriod(saturdayWinterA, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdayWinterB = Period.getWinterPeriod(saturdayWinterB, TypeDay.Saturday(), PricePlan.CHEIA);
+        Period[] sSaturdayWinterC = Period.getWinterPeriod(saturdayWinterC, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdayWinterD = Period.getWinterPeriod(saturdayWinterD, TypeDay.Saturday(), PricePlan.CHEIA);
+        Period[] sSaturdayWinterE = Period.getWinterPeriod(saturdayWinterE, TypeDay.Saturday(), PricePlan.VAZIO);
 
-        Hours saturdaySummerA = new Hours(0, 0, 8, 59);
-        Hours saturdaySummerB = new Hours(9, 00, 13, 59);
-        Hours saturdaySummerC = new Hours(14, 0, 19, 59);
-        Hours saturdaySummerD = new Hours(20, 0, 21, 59);
-        Hours saturdaySummerE = new Hours(22, 0, 23, 59);
+        LocalTimeInterval saturdaySummerA = new LocalTimeInterval(0, 0, 8, 59);
+        LocalTimeInterval saturdaySummerB = new LocalTimeInterval(9, 00, 13, 59);
+        LocalTimeInterval saturdaySummerC = new LocalTimeInterval(14, 0, 19, 59);
+        LocalTimeInterval saturdaySummerD = new LocalTimeInterval(20, 0, 21, 59);
+        LocalTimeInterval saturdaySummerE = new LocalTimeInterval(22, 0, 23, 59);
 
-        Schedule[] sSaturdaySummerA = Schedule.getSummerSchedule(saturdaySummerA, TypeDay.Saturday(), PricePlan.VAZIO);
-        Schedule[] sSaturdaySummerB = Schedule.getSummerSchedule(saturdaySummerB, TypeDay.Saturday(), PricePlan.CHEIA);
-        Schedule[] sSaturdaySummerC = Schedule.getSummerSchedule(saturdaySummerC, TypeDay.Saturday(), PricePlan.VAZIO);
-        Schedule[] sSaturdaySummerD = Schedule.getSummerSchedule(saturdaySummerD, TypeDay.Saturday(), PricePlan.CHEIA);
-        Schedule[] sSaturdaySummerE = Schedule.getSummerSchedule(saturdaySummerE, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdaySummerA = Period.getSummerPeriod(saturdaySummerA, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdaySummerB = Period.getSummerPeriod(saturdaySummerB, TypeDay.Saturday(), PricePlan.CHEIA);
+        Period[] sSaturdaySummerC = Period.getSummerPeriod(saturdaySummerC, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdaySummerD = Period.getSummerPeriod(saturdaySummerD, TypeDay.Saturday(), PricePlan.CHEIA);
+        Period[] sSaturdaySummerE = Period.getSummerPeriod(saturdaySummerE, TypeDay.Saturday(), PricePlan.VAZIO);
 
-        cicloSemanal.addSchedule(sSaturdayWinterA);
-        cicloSemanal.addSchedule(sSaturdayWinterB);
-        cicloSemanal.addSchedule(sSaturdayWinterC);
-        cicloSemanal.addSchedule(sSaturdayWinterD);
-        cicloSemanal.addSchedule(sSaturdayWinterE);
+        cicloSemanal.addPeriod(sSaturdayWinterA);
+        cicloSemanal.addPeriod(sSaturdayWinterB);
+        cicloSemanal.addPeriod(sSaturdayWinterC);
+        cicloSemanal.addPeriod(sSaturdayWinterD);
+        cicloSemanal.addPeriod(sSaturdayWinterE);
 
-        cicloSemanal.addSchedule(sSaturdaySummerA);
-        cicloSemanal.addSchedule(sSaturdaySummerB);
-        cicloSemanal.addSchedule(sSaturdaySummerC);
-        cicloSemanal.addSchedule(sSaturdaySummerD);
-        cicloSemanal.addSchedule(sSaturdaySummerE);
+        cicloSemanal.addPeriod(sSaturdaySummerA);
+        cicloSemanal.addPeriod(sSaturdaySummerB);
+        cicloSemanal.addPeriod(sSaturdaySummerC);
+        cicloSemanal.addPeriod(sSaturdaySummerD);
+        cicloSemanal.addPeriod(sSaturdaySummerE);
 
         //Sunday
-        Hours sundayHour = Hours.Allday();
-        Schedule[] sSunday = Schedule.getAllYear(sundayHour, TypeDay.SundayAndHoliday(), PricePlan.VAZIO);
-        cicloSemanal.addSchedule(sSunday);
+        LocalTimeInterval sundayHour = LocalTimeInterval.Allday();
+        Period[] sSunday = Period.getAllYear(sundayHour, TypeDay.SundayAndHoliday(), PricePlan.VAZIO);
+        cicloSemanal.addPeriod(sSunday);
 
         return cicloSemanal;
     }
@@ -72,31 +72,30 @@ public class Endesa {
     public static Plan cicloDiario() {
         Plan cicloDiario  = new Plan("BTN Ciclo Diario");
 
-        Hours winterMorning = new Hours(0, 0, 7, 59);
-        Hours winterDay = new Hours(8, 0, 21,59);
-        Hours winterNight = new Hours(22, 0, 23,59);
+        LocalTimeInterval winterMorning = new LocalTimeInterval(0, 0, 7, 59);
+        LocalTimeInterval winterDay = new LocalTimeInterval(8, 0, 21,59);
+        LocalTimeInterval winterNight = new LocalTimeInterval(22, 0, 23,59);
 
-        Hours summerMorning = new Hours(0, 0, 7, 59);
-        Hours summerDay = new Hours(8, 0, 21,59);
-        Hours summerNight = new Hours(22, 0, 23,59);
+        LocalTimeInterval summerMorning = new LocalTimeInterval(0, 0, 7, 59);
+        LocalTimeInterval summerDay = new LocalTimeInterval(8, 0, 21,59);
+        LocalTimeInterval summerNight = new LocalTimeInterval(22, 0, 23,59);
 
-        Schedule[] sWinterMorning = Schedule.getWinterSchedule(winterMorning, TypeDay.All(), PricePlan.VAZIO);
-        Schedule[] sWinterDay = Schedule.getWinterSchedule(winterDay, TypeDay.All(), PricePlan.CHEIA);
-        Schedule[] sWinterNight = Schedule.getWinterSchedule(winterNight, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sWinterMorning = Period.getWinterPeriod(winterMorning, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sWinterDay = Period.getWinterPeriod(winterDay, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sWinterNight = Period.getWinterPeriod(winterNight, TypeDay.All(), PricePlan.VAZIO);
 
-        Schedule[] sSummerMorning = Schedule.getSummerSchedule(summerMorning, TypeDay.All(), PricePlan.VAZIO);
-        Schedule[] sSummerDay = Schedule.getSummerSchedule(summerDay, TypeDay.All(), PricePlan.CHEIA);
-        Schedule[] sSummerNight = Schedule.getSummerSchedule(summerNight, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sSummerMorning = Period.getSummerPeriod(summerMorning, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sSummerDay = Period.getSummerPeriod(summerDay, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sSummerNight = Period.getSummerPeriod(summerNight, TypeDay.All(), PricePlan.VAZIO);
 
-        cicloDiario.addSchedule(sWinterMorning);
-        cicloDiario.addSchedule(sWinterDay);
-        cicloDiario.addSchedule(sWinterNight);
+        cicloDiario.addPeriod(sWinterMorning);
+        cicloDiario.addPeriod(sWinterDay);
+        cicloDiario.addPeriod(sWinterNight);
 
-        cicloDiario.addSchedule(sSummerMorning);
-        cicloDiario.addSchedule(sSummerDay);
-        cicloDiario.addSchedule(sSummerNight);
+        cicloDiario.addPeriod(sSummerMorning);
+        cicloDiario.addPeriod(sSummerDay);
+        cicloDiario.addPeriod(sSummerNight);
 
         return cicloDiario;
     }
-
 }

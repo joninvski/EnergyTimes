@@ -4,6 +4,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.stanfy.spoon:spoon-gradle-plugin:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.9.+'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.9.+'
     }
 }
 
@@ -17,7 +19,11 @@ repositories {
 dependencies {
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.+'
     androidTestCompile 'com.squareup.spoon:spoon-client:1.1.+'
+    compile 'joda-time:joda-time:2.3'
 }
+
+apply plugin: 'android-sdk-manager'
+apply plugin: 'android'
 
 android {
     compileSdkVersion 19

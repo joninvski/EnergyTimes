@@ -50,10 +50,10 @@ public class Company {
         return r;
     }
 
-    public Schedule checkCurrentSchedule(Time time, String planName) throws DayWithoutPlanException, PlanNotFoundException {
+    public Period checkCurrentPeriod(Time time, String planName, boolean biHour) throws DayWithoutPlanException, PlanNotFoundException {
         for(Plan p : _planSet){
             if(p.getName().equals(planName))
-                return p.checkTime(time);
+                return p.searchPeriod(time, biHour);
         }
         throw new PlanNotFoundException(String.format("Plan %s was not found", planName));
     }

@@ -19,4 +19,26 @@ along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
     <string name="app_name">Horário Electricidade</string>
+
+    <string name="more_options">Opções</string>
+
+    <string name="company_preference_key">company_preference</string>
+    <string name="hours_preference_key">hours_preference</string>
+
+    <string name="about">Contacto</string>
+
+    <string-array name="plans_array">
+        <item>Semanal</item>
+        <item>Diário</item>
+    </string-array>
+
+    <string-array name="type_of_hours">
+		<item>Bi-horário</item>
+		<item>Tri-horário</item>
+    </string-array>
+
+    <string-array name="company">
+		<item>EDP</item>
+		<item>Endesa</item>
+    </string-array>
 </resources>

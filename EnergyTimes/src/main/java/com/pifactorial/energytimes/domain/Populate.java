@@ -11,8 +11,4 @@ public class Populate {
         Plan[] p = Edp.fillEdp();
         edp.addPlan(p);
     }
-
-    public Schedule checkTime(Time t, Plan p) throws DayWithoutPlanException {
-        return p.checkTime(t);
-    }
 }

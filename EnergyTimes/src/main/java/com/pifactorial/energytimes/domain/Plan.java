@@ -10,32 +10,32 @@ import com.pifactorial.energytimes.Constants;
 
 public class Plan {
     private String _name;
-    private Set<Schedule> _scheduleSet;
+    private Set<Period> _periodSet;
 
     public Plan(String name) {
-        this(name, new HashSet<Schedule>());
+        this(name, new HashSet<Period>());
     }
 
-    public Plan(String name, Set<Schedule> scheduleSet) {
+    public Plan(String name, Set<Period> PeriodSet) {
         this._name = name;
-        _scheduleSet = scheduleSet;
+        _periodSet = PeriodSet;
     }
 
     public String getName() {
         return _name;
     }
 
-    public synchronized void addSchedule(Schedule s){
-        _scheduleSet.add(s);
+    public synchronized void addPeriod(Period s){
+        _periodSet.add(s);
     }
 
-    public synchronized void addSchedule(Schedule[] sArray){
-        for (Schedule s : sArray)
-            addSchedule(s);
+    public synchronized void addPeriod(Period[] sArray){
+        for (Period s : sArray)
+            addPeriod(s);
     }
 
-    public Schedule checkTime(Time t) throws DayWithoutPlanException {
-        for(Schedule s : _scheduleSet){
+    public Period searchPeriod(Time t, boolean biHour) throws DayWithoutPlanException {
+        for(Period s : _periodSet){
             if(s.matches(t))
                 return s;
         }

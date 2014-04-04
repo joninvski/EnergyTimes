@@ -27,7 +27,7 @@ import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.PricePlan;
-import com.pifactorial.energytimes.domain.Schedule;
+import com.pifactorial.energytimes.domain.Period;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,6 +38,14 @@ import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.view.ViewTreeObserver;
 import java.util.Locale;
+import android.view.MenuItem;
+import android.view.MenuInflater;
+import android.view.Menu;
+import android.preference.PreferenceFragment;
+import android.preference.Preference;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 
 
 public class MainActivity extends Activity {
@@ -72,7 +80,7 @@ public class MainActivity extends Activity {
         // Get a reference to the preferences
 		mPrefs = getPreferences(Context.MODE_PRIVATE);
 
-        // Create an update schedule thread
+        // Create an update Period thread
         Timer timer = new Timer();
         TimerTask hourlyTask = new TimerTask() {
             @Override
@@ -86,7 +94,7 @@ public class MainActivity extends Activity {
             }
         };
 
-        // schedule the task to run starting now and then every hour...
+        // Period the task to run starting now and then every hour...
         timer.schedule(hourlyTask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
 
         // Configure the spinner
@@ -164,7 +172,7 @@ public class MainActivity extends Activity {
         Populate state = new Populate();
 
         try {
-            Schedule s = state.edp.checkCurrentSchedule(now, selectedPlan);
+            Period s = state.edp.checkCurrentPeriod(now, selectedPlan, true);
             PricePlan price = s.getPrice();
 
             if(price.isVazio()) {
@@ -225,6 +233,30 @@ public class MainActivity extends Activity {
         tv.setText(content);
 
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+
+            case R.id.set_plan:
+                Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
+                startActivityForResult(intentSetPref, 0);
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
 }
