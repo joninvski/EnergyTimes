@@ -27,22 +27,22 @@ Class diagram
 =============
 
         +––––––––––––+
-        |  Company   |
+        |  Company   | --- (edp or endesa)
         +–––––+––––––+
               | 1
               |
               | *
         +–––––+––––––+
-        |    Plan    |
+        |    Plan    | --- (ciclo semanal or ciclo diario)
         +––––––––––––+
               | 1
               |
               | *
    +––––––––––+––––––––––+
-   |       Period        |
+   |       Period        |  --- (from day X to Y, from hour A to B the price is Z)
    +–––––––––––––––––––––+
    |   MonthDayInterval  | 1       * +–––––+––––––+
-   |   LocalTimeInterval |–––––––––––|   TypeDay  |
+   |   LocalTimeInterval |–––––––––––|   TypeDay  | --- (Weekend, weekday)
    |   Price             |           +–––––+––––––+
    +–––––––––––––––––––––+
 

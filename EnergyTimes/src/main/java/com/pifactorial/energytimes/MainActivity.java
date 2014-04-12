@@ -250,7 +250,6 @@ public class MainActivity extends Activity {
             case R.id.set_plan:
                 Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
                 startActivityForResult(intentSetPref, 0);
-
                 break;
 
             default:
