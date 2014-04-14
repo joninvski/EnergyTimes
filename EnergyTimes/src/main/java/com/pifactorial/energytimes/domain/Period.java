@@ -9,6 +9,7 @@ import com.pifactorial.energytimes.Constants;
 import java.util.Set;
 
 import org.joda.time.MonthDay;
+import org.joda.time.LocalTime;
 import org.joda.time.DateTimeConstants;
 
 
@@ -41,18 +42,19 @@ public class Period {
         _validOnDaySet.add(t);
     }
 
-    public boolean matches(Time t) {
+    public boolean matches(Time now) {
 
+        //TODO - Remove all android time occurrences. This -1 is horrible
         // Start time
         Time s = new Time();
-        s.set(0, _hours.getStartMinute(), _hours.getStartHour(), _start.getDayOfMonth(), _start.getMonthOfYear(), t.year);
+        s.set(0, _hours.getStartMinute(), _hours.getStartHour(), _start.getDayOfMonth(), _start.getMonthOfYear() - 1, now.year);
 
         // End time
         Time e = new Time();
-        e.set(0, _hours.getEndMinute(), _hours.getEndHour(), _end.getDayOfMonth(), _end.getMonthOfYear(), t.year);
+        e.set(0, _hours.getEndMinute(), _hours.getEndHour(), _end.getDayOfMonth(), _end.getMonthOfYear() - 1, now.year);
 
-        if(t.after(s) && t.before(e) && TypeDay.MatchTypeDay(t, _validOnDaySet)){
-            if(_hours.overlapsWith(t.hour, t.minute)){
+        if(now.after(s) && now.before(e) && TypeDay.MatchTypeDay(now, _validOnDaySet)){
+            if(_hours.overlapsWith(now.hour, now.minute)){
                 return true;
             }
         }
@@ -67,6 +69,23 @@ public class Period {
 
         return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(),
                 _end.toString(), _price.toString(), _hours.toString(), daysString);
+    }
+
+    protected static Period getMergedPeriod(Period start, Period end) {
+        if(start.equals(end)) {
+            return start;
+        }
+
+        LocalTimeInterval mergedHours = LocalTimeInterval.getMergedTimeInterval(start._hours, end._hours);
+        return new Period(start._start, end._end, mergedHours, start._validOnDaySet, start._price);
+    }
+
+    protected Time getInstantAfterThisPeriod() {
+        Time t = new Time();
+        t.setToNow();
+        LocalTime next = this._hours.getLocalTimeAfterEnd();
+        t.set(00, next.getMinuteOfHour(), next.getHourOfDay(), t.monthDay, t.month, t.year);
+        return t;
     }
 
 

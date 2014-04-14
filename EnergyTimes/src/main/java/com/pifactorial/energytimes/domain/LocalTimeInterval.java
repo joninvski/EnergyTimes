@@ -1,6 +1,7 @@
 package com.pifactorial.energytimes.domain;
 
 import org.joda.time.*;
+import java.util.Locale;
 
 public class LocalTimeInterval {
     private static final Instant CONSTANT = new Instant(0);
@@ -60,5 +61,17 @@ public class LocalTimeInterval {
 
     public boolean overlapsWith(int h, int m){
         return overlapsWith(new LocalTime(h, m));
+    }
+
+    public static LocalTimeInterval getMergedTimeInterval(LocalTimeInterval start, LocalTimeInterval end) {
+        return new LocalTimeInterval(start.from, end.to);
+    }
+
+    public LocalTime getLocalTimeAfterEnd() {
+        return to.plusMinutes(1);
+    }
+
+    public String toString() {
+        return String.format(Locale.US, "From %s --- to %s", from.toString(), to.toString());
     }
 }

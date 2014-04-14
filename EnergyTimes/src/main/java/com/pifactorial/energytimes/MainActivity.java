@@ -170,9 +170,9 @@ public class MainActivity extends Activity {
         Time now = new Time();
         now.setToNow();
 
-
         try {
-            Period s = edp.checkCurrentPeriod(now, selectedPlan, true);
+            boolean biHour = true;
+            Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
             PricePlan price = s.getPrice();
 
             if(price.isVazio()) {

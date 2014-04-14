@@ -75,28 +75,52 @@ public class Edp extends Company {
     private Plan cicloDiario() {
         Plan cicloDiario  = new Plan("BTN Ciclo Diario");
 
-        LocalTimeInterval winterMorning = new LocalTimeInterval(0, 0, 7, 59);
-        LocalTimeInterval winterDay = new LocalTimeInterval(8, 0, 21,59);
-        LocalTimeInterval winterNight = new LocalTimeInterval(22, 0, 23, 59);
+        LocalTimeInterval winterMorning = new LocalTimeInterval( 0 , 00  ,  7 , 59);
+        LocalTimeInterval winterDayA    = new LocalTimeInterval( 8 , 00  ,  8 , 59);
+        LocalTimeInterval winterDayB    = new LocalTimeInterval( 9 , 00  , 10 , 29);
+        LocalTimeInterval winterDayC    = new LocalTimeInterval(10 , 30  , 17 , 59);
+        LocalTimeInterval winterDayD    = new LocalTimeInterval(18 , 00  , 20 , 29);
+        LocalTimeInterval winterDayE    = new LocalTimeInterval(20 , 30  , 21 , 59);
+        LocalTimeInterval winterNight   = new LocalTimeInterval(22 , 00  , 23 , 59);
 
-        LocalTimeInterval summerMorning = new LocalTimeInterval(0, 0, 7, 59);
-        LocalTimeInterval summerDay = new LocalTimeInterval(8, 0, 21,59);
-        LocalTimeInterval summerNight = new LocalTimeInterval(22, 0, 23 ,59);
+        LocalTimeInterval summerMorning = new LocalTimeInterval( 0 , 00  ,  7 , 59);
+        LocalTimeInterval summerDayA    = new LocalTimeInterval( 8 , 00  , 10 , 29);
+        LocalTimeInterval summerDayB    = new LocalTimeInterval(10 , 30  , 12 , 59);
+        LocalTimeInterval summerDayC    = new LocalTimeInterval(13 , 00  , 19 , 29);
+        LocalTimeInterval summerDayD    = new LocalTimeInterval(19 , 30  , 20 , 59);
+        LocalTimeInterval summerDayE    = new LocalTimeInterval(21 , 00  , 21 , 59);
+        LocalTimeInterval summerNight   = new LocalTimeInterval(22 , 00  , 23 , 59);
 
         Period[] sWinterMorning = Period.getWinterPeriod(winterMorning, TypeDay.All(), PricePlan.VAZIO);
-        Period[] sWinterDay = Period.getWinterPeriod(winterDay, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sWinterDayA = Period.getWinterPeriod(winterDayA, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sWinterDayB = Period.getWinterPeriod(winterDayB, TypeDay.All(), PricePlan.PONTA);
+        Period[] sWinterDayC = Period.getWinterPeriod(winterDayC, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sWinterDayD = Period.getWinterPeriod(winterDayD, TypeDay.All(), PricePlan.PONTA);
+        Period[] sWinterDayE = Period.getWinterPeriod(winterDayE, TypeDay.All(), PricePlan.CHEIA);
         Period[] sWinterNight = Period.getWinterPeriod(winterNight, TypeDay.All(), PricePlan.VAZIO);
 
         Period[] sSummerMorning = Period.getSummerPeriod(summerMorning, TypeDay.All(), PricePlan.VAZIO);
-        Period[] sSummerDay = Period.getSummerPeriod(summerDay, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sSummerDayA = Period.getSummerPeriod(summerDayA, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sSummerDayB = Period.getSummerPeriod(summerDayB, TypeDay.All(), PricePlan.PONTA);
+        Period[] sSummerDayC = Period.getSummerPeriod(summerDayC, TypeDay.All(), PricePlan.CHEIA);
+        Period[] sSummerDayD = Period.getSummerPeriod(summerDayD, TypeDay.All(), PricePlan.PONTA);
+        Period[] sSummerDayE = Period.getSummerPeriod(summerDayE, TypeDay.All(), PricePlan.CHEIA);
         Period[] sSummerNight = Period.getSummerPeriod(summerNight, TypeDay.All(), PricePlan.VAZIO);
 
         cicloDiario.addPeriod(sWinterMorning);
-        cicloDiario.addPeriod(sWinterDay);
+        cicloDiario.addPeriod(sWinterDayA);
+        cicloDiario.addPeriod(sWinterDayB);
+        cicloDiario.addPeriod(sWinterDayC);
+        cicloDiario.addPeriod(sWinterDayD);
+        cicloDiario.addPeriod(sWinterDayE);
         cicloDiario.addPeriod(sWinterNight);
 
         cicloDiario.addPeriod(sSummerMorning);
-        cicloDiario.addPeriod(sSummerDay);
+        cicloDiario.addPeriod(sSummerDayA);
+        cicloDiario.addPeriod(sSummerDayB);
+        cicloDiario.addPeriod(sSummerDayC);
+        cicloDiario.addPeriod(sSummerDayD);
+        cicloDiario.addPeriod(sSummerDayE);
         cicloDiario.addPeriod(sSummerNight);
 
         return cicloDiario;

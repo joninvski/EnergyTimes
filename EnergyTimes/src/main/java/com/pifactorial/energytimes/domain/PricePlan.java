@@ -28,4 +28,24 @@ public enum PricePlan {
     public boolean isPonta(){
         return name.equals(PONTA.getPricePlan());
     }
+
+    public boolean equals(PricePlan other, boolean biHour){
+
+        if(biHour == false) {
+            return this.equalsName(other.getPricePlan());
+        }
+
+        else {
+            if (this.isVazio()) {
+                return other.isVazio();
+            }
+
+            else if (other.isVazio()){
+                return false;
+            }
+
+            // If we get here we are certain that both this and other are cheia or vazio
+            else return true;
+        }
+    }
 }

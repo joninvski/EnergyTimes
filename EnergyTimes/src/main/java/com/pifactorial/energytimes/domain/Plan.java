@@ -35,12 +35,49 @@ public class Plan {
     }
 
     public Period searchPeriod(Time t, boolean biHour) throws DayWithoutPlanException {
-        for(Period s : _periodSet){
-            if(s.matches(t))
-                return s;
+        try {
+            Period start = searchPeriodTriHour(t);
+            Period end = searchEndPeriod(start, biHour);
+            Period merged = Period.getMergedPeriod(start, end);
+            return merged;
         }
 
-        Log.w(Constants.LOG, "Now plan was found for the selected Time");
+        catch (DayWithoutPlanException e) {
+            Log.w(Constants.LOG, "No plan was found for the selected time: " + t.toString());
+            throw e;
+        }
+    }
+
+    public Period searchEndPeriod(Period p, boolean biHour) {
+
+        Time followingInstant = p.getInstantAfterThisPeriod();
+
+        try {
+            Period end = searchPeriodTriHour(followingInstant);
+
+            // Now let's check if the period is for a different price
+            if (p.getPrice().equals(end.getPrice(), biHour)) {
+                //if it is the same we have to look for the next time instant
+                return searchEndPeriod(end, biHour);
+            }
+
+            // If the price plan has changed, this period is the end
+            return end;
+        }
+
+        catch (DayWithoutPlanException e) {
+            // If the following period was not found it ends in the period passed as argument
+            return p;
+        }
+    }
+
+    public Period searchPeriodTriHour(Time t) throws DayWithoutPlanException {
+        for(Period p : _periodSet) {
+            if(p.matches(t)) {
+                return p;
+            }
+        }
+
         throw new DayWithoutPlanException(this.toString());
     }
 
