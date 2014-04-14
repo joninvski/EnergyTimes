@@ -1,12 +1,17 @@
 package com.pifactorial.energytimes.domain;
 
-public class Edp {
+public class Edp extends Company {
 
-    public static Plan[] fillEdp() {
-        return new Plan[] {cicloDiario(), cicloSemanal()};
+    public Edp(){
+        super("Edp");
     }
 
-    public static Plan cicloSemanal() {
+    public Plan[] getPlans() {
+        Plan[] p = {cicloDiario(), cicloSemanal()};
+        return p;
+    }
+
+    private Plan cicloSemanal() {
         Plan cicloSemanal  = new Plan("BTN Ciclo Semanal");
 
         // Weekdays
@@ -67,7 +72,7 @@ public class Edp {
         return cicloSemanal;
     }
 
-    public static Plan cicloDiario() {
+    private Plan cicloDiario() {
         Plan cicloDiario  = new Plan("BTN Ciclo Diario");
 
         LocalTimeInterval winterMorning = new LocalTimeInterval(0, 0, 7, 59);

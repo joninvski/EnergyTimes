@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import android.text.format.Time;
+import java.util.Arrays;
 
-public class Company {
+public abstract class Company {
 
     private String _name;
     private Set<Plan> _planSet;
@@ -16,18 +17,12 @@ public class Company {
 
     public Company(String name) {
         _name = name;
-        _planSet= new HashSet<Plan>();
+        _planSet = new HashSet<Plan>(Arrays.asList(getPlans()));
     }
 
     public Company(String name, Set<Plan> planSet) {
         this._name = name;
-        _planSet= planSet;
-    }
-
-    /**
-     *
-     */
-    public Company() {
+        _planSet = planSet;
     }
 
     public synchronized void addPlan(Plan p){
@@ -57,4 +52,6 @@ public class Company {
         }
         throw new PlanNotFoundException(String.format("Plan %s was not found", planName));
     }
+
+    public abstract Plan[] getPlans();
 }

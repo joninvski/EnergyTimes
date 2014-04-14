@@ -1,9 +1,14 @@
 package com.pifactorial.energytimes.domain;
 
-public class Endesa {
+public class Endesa extends Company {
 
-    public static Plan[] fillEndesa() {
-        return new Plan[] {cicloDiario(), cicloSemanal()};
+    public Endesa(){
+        super("Endesa");
+    }
+
+    public Plan[] getPlans() {
+        Plan[] p = {cicloDiario(), cicloSemanal()};
+        return p;
     }
 
     public static Plan cicloSemanal() {

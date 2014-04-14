@@ -25,7 +25,6 @@ import android.widget.TextView;
 
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
-import com.pifactorial.energytimes.domain.Populate;
 import com.pifactorial.energytimes.domain.PricePlan;
 import com.pifactorial.energytimes.domain.Period;
 
@@ -46,6 +45,7 @@ import android.preference.Preference;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import com.pifactorial.energytimes.domain.Edp;
 
 
 public class MainActivity extends Activity {
@@ -169,25 +169,21 @@ public class MainActivity extends Activity {
         Time now = new Time();
         now.setToNow();
 
-        Populate state = new Populate();
+        Edp edp = new Edp();
 
         try {
-            Period s = state.edp.checkCurrentPeriod(now, selectedPlan, true);
+            Period s = edp.checkCurrentPeriod(now, selectedPlan, true);
             PricePlan price = s.getPrice();
 
             if(price.isVazio()) {
                 highlight(tvVazio);
             }
-
             if(price.isCheia()) {
                 highlight(tvCheia);
             }
-
             if(price.isPonta()) {
                 highlight(tvPonta);
             }
-
-
             if(selectedPlan.equals("BTN Ciclo Semanal")){
                 spinner.setSelection(0);
             }
@@ -257,5 +253,4 @@ public class MainActivity extends Activity {
         }
         return true;
     }
-
 }
