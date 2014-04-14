@@ -1,16 +1,11 @@
 package com.pifactorial.energytimes.domain;
 
-import android.text.format.Time;
-
-import android.util.Log;
-
-import com.pifactorial.energytimes.Constants;
-
 import java.util.Set;
 
 import org.joda.time.MonthDay;
 import org.joda.time.LocalTime;
 import org.joda.time.DateTimeConstants;
+import org.joda.time.DateTime;
 
 
 public class Period {
@@ -42,19 +37,15 @@ public class Period {
         _validOnDaySet.add(t);
     }
 
-    public boolean matches(Time now) {
+    public boolean matches(DateTime now) {
+        MonthDay nowDayMonth = new MonthDay(now.getMonthOfYear(), now.getDayOfMonth());
+        LocalTime nowHours = new LocalTime(now.getHourOfDay(), now.getMinuteOfHour());
+        return matches(nowDayMonth, nowHours);
+    }
 
-        //TODO - Remove all android time occurrences. This -1 is horrible
-        // Start time
-        Time s = new Time();
-        s.set(0, _hours.getStartMinute(), _hours.getStartHour(), _start.getDayOfMonth(), _start.getMonthOfYear() - 1, now.year);
-
-        // End time
-        Time e = new Time();
-        e.set(0, _hours.getEndMinute(), _hours.getEndHour(), _end.getDayOfMonth(), _end.getMonthOfYear() - 1, now.year);
-
-        if(now.after(s) && now.before(e) && TypeDay.MatchTypeDay(now, _validOnDaySet)){
-            if(_hours.overlapsWith(now.hour, now.minute)){
+    public boolean matches(MonthDay daysMonth, LocalTime hours) {
+        if(daysMonth.isAfter(_start) && daysMonth.isBefore(_end) && TypeDay.MatchTypeDay(daysMonth, _validOnDaySet)) {
+            if(_hours.overlapsWith(hours)) {
                 return true;
             }
         }
@@ -80,12 +71,13 @@ public class Period {
         return new Period(start._start, end._end, mergedHours, start._validOnDaySet, start._price);
     }
 
-    protected Time getInstantAfterThisPeriod() {
-        Time t = new Time();
-        t.setToNow();
-        LocalTime next = this._hours.getLocalTimeAfterEnd();
-        t.set(00, next.getMinuteOfHour(), next.getHourOfDay(), t.monthDay, t.month, t.year);
-        return t;
+    protected DateTime getInstantAfterThisPeriod() {
+        LocalTime nextHour = this._hours.getLocalTimeAfterEnd();
+
+        DateTime dateTime = new DateTime();
+        dateTime = dateTime.withFields(nextHour);
+
+        return dateTime;
     }
 
 

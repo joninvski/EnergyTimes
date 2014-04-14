@@ -3,8 +3,8 @@ package com.pifactorial.energytimes.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.text.format.Time;
 import java.util.Arrays;
+import org.joda.time.DateTime;
 
 public abstract class Company {
 
@@ -45,7 +45,7 @@ public abstract class Company {
         return r;
     }
 
-    public Period checkCurrentPeriod(Time time, String planName, boolean biHour) throws DayWithoutPlanException, PlanNotFoundException {
+    public Period checkCurrentPeriod(DateTime time, String planName, boolean biHour) throws DayWithoutPlanException, PlanNotFoundException {
         for(Plan p : _planSet){
             if(p.getName().equals(planName))
                 return p.searchPeriod(time, biHour);

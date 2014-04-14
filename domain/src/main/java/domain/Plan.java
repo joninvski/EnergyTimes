@@ -2,11 +2,7 @@ package com.pifactorial.energytimes.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import android.text.format.Time;
-import android.util.Log;
-
-import com.pifactorial.energytimes.Constants;
+import org.joda.time.DateTime;
 
 public class Plan {
     private String _name;
@@ -34,7 +30,7 @@ public class Plan {
             addPeriod(s);
     }
 
-    public Period searchPeriod(Time t, boolean biHour) throws DayWithoutPlanException {
+    public Period searchPeriod(DateTime t, boolean biHour) throws DayWithoutPlanException {
         try {
             Period start = searchPeriodTriHour(t);
             Period end = searchEndPeriod(start, biHour);
@@ -43,14 +39,13 @@ public class Plan {
         }
 
         catch (DayWithoutPlanException e) {
-            Log.w(Constants.LOG, "No plan was found for the selected time: " + t.toString());
             throw e;
         }
     }
 
     public Period searchEndPeriod(Period p, boolean biHour) {
 
-        Time followingInstant = p.getInstantAfterThisPeriod();
+        DateTime followingInstant = p.getInstantAfterThisPeriod();
 
         try {
             Period end = searchPeriodTriHour(followingInstant);
@@ -71,7 +66,7 @@ public class Plan {
         }
     }
 
-    public Period searchPeriodTriHour(Time t) throws DayWithoutPlanException {
+    public Period searchPeriodTriHour(DateTime t) throws DayWithoutPlanException {
         for(Period p : _periodSet) {
             if(p.matches(t)) {
                 return p;
