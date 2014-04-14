@@ -35,17 +35,17 @@ public enum PricePlan {
             return this.equalsName(other.getPricePlan());
         }
 
-        else {
-            if (this.isVazio()) {
-                return other.isVazio();
-            }
+        else if (this.isVazio()) {
+            return other.isVazio();
+        }
 
-            else if (other.isVazio()){
-                return false;
-            }
+        else if (other.isVazio()){
+            return false;
+        }
 
-            // If we get here we are certain that both this and other are cheia or vazio
-            else return true;
+        // If we get here we are certain that both this and other are cheia or vazio
+        else{
+            return true;
         }
     }
 }
