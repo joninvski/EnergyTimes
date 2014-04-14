@@ -57,11 +57,13 @@ public class MainActivity extends Activity {
     private Spinner spinner;
     private int sdk_version;
 
-    TextView tvVazio;
-    TextView tvCheia;
-    TextView tvPonta;
-    TextView tvStart;
-    TextView tvEnd;
+    Edp edp = new Edp();
+
+    private TextView tvVazio;
+    private TextView tvCheia;
+    private TextView tvPonta;
+    private TextView tvStart;
+    private TextView tvEnd;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,7 +122,6 @@ public class MainActivity extends Activity {
                 setCurrentTime();
             }
 
-
             @Override
             public void onNothingSelected(AdapterView<?> parentView){
                 Log.d(Constants.LOG, "Spinner with nothing selected");
@@ -169,7 +170,6 @@ public class MainActivity extends Activity {
         Time now = new Time();
         now.setToNow();
 
-        Edp edp = new Edp();
 
         try {
             Period s = edp.checkCurrentPeriod(now, selectedPlan, true);
