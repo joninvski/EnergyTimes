@@ -55,9 +55,8 @@ public class LocalTimeInterval {
         return new LocalTimeInterval(0,0, 23, 59);
     }
 
-    /* TODO - Correct this function (and respective junit test) */
     public boolean overlapsWith(LocalTime l){
-        return overlapsWith(new LocalTimeInterval(l,l));
+        return overlapsWith(new LocalTimeInterval(l,l.plusMillis(1)));
     }
 
 
@@ -71,5 +70,14 @@ public class LocalTimeInterval {
 
     public String toString() {
         return String.format(Locale.US, "From %s --- to %s", from.toString(), to.toString());
+    }
+
+    @Override
+    public boolean equals(Object other){
+         if ( this == other) return true;
+         if ( !(other instanceof LocalTimeInterval ) ) return false;
+         LocalTimeInterval that = (LocalTimeInterval) other;
+
+         return this.from.equals(that.from) && this.to.equals(that.to);
     }
 }
