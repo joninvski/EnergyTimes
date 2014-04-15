@@ -55,13 +55,11 @@ public class LocalTimeInterval {
         return new LocalTimeInterval(0,0, 23, 59);
     }
 
+    /* TODO - Correct this function (and respective junit test) */
     public boolean overlapsWith(LocalTime l){
         return overlapsWith(new LocalTimeInterval(l,l));
     }
 
-    public boolean overlapsWith(int h, int m){
-        return overlapsWith(new LocalTime(h, m));
-    }
 
     public static LocalTimeInterval getMergedTimeInterval(LocalTimeInterval start, LocalTimeInterval end) {
         return new LocalTimeInterval(start.from, end.to);

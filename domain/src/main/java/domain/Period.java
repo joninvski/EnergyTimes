@@ -2,7 +2,7 @@ package com.pifactorial.energytimes.domain;
 
 import java.util.Set;
 
-import org.joda.time.MonthDay;
+import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 import org.joda.time.DateTimeConstants;
 import org.joda.time.DateTime;
@@ -10,13 +10,13 @@ import org.joda.time.DateTime;
 
 public class Period {
 
-    private MonthDay _start;
-    private MonthDay _end;
+    private LocalDate _start;
+    private LocalDate _end;
     private LocalTimeInterval _hours;
     private Set<TypeDay> _validOnDaySet;
     private PricePlan _price;
 
-    public Period(MonthDay start, MonthDay end, LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price) {
+    public Period(LocalDate start, LocalDate end, LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price) {
         _start = start;
         _end = end;
         _hours = hours;
@@ -38,12 +38,12 @@ public class Period {
     }
 
     public boolean matches(DateTime now) {
-        MonthDay nowDayMonth = new MonthDay(now.getMonthOfYear(), now.getDayOfMonth());
-        LocalTime nowHours = new LocalTime(now.getHourOfDay(), now.getMinuteOfHour());
+        LocalTime nowHours = new LocalTime( now.getHourOfDay(), now.getMinuteOfHour());
+        LocalDate nowDayMonth = new LocalDate(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth());
         return matches(nowDayMonth, nowHours);
     }
 
-    public boolean matches(MonthDay daysMonth, LocalTime hours) {
+    public boolean matches(LocalDate daysMonth, LocalTime hours) {
         if(daysMonth.isAfter(_start) && daysMonth.isBefore(_end) && TypeDay.MatchTypeDay(daysMonth, _validOnDaySet)) {
             if(_hours.overlapsWith(hours)) {
                 return true;
@@ -81,45 +81,45 @@ public class Period {
     }
 
 
-    public static Period[] getWinterPeriod(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
-        return getWinterPeriod(new LocalTimeInterval(startH, startM, endH, endM), typeDays, price);
+    public static Period[] getWinterPeriod(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price, int year) {
+        return getWinterPeriod(new LocalTimeInterval(startH, startM, endH, endM), typeDays, price, year);
     }
 
-    public static Period[] getWinterPeriod(LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getWinterPeriod(LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price, int year) {
 
-        MonthDay firstDayYear = new MonthDay(DateTimeConstants.JANUARY, 1);
-        MonthDay lastDayWinter = new MonthDay(DateTimeConstants.MARCH, 29);
+        LocalDate firstDayYear = new LocalDate(year, DateTimeConstants.JANUARY, 1);
+        LocalDate lastDayWinter = new LocalDate(year, DateTimeConstants.MARCH, 29);
 
-        MonthDay firstDayWinterSecondPart = new MonthDay(DateTimeConstants.OCTOBER, 26);
-        MonthDay lastDayYear = new MonthDay(DateTimeConstants.DECEMBER, 31);
+        LocalDate firstDayWinterSecondPart = new LocalDate(year, DateTimeConstants.OCTOBER, 26);
+        LocalDate lastDayYear = new LocalDate(year, DateTimeConstants.DECEMBER, 31);
 
         Period winterPart1 = new Period(firstDayYear, lastDayWinter, hours, typeDays, price);
-        Period winterPart2 = new Period( firstDayWinterSecondPart, lastDayYear, hours, typeDays, price);
+        Period winterPart2 = new Period(firstDayWinterSecondPart, lastDayYear, hours, typeDays, price);
 
         return new Period[] {winterPart1, winterPart2};
     }
 
-    public static Period[] getSummerPeriod(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
-        return getSummerPeriod(new LocalTimeInterval(startH, startM, endH, endM), typeDays, price);
+    public static Period[] getSummerPeriod(int startH,  int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price, int year) {
+        return getSummerPeriod(new LocalTimeInterval(startH, startM, endH, endM), typeDays, price, year);
     }
 
-    public static Period[] getSummerPeriod(LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getSummerPeriod(LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price, int year) {
 
-        MonthDay firstDaySummer = new MonthDay(DateTimeConstants.MARCH, 30);
-        MonthDay lastDaySummer = new MonthDay(DateTimeConstants.OCTOBER, 25);
+        LocalDate firstDaySummer = new LocalDate(year, DateTimeConstants.MARCH, 30);
+        LocalDate lastDaySummer = new LocalDate(year, DateTimeConstants.OCTOBER, 25);
 
         Period summer = new Period(firstDaySummer, lastDaySummer, hours, typeDays, price);
         return new Period[] {summer};
     }
 
-    public static Period[] getAllYear(int startH, int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price) {
-        return getAllYear(new LocalTimeInterval(startH, startM, endH, endM), typeDays, price);
+    public static Period[] getAllYear(int startH, int startM, int endH, int endM, Set<TypeDay> typeDays, PricePlan price, int year) {
+        return getAllYear(new LocalTimeInterval(startH, startM, endH, endM), typeDays, price, year);
     }
 
-    public static Period[] getAllYear(LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price) {
+    public static Period[] getAllYear(LocalTimeInterval hours, Set<TypeDay> typeDays, PricePlan price, int year) {
 
-        MonthDay firstDay = new MonthDay(DateTimeConstants.JANUARY, 1);
-        MonthDay lastDay = new MonthDay(DateTimeConstants.DECEMBER, 31);
+        LocalDate firstDay = new LocalDate(year, DateTimeConstants.JANUARY, 1);
+        LocalDate lastDay = new LocalDate(year, DateTimeConstants.DECEMBER, 31);
 
         Period allYear = new Period(firstDay, lastDay, hours, typeDays, price);
         return new Period[] {allYear};

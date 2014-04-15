@@ -10,15 +10,4 @@ dependencies {
     compile 'joda-time:joda-time:2.3'
 }
 
-tasks.withType(Compile) {
-    options.debug = true
-    options.compilerArgs = ["-g"]
-}
-
-jacocoTestReport {
-    group = "Reporting"
-    description = "Generate Jacoco coverage reports after running tests."
-    additionalSourceDirs = files(sourceSets.main.allJava.srcDirs)
-}
-
 version = '1.0'

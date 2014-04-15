@@ -1,6 +1,7 @@
 package com.pifactorial.energytimes.domain;
 
 public class Endesa extends Company {
+    public static final int YEAR = 2014;
 
     public Endesa(){
         super("Endesa");
@@ -18,11 +19,11 @@ public class Endesa extends Company {
         LocalTimeInterval day = new LocalTimeInterval(7, 0, 23,59);
 
         // Weekdays
-        Period[] sWeekdayWinterMorning = Period.getWinterPeriod(morning, TypeDay.Weekday(), PricePlan.VAZIO);
-        Period[] sWeekdayWinterDay = Period.getWinterPeriod(day, TypeDay.Weekday(), PricePlan.CHEIA);
+        Period[] sWeekdayWinterMorning = Period.getWinterPeriod(morning, TypeDay.Weekday(), PricePlan.VAZIO, YEAR);
+        Period[] sWeekdayWinterDay = Period.getWinterPeriod(day, TypeDay.Weekday(), PricePlan.CHEIA, YEAR);
 
-        Period[] sWeekdaySummerMorning = Period.getSummerPeriod(morning, TypeDay.Weekday(), PricePlan.VAZIO);
-        Period[] sWeekdaySummerDay = Period.getSummerPeriod(day, TypeDay.Weekday(), PricePlan.CHEIA);
+        Period[] sWeekdaySummerMorning = Period.getSummerPeriod(morning, TypeDay.Weekday(), PricePlan.VAZIO, YEAR);
+        Period[] sWeekdaySummerDay = Period.getSummerPeriod(day, TypeDay.Weekday(), PricePlan.CHEIA, YEAR);
 
         cicloSemanal.addPeriod(sWeekdayWinterMorning);
         cicloSemanal.addPeriod(sWeekdayWinterDay);
@@ -36,11 +37,11 @@ public class Endesa extends Company {
         LocalTimeInterval saturdayWinterD = new LocalTimeInterval(18, 30, 21, 59);
         LocalTimeInterval saturdayWinterE = new LocalTimeInterval(22, 0, 23, 59);
 
-        Period[] sSaturdayWinterA = Period.getWinterPeriod(saturdayWinterA, TypeDay.Saturday(), PricePlan.VAZIO);
-        Period[] sSaturdayWinterB = Period.getWinterPeriod(saturdayWinterB, TypeDay.Saturday(), PricePlan.CHEIA);
-        Period[] sSaturdayWinterC = Period.getWinterPeriod(saturdayWinterC, TypeDay.Saturday(), PricePlan.VAZIO);
-        Period[] sSaturdayWinterD = Period.getWinterPeriod(saturdayWinterD, TypeDay.Saturday(), PricePlan.CHEIA);
-        Period[] sSaturdayWinterE = Period.getWinterPeriod(saturdayWinterE, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdayWinterA = Period.getWinterPeriod(saturdayWinterA, TypeDay.Saturday(), PricePlan.VAZIO, YEAR);
+        Period[] sSaturdayWinterB = Period.getWinterPeriod(saturdayWinterB, TypeDay.Saturday(), PricePlan.CHEIA, YEAR);
+        Period[] sSaturdayWinterC = Period.getWinterPeriod(saturdayWinterC, TypeDay.Saturday(), PricePlan.VAZIO, YEAR);
+        Period[] sSaturdayWinterD = Period.getWinterPeriod(saturdayWinterD, TypeDay.Saturday(), PricePlan.CHEIA, YEAR);
+        Period[] sSaturdayWinterE = Period.getWinterPeriod(saturdayWinterE, TypeDay.Saturday(), PricePlan.VAZIO, YEAR);
 
         LocalTimeInterval saturdaySummerA = new LocalTimeInterval(0, 0, 8, 59);
         LocalTimeInterval saturdaySummerB = new LocalTimeInterval(9, 00, 13, 59);
@@ -48,11 +49,11 @@ public class Endesa extends Company {
         LocalTimeInterval saturdaySummerD = new LocalTimeInterval(20, 0, 21, 59);
         LocalTimeInterval saturdaySummerE = new LocalTimeInterval(22, 0, 23, 59);
 
-        Period[] sSaturdaySummerA = Period.getSummerPeriod(saturdaySummerA, TypeDay.Saturday(), PricePlan.VAZIO);
-        Period[] sSaturdaySummerB = Period.getSummerPeriod(saturdaySummerB, TypeDay.Saturday(), PricePlan.CHEIA);
-        Period[] sSaturdaySummerC = Period.getSummerPeriod(saturdaySummerC, TypeDay.Saturday(), PricePlan.VAZIO);
-        Period[] sSaturdaySummerD = Period.getSummerPeriod(saturdaySummerD, TypeDay.Saturday(), PricePlan.CHEIA);
-        Period[] sSaturdaySummerE = Period.getSummerPeriod(saturdaySummerE, TypeDay.Saturday(), PricePlan.VAZIO);
+        Period[] sSaturdaySummerA = Period.getSummerPeriod(saturdaySummerA, TypeDay.Saturday(), PricePlan.VAZIO, YEAR);
+        Period[] sSaturdaySummerB = Period.getSummerPeriod(saturdaySummerB, TypeDay.Saturday(), PricePlan.CHEIA, YEAR);
+        Period[] sSaturdaySummerC = Period.getSummerPeriod(saturdaySummerC, TypeDay.Saturday(), PricePlan.VAZIO, YEAR);
+        Period[] sSaturdaySummerD = Period.getSummerPeriod(saturdaySummerD, TypeDay.Saturday(), PricePlan.CHEIA, YEAR);
+        Period[] sSaturdaySummerE = Period.getSummerPeriod(saturdaySummerE, TypeDay.Saturday(), PricePlan.VAZIO, YEAR);
 
         cicloSemanal.addPeriod(sSaturdayWinterA);
         cicloSemanal.addPeriod(sSaturdayWinterB);
@@ -68,7 +69,7 @@ public class Endesa extends Company {
 
         //Sunday
         LocalTimeInterval sundayHour = LocalTimeInterval.Allday();
-        Period[] sSunday = Period.getAllYear(sundayHour, TypeDay.SundayAndHoliday(), PricePlan.VAZIO);
+        Period[] sSunday = Period.getAllYear(sundayHour, TypeDay.SundayAndHoliday(), PricePlan.VAZIO, YEAR);
         cicloSemanal.addPeriod(sSunday);
 
         return cicloSemanal;
@@ -85,13 +86,13 @@ public class Endesa extends Company {
         LocalTimeInterval summerDay = new LocalTimeInterval(8, 0, 21,59);
         LocalTimeInterval summerNight = new LocalTimeInterval(22, 0, 23,59);
 
-        Period[] sWinterMorning = Period.getWinterPeriod(winterMorning, TypeDay.All(), PricePlan.VAZIO);
-        Period[] sWinterDay = Period.getWinterPeriod(winterDay, TypeDay.All(), PricePlan.CHEIA);
-        Period[] sWinterNight = Period.getWinterPeriod(winterNight, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sWinterMorning = Period.getWinterPeriod(winterMorning, TypeDay.All(), PricePlan.VAZIO, YEAR);
+        Period[] sWinterDay = Period.getWinterPeriod(winterDay, TypeDay.All(), PricePlan.CHEIA, YEAR);
+        Period[] sWinterNight = Period.getWinterPeriod(winterNight, TypeDay.All(), PricePlan.VAZIO, YEAR);
 
-        Period[] sSummerMorning = Period.getSummerPeriod(summerMorning, TypeDay.All(), PricePlan.VAZIO);
-        Period[] sSummerDay = Period.getSummerPeriod(summerDay, TypeDay.All(), PricePlan.CHEIA);
-        Period[] sSummerNight = Period.getSummerPeriod(summerNight, TypeDay.All(), PricePlan.VAZIO);
+        Period[] sSummerMorning = Period.getSummerPeriod(summerMorning, TypeDay.All(), PricePlan.VAZIO, YEAR);
+        Period[] sSummerDay = Period.getSummerPeriod(summerDay, TypeDay.All(), PricePlan.CHEIA, YEAR);
+        Period[] sSummerNight = Period.getSummerPeriod(summerNight, TypeDay.All(), PricePlan.VAZIO, YEAR);
 
         cicloDiario.addPeriod(sWinterMorning);
         cicloDiario.addPeriod(sWinterDay);

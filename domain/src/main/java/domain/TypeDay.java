@@ -3,7 +3,7 @@ package com.pifactorial.energytimes.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.joda.time.MonthDay;
+import org.joda.time.LocalDate;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 
@@ -54,28 +54,27 @@ public enum TypeDay {
         return s;
     }
 
-    public static Boolean MatchTypeDay(MonthDay t, Set<TypeDay> s) {
-        DateTime dayInThisYear = new DateTime(t);
+    public static Boolean MatchTypeDay(LocalDate t, Set<TypeDay> s) {
 
         // Holidays have priority over the other type days
         if(isPortugueseHoliday(t))
             return true;
 
         // If it is sunday
-        if(dayInThisYear.getDayOfWeek() == DateTimeConstants.SUNDAY && s.contains(Sunday))
+        if(t.getDayOfWeek() == DateTimeConstants.SUNDAY && s.contains(Sunday))
             return true;
 
-        if(dayInThisYear.getDayOfWeek() >= DateTimeConstants.MONDAY && dayInThisYear.getDayOfWeek() <= DateTimeConstants.FRIDAY && s.contains(Workday))
+        if(t.getDayOfWeek() >= DateTimeConstants.MONDAY && t.getDayOfWeek() <= DateTimeConstants.FRIDAY && s.contains(Workday))
             return true;
 
-        if(dayInThisYear.getDayOfWeek() == DateTimeConstants.SATURDAY && s.contains(Saturday))
+        if(t.getDayOfWeek() == DateTimeConstants.SATURDAY && s.contains(Saturday))
             return true;
 
         else
             return false;
     }
 
-    public static Boolean isPortugueseHoliday(MonthDay t) {
+    public static Boolean isPortugueseHoliday(LocalDate t) {
         int m = t.getMonthOfYear();
         int d = t.getDayOfMonth();
 

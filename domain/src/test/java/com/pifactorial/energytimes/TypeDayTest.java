@@ -5,18 +5,19 @@ import org.junit.*;
 import com.pifactorial.energytimes.domain.TypeDay;
 
 import org.joda.time.DateTimeConstants;
-import org.joda.time.MonthDay;
+import org.joda.time.LocalDate;
 
 public class TypeDayTest {
 
-    MonthDay newYear = new MonthDay(DateTimeConstants.JANUARY, 1);
-    MonthDay freedomDay = new MonthDay(DateTimeConstants.APRIL, 25);
-    MonthDay labourDay = new MonthDay(DateTimeConstants.MAY, 1);
-    MonthDay nationalDay = new MonthDay(DateTimeConstants.JUNE, 10);
-    MonthDay assumptionDay = new MonthDay(DateTimeConstants.AUGUST, 15);
-    MonthDay imaculate = new MonthDay(DateTimeConstants.DECEMBER, 8);
-    MonthDay easter = new MonthDay(DateTimeConstants.APRIL, 20);
-    MonthDay holyFriday = new MonthDay(DateTimeConstants.APRIL, 18);
+    int year = 2014;
+    LocalDate newYear = new LocalDate(year, DateTimeConstants.JANUARY, 1);
+    LocalDate freedomDay = new LocalDate(year, DateTimeConstants.APRIL, 25);
+    LocalDate labourDay = new LocalDate(year, DateTimeConstants.MAY, 1);
+    LocalDate nationalDay = new LocalDate(year, DateTimeConstants.JUNE, 10);
+    LocalDate assumptionDay = new LocalDate(year, DateTimeConstants.AUGUST, 15);
+    LocalDate imaculate = new LocalDate(year, DateTimeConstants.DECEMBER, 8);
+    LocalDate easter = new LocalDate(year, DateTimeConstants.APRIL, 20);
+    LocalDate holyFriday = new LocalDate(year, DateTimeConstants.APRIL, 18);
 
     @BeforeClass
     public static void testSetup() {
