@@ -1,8 +1,12 @@
 package com.pifactorial.energytimes;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import android.graphics.Color;
@@ -10,12 +14,20 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
-import android.text.format.Time;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 
 import android.util.Log;
 import android.util.TypedValue;
 
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -24,29 +36,18 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
+import com.pifactorial.energytimes.domain.Edp;
+import com.pifactorial.energytimes.domain.Period;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.PricePlan;
-import com.pifactorial.energytimes.domain.Period;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import junit.runner.Version;
-import android.content.BroadcastReceiver;
-import android.text.SpannableString;
-import android.text.style.UnderlineSpan;
-import android.view.ViewTreeObserver;
-import java.util.Locale;
-import android.view.MenuItem;
-import android.view.MenuInflater;
-import android.view.Menu;
-import android.preference.PreferenceFragment;
-import android.preference.Preference;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import com.pifactorial.energytimes.domain.Edp;
 
+import org.joda.time.DateTime;
 
 public class MainActivity extends Activity {
     public static final int REFRESH_TIME_IN_MINUTES = 1;
@@ -167,8 +168,7 @@ public class MainActivity extends Activity {
 
     public void setCurrentTime() {
 
-        Time now = new Time();
-        now.setToNow();
+        DateTime now = new DateTime();
 
         try {
             boolean biHour = true;
