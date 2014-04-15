@@ -171,7 +171,8 @@ public class MainActivity extends Activity {
         DateTime now = new DateTime();
 
         try {
-            boolean biHour = true;
+            // TODO - Fetch the preference for this boolean
+            boolean biHour = false;
             Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
             PricePlan price = s.getPrice();
 

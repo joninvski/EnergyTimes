@@ -33,8 +33,8 @@ android {
     }
 
     defaultConfig {
-        versionCode 12
-        versionName "0.0.12-ALPHA"
+        versionCode 13
+        versionName "0.0.13-ALPHA"
         minSdkVersion 7
         targetSdkVersion 19
     }

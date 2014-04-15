@@ -1,7 +1,7 @@
 package com.pifactorial.energytimes.domain;
 
 public class Edp extends Company {
-    public final int YEAR = 2013;
+    public final int YEAR = 2014;
 
     public Edp(){
         super("Edp");
