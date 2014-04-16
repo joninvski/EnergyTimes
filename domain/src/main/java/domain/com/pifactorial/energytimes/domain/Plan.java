@@ -33,7 +33,7 @@ public class Plan {
     public Period searchPeriod(DateTime t, boolean biHour) throws DayWithoutPlanException {
         try {
             Period start = searchPeriodTriHour(t);
-            Period end = searchEndPeriod(start, biHour);
+            Period end = getNextPeriodDifferentPrice(start, biHour);
             Period merged = Period.getMergedPeriod(start, end);
             return merged;
         }
@@ -43,9 +43,9 @@ public class Plan {
         }
     }
 
-    public Period searchEndPeriod(Period p, boolean biHour) {
+    public Period getNextPeriodDifferentPrice(Period p, boolean biHour) {
 
-        DateTime followingInstant = p.getInstantAfterThisPeriod();
+        DateTime followingInstant = p.getMinuteAfterThisPeriod();
 
         try {
             Period end = searchPeriodTriHour(followingInstant);
@@ -53,11 +53,11 @@ public class Plan {
             // Now let's check if the period is for a different price
             if (p.getPrice().equals(end.getPrice(), biHour)) {
                 //if it is the same we have to look for the next time instant
-                return searchEndPeriod(end, biHour);
+                return getNextPeriodDifferentPrice(end, biHour);
             }
 
             // If the price plan has changed, this period is the end
-            return end;
+            return p;
         }
 
         catch (DayWithoutPlanException e) {

@@ -1,4 +1,4 @@
-package com.pifactorial.energytimes;
+package com.pifactorial.energytimes.domain;
 
 import static org.junit.Assert.*;
 import org.junit.*;
@@ -13,8 +13,12 @@ public class LocalTimeIntervalTest {
     LocalTime fromNine = new LocalTime(9, 00);
     LocalTime toTen = new LocalTime(10, 59);
 
+    LocalTime midnight = LocalTime.MIDNIGHT;
+
     LocalTimeInterval i = new LocalTimeInterval(from, to);
     LocalTimeInterval h = new LocalTimeInterval(fromNine, toTen);
+    LocalTimeInterval j = new LocalTimeInterval(midnight, toTen);
+
     LocalTimeInterval instantBeginning = new LocalTimeInterval(from, from.plusMinutes(1));
     LocalTimeInterval instantEnd = new LocalTimeInterval(to, to.plusMinutes(1));
 
@@ -57,5 +61,9 @@ public class LocalTimeIntervalTest {
 
     public void testConstructorWithInts() {
         assertEquals(i, new LocalTimeInterval(8,0,8,59));
+    }
+
+    public void testMidnightOverlaps() {
+        assertTrue(j.overlapsWith(midnight));
     }
 }

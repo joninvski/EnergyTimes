@@ -1,5 +1,20 @@
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.saliman:gradle-cobertura-plugin:2.2.2"
+    }
+}
+
 apply plugin: 'java'
-apply plugin: "jacoco"
+apply plugin: 'jacoco'
+apply plugin: 'cobertura'
+
+cobertura {
+   coverageSourceDirs << project.sourceSets.main.groovy.srcDirs
+}
 
 repositories {
     mavenCentral()

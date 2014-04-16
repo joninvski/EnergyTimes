@@ -1,4 +1,4 @@
-package com.pifactorial.energytimes;
+package com.pifactorial.energytimes.domain;
 
 import static org.junit.Assert.*;
 import org.junit.*;
@@ -19,6 +19,10 @@ public class TypeDayTest {
     LocalDate easter = new LocalDate(year, DateTimeConstants.APRIL, 20);
     LocalDate holyFriday = new LocalDate(year, DateTimeConstants.APRIL, 18);
 
+    LocalDate monday = new LocalDate(year, DateTimeConstants.APRIL,  7);
+    LocalDate friday = new LocalDate(year, DateTimeConstants.APRIL, 11);
+    LocalDate saturday = new LocalDate(year, DateTimeConstants.APRIL, 12);
+
     @BeforeClass
     public static void testSetup() {
     }
@@ -35,4 +39,12 @@ public class TypeDayTest {
         assertTrue(TypeDay.isPortugueseHoliday(holyFriday));
     }
 
+    @Test
+    public void testMatchTypeDay() {
+        assertTrue(TypeDay.MatchTypeDay(newYear, TypeDay.SundayAndHoliday()));
+        assertTrue(TypeDay.MatchTypeDay(freedomDay, TypeDay.SundayAndHoliday()));
+        assertTrue(TypeDay.MatchTypeDay(monday, TypeDay.Weekday()));
+        assertTrue(TypeDay.MatchTypeDay(friday, TypeDay.Weekday()));
+        assertTrue(TypeDay.MatchTypeDay(saturday, TypeDay.Saturday()));
+    }
 }

@@ -1,4 +1,4 @@
-package com.pifactorial.energytimes;
+package com.pifactorial.energytimes.domain;
 
 import static org.junit.Assert.*;
 import org.junit.*;

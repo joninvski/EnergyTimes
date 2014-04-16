@@ -2,10 +2,10 @@ package com.pifactorial.energytimes.domain;
 
 import java.util.Set;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
-import org.joda.time.DateTimeConstants;
-import org.joda.time.DateTime;
 
 
 public class Period {
@@ -33,10 +33,6 @@ public class Period {
     }
 
 
-    public void addTypeDay(TypeDay t){
-        _validOnDaySet.add(t);
-    }
-
     public boolean matches(DateTime now) {
         LocalTime nowHours = new LocalTime( now.getHourOfDay(), now.getMinuteOfHour());
         LocalDate nowDayMonth = new LocalDate(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth());
@@ -44,22 +40,20 @@ public class Period {
     }
 
     public boolean matches(LocalDate daysMonth, LocalTime hours) {
-        if(daysMonth.isAfter(_start) && daysMonth.isBefore(_end) && TypeDay.MatchTypeDay(daysMonth, _validOnDaySet)) {
+        if(isAfterStart(daysMonth) && isBeforeEnd(daysMonth) && TypeDay.MatchTypeDay(daysMonth, _validOnDaySet)) {
             if(_hours.overlapsWith(hours)) {
                 return true;
             }
         }
-
         return false;
     }
 
-    public String toString(){
-        String daysString = "";
-        for(TypeDay d : _validOnDaySet)
-            daysString = daysString.concat(d.toString());
+    public boolean isAfterStart(LocalDate d){
+        return (d.isEqual(_start) || d.isAfter(_start));
+    }
 
-        return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(),
-                _end.toString(), _price.toString(), _hours.toString(), daysString);
+    public boolean isBeforeEnd(LocalDate d){
+        return (d.isEqual(_end) || d.isBefore(_end));
     }
 
     protected static Period getMergedPeriod(Period start, Period end) {
@@ -71,10 +65,10 @@ public class Period {
         return new Period(start._start, end._end, mergedHours, start._validOnDaySet, start._price);
     }
 
-    protected DateTime getInstantAfterThisPeriod() {
+    protected DateTime getMinuteAfterThisPeriod() {
         LocalTime nextHour = this._hours.getLocalTimeAfterEnd();
 
-        DateTime dateTime = new DateTime();
+        DateTime dateTime = new DateTime(_end.getYear(), _end.getMonthOfYear(), _end.getDayOfMonth(), nextHour.getHourOfDay(), nextHour.getMinuteOfHour());
         dateTime = dateTime.withFields(nextHour);
 
         return dateTime;
@@ -123,5 +117,22 @@ public class Period {
 
         Period allYear = new Period(firstDay, lastDay, hours, typeDays, price);
         return new Period[] {allYear};
+    }
+
+    public boolean equals(Object other){
+         if ( this == other) return true;
+         if ( !(other instanceof Period ) ) return false;
+         Period that = (Period) other;
+
+         return this._start.equals(that._start) && this._end.equals(that._end) && this._hours.equals(that._hours);
+    }
+
+    public String toString(){
+        String daysString = "";
+        for(TypeDay d : _validOnDaySet)
+            daysString = daysString.concat(d.toString());
+
+        return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(),
+                _end.toString(), _price.toString(), _hours.toString(), daysString);
     }
 }
