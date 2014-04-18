@@ -6,6 +6,8 @@ import com.pifactorial.energytimes.domain.TypeDay;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 public class TypeDayTest {
 
@@ -46,5 +48,22 @@ public class TypeDayTest {
         assertTrue(TypeDay.MatchTypeDay(monday, TypeDay.Weekday()));
         assertTrue(TypeDay.MatchTypeDay(friday, TypeDay.Weekday()));
         assertTrue(TypeDay.MatchTypeDay(saturday, TypeDay.Saturday()));
+    }
+
+    @Test
+    public void testCommonDay(){
+        Set<TypeDay> holiday = new HashSet<TypeDay>();
+        Set<TypeDay> weekdayAndSaturday = new HashSet<TypeDay>();
+
+        weekdayAndSaturday.addAll(TypeDay.Saturday());
+        weekdayAndSaturday.addAll(TypeDay.Weekday());
+        holiday.addAll(TypeDay.SundayAndHoliday());
+
+        assertFalse(TypeDay.CommonDay(holiday, weekdayAndSaturday));
+        assertTrue(TypeDay.CommonDay(TypeDay.Saturday(), weekdayAndSaturday));
+        assertTrue(TypeDay.CommonDay(TypeDay.Weekday(), weekdayAndSaturday));
+        assertTrue(TypeDay.CommonDay(TypeDay.Weekday(), TypeDay.All()));
+        assertTrue(TypeDay.CommonDay(TypeDay.Saturday(), TypeDay.All()));
+        assertTrue(TypeDay.CommonDay(TypeDay.SundayAndHoliday(), TypeDay.All()));
     }
 }

@@ -1,6 +1,6 @@
 package com.pifactorial.energytimes.domain;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
@@ -22,7 +22,7 @@ public enum TypeDay {
     }
 
     public static Set<TypeDay> SundayAndHoliday(){
-        Set<TypeDay> s = new HashSet<TypeDay>();
+        Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Sunday);
         s.add(Holiday);
@@ -30,21 +30,21 @@ public enum TypeDay {
     }
 
     public static Set<TypeDay> Weekday(){
-        Set<TypeDay> s = new HashSet<TypeDay>();
+        Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Workday);
         return s;
     }
 
     public static Set<TypeDay> Saturday(){
-        Set<TypeDay> s = new HashSet<TypeDay>();
+        Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Saturday);
         return s;
     }
 
     public static Set<TypeDay> All(){
-        Set<TypeDay> s = new HashSet<TypeDay>();
+        Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Workday);
         s.add(Saturday);
@@ -54,11 +54,24 @@ public enum TypeDay {
         return s;
     }
 
+    public static boolean CommonDay(Set<TypeDay> a, Set<TypeDay> b) {
+        for(TypeDay i : a){
+            if(b.contains(i))
+                return true;
+        }
+        return false;
+    }
+
     public static Boolean MatchTypeDay(LocalDate t, Set<TypeDay> s) {
 
         // Holidays have priority over the other type days
-        if(isPortugueseHoliday(t))
-            return true;
+        if(isPortugueseHoliday(t)) {
+            if(s.contains(Holiday))
+                return true;
+            else {
+                return false;
+            }
+        }
 
         // If it is sunday
         if(t.getDayOfWeek() == DateTimeConstants.SUNDAY && s.contains(Sunday))

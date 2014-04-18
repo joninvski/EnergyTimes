@@ -124,7 +124,7 @@ public class Period {
          if ( !(other instanceof Period ) ) return false;
          Period that = (Period) other;
 
-         return this._start.equals(that._start) && this._end.equals(that._end) && this._hours.equals(that._hours);
+         return this._start.equals(that._start) && this._end.equals(that._end) && this._hours.equals(that._hours) && TypeDay.CommonDay(this._validOnDaySet, that._validOnDaySet);
     }
 
     public String toString(){

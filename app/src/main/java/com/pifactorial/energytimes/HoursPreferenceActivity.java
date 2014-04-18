@@ -19,8 +19,7 @@ public class HoursPreferenceActivity extends Activity {
         UserPreferenceFragment mPrefsFragment = new UserPreferenceFragment();
         mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
         mFragmentTransaction.commit();
-
-    } 
+    }
 
     // Fragment that displays the username preference
     public static class UserPreferenceFragment extends PreferenceFragment {

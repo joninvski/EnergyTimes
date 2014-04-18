@@ -18,7 +18,7 @@ public class PeriodTest {
 
     int YEAR = 2014;
     LocalDate startYear = new LocalDate(YEAR, DateTimeConstants.JANUARY, 01);
-    LocalDate middleJanuary = new LocalDate(YEAR, DateTimeConstants.JANUARY, 15); 
+    LocalDate middleJanuary = new LocalDate(YEAR, DateTimeConstants.JANUARY, 15);
     LocalDate endFebruary = new LocalDate(YEAR, DateTimeConstants.FEBRUARY, 27);
     LocalDate startMarch = new LocalDate(YEAR, DateTimeConstants.MARCH, 01);
     LocalDate endWinterA = new LocalDate(YEAR, DateTimeConstants.MARCH, 29);
@@ -36,6 +36,7 @@ public class PeriodTest {
     Period middleYearPeriodNight = new Period(startMarch, endMay, night, TypeDay.All(), PricePlan.PONTA);
     Period middleYearPeriodMorning = new Period(startMarch, endMay, morning, TypeDay.All(), PricePlan.PONTA);
     Period middleYearPeriodAfternoon = new Period(startMarch, endMay, afternoon, TypeDay.All(), PricePlan.PONTA);
+
 
     LocalTime threeAM = new LocalTime( 3,00);
     LocalTime eightAM = new LocalTime( 8,00);
@@ -61,6 +62,10 @@ public class PeriodTest {
         assertFalse(startYearPeriodNight.matches(startMarch, eightAM));
         assertFalse(startYearPeriodNight.matches(startMarch, threeAM));
         assertFalse(startYearPeriodNight.matches(startMarch.toDateTimeAtStartOfDay()));
+
+        Period middleYearPeriodAfternoonWeekday = new Period(startMarch, endMay, afternoon, TypeDay.Weekday(), PricePlan.PONTA);
+        Period middleYearPeriodAfternoonHoliday = new Period(startMarch, endMay, afternoon, TypeDay.SundayAndHoliday(), PricePlan.PONTA);
+        assertFalse(middleYearPeriodAfternoonWeekday.equals(middleYearPeriodAfternoonHoliday ));
     }
 
     @Test

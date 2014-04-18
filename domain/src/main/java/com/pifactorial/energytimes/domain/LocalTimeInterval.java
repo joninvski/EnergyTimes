@@ -65,7 +65,14 @@ public class LocalTimeInterval {
     }
 
     public LocalTime getLocalTimeAfterEnd() {
-        return to.plusMinutes(1);
+
+        LocalTime later = to.plusMinutes(1);
+
+        // If we pass midnight do not add minutes
+        if(later.isBefore(this.to)){
+            return to;
+        }
+        return later;
     }
 
     public String toString() {

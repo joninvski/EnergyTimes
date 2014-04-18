@@ -32,6 +32,8 @@ public class PlanTest {
     LocalTimeInterval nightAndMorningAndAfternoon  = new LocalTimeInterval( 0, 00, 18, 59);
     Period startYearPeriodNight = new Period(startYear, endFebruary, night, TypeDay.All(), PricePlan.PONTA);
     Period startYearPeriodMorning = new Period(startYear, endFebruary, morning, TypeDay.All(), PricePlan.PONTA);
+    Period startYearPeriodNightWeekday = new Period(startYear, endFebruary, night, TypeDay.Weekday(), PricePlan.PONTA);
+    Period startYearPeriodNightHoliday = new Period(startYear, endFebruary, night, TypeDay.SundayAndHoliday(), PricePlan.PONTA);
     Period startYearPeriodAfternoon = new Period(startYear, endFebruary, afternoon, TypeDay.All(), PricePlan.PONTA);
     Period middleYearPeriodNight = new Period(startMarch, endMay, night, TypeDay.All(), PricePlan.PONTA);
     Period middleYearPeriodMorning = new Period(startMarch, endMay, morning, TypeDay.All(), PricePlan.PONTA);
@@ -48,6 +50,25 @@ public class PlanTest {
         p.addPeriod(startYearPeriodNight);
         assertEquals(startYearPeriodNight, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), trihour));
         assertEquals(startYearPeriodNight, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), bihour));
+    }
+
+    public void testSearhHolidayPriority() throws Exception {
+        p.addPeriod(startYearPeriodNightHoliday);
+        p.addPeriod(startYearPeriodNightWeekday);
+
+        Period middleYearPeriodNightWeekday = new Period(startMarch, endMay, night, TypeDay.Weekday(), PricePlan.PONTA);
+        Period middleYearPeriodNightHoliday = new Period(startMarch, endMay, night, TypeDay.SundayAndHoliday(), PricePlan.PONTA);
+
+        p.addPeriod(middleYearPeriodNightHoliday);
+        p.addPeriod(middleYearPeriodNightWeekday);
+        // This should be the new year that on 2014 was on a wednesday
+        assertEquals(startYearPeriodNightHoliday, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), trihour));
+        assertEquals(startYearPeriodNightHoliday, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), bihour));
+        assertFalse(startYearPeriodNightWeekday.equals(p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), bihour)));
+
+        // Lets search for easter
+        assertEquals(middleYearPeriodNightHoliday, p.searchPeriod(new DateTime(YEAR, 04, 18, 01, 01), trihour));
+
     }
 
     @Test(expected = DayWithoutPlanException.class)
@@ -92,8 +113,10 @@ public class PlanTest {
         p.addPeriod(startYearPeriodNight);
         p.addPeriod(startYearPeriodMorning);
         Period found = p.searchPeriodTriHour(new DateTime(YEAR, 01, 01,  0, 00));
+
         assertEquals(startYearPeriodNight, found);
         assertFalse(startYearPeriodMorning.equals(found));
+
         found = p.searchPeriodTriHour(new DateTime(YEAR, 01, 01,  9, 00));
         assertEquals(startYearPeriodMorning, found);
         assertFalse(startYearPeriodNight.equals(found));

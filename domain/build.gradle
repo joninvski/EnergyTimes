@@ -1,4 +1,3 @@
-
 buildscript {
     repositories {
         mavenCentral()
@@ -11,10 +10,6 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'cobertura'
-
-cobertura {
-   coverageSourceDirs << project.sourceSets.main.groovy.srcDirs
-}
 
 repositories {
     mavenCentral()
