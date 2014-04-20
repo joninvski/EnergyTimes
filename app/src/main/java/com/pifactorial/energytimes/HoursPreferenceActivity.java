@@ -1,9 +1,8 @@
 package com.pifactorial.energytimes;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentActivity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 
 import android.content.res.Resources;
 import android.content.SharedPreferences;
@@ -17,7 +16,7 @@ import com.pifactorial.energytimes.TypeHourEnum;
 import android.content.Intent;
 
 
-public class HoursPreferenceActivity extends FragmentActivity {
+public class HoursPreferenceActivity extends Activity {
 
     String hourValue;
 
@@ -25,7 +24,7 @@ public class HoursPreferenceActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FragmentManager mFragmentManager = getSupportFragmentManager();
+        FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         UserPreferenceFragment mPrefsFragment = new UserPreferenceFragment();
         mFragmentTransaction.add(android.R.id.content, mPrefsFragment);

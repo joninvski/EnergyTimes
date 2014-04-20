@@ -268,9 +268,9 @@ public class MainActivity extends Activity {
     }
 
     private void erase(TextView tv) {
-        if(onlyHighlight){
-            removeAllHighlights();
-        }
+        // if(onlyHighlight){
+        //     removeAllHighlights();
+        // }
 
         // tv.setTextColor(Color.parseColor("#ffbb33"));
         // SpannableString content = new SpannableString(tv.getText().toString());
@@ -280,9 +280,12 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options, menu);
-        return super.onCreateOptionsMenu(menu);
+        if( sdk_version >= 14) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.options, menu);
+            return super.onCreateOptionsMenu(menu);
+        }
+        return true;
     }
 
     @Override
