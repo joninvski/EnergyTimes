@@ -48,10 +48,13 @@ import java.util.TimerTask;
 import junit.runner.Version;
 
 import org.joda.time.DateTime;
+import android.widget.Toast;
+
 
 public class MainActivity extends Activity {
     public static final int REFRESH_TIME_IN_MINUTES = 1;
     public static final String PLAN_SHARED_PREFERENCE = "planPreference";
+    public static final String PLAN_TYPE_HOUR = "planHour";
 
     private String selectedPlan = "BTN Ciclo Semanal";
     private SharedPreferences mPrefs;
@@ -65,6 +68,8 @@ public class MainActivity extends Activity {
     private TextView tvPonta;
     private TextView tvStart;
     private TextView tvEnd;
+
+    String typeHour;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +86,7 @@ public class MainActivity extends Activity {
         tvEnd = (TextView) findViewById(R.id.end);
 
         // Get a reference to the preferences
-		mPrefs = getPreferences(Context.MODE_PRIVATE);
+        mPrefs = getPreferences(Context.MODE_PRIVATE);
 
         // Create an update Period thread
         Timer timer = new Timer();
@@ -120,13 +125,13 @@ public class MainActivity extends Activity {
                     selectedPlan = "BTN Ciclo Diario";
                     setPlanPreference("BTN Ciclo Diario");
                 }
-                setCurrentTime();
+        setCurrentTime();
             }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView){
-                Log.d(Constants.LOG, "Spinner with nothing selected");
-            }
+        @Override
+        public void onNothingSelected(AdapterView<?> parentView){
+            Log.d(Constants.LOG, "Spinner with nothing selected");
+        }
         });
 
         // Make sure that the the current plan time fits in a single line
@@ -146,6 +151,11 @@ public class MainActivity extends Activity {
 
     private String getPlanPreference(){
         return mPrefs.getString(PLAN_SHARED_PREFERENCE, "BTN Ciclo Semanal");
+    }
+
+    private String getTypeHourPlan(){
+        String mHoursPreference = mPrefs.getString(getString(R.string.hours_preference_key), "Bi-horário");
+        return mHoursPreference;
     }
 
     private void setPlanPreference(String plan) {
@@ -169,22 +179,41 @@ public class MainActivity extends Activity {
     public void setCurrentTime() {
 
         DateTime now = new DateTime();
+        now = now.minusHours(11);
 
         try {
             // TODO - Fetch the preference for this boolean
-            boolean biHour = false;
+            typeHour = mPrefs.getString("TYPE_HOUR", "TRI");
+            boolean biHour = (new TypeHourEnum(typeHour)).isBiHour();
+
+            Toast.makeText(getApplicationContext(), "bihour: " + typeHour + biHour, Toast.LENGTH_SHORT).show();
+
             Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
             PricePlan price = s.getPrice();
 
-            if(price.isVazio()) {
-                highlight(tvVazio);
+            if(biHour == false){
+                if(price.isVazio()) {
+                    highlight(tvVazio);
+                }
+                else if(price.isCheia()) {
+                    highlight(tvCheia);
+                }
+                else if(price.isPonta()) {
+                    highlight(tvPonta);
+                }
             }
-            if(price.isCheia()) {
-                highlight(tvCheia);
+
+            else if(biHour == true) {
+                if(price.isVazio()) {
+                    highlight(tvVazio);
+                }
+
+                else {
+                    erase(tvCheia);
+                    highlight(tvPonta);
+                }
             }
-            if(price.isPonta()) {
-                highlight(tvPonta);
-            }
+
             if(selectedPlan.equals("BTN Ciclo Semanal")){
                 spinner.setSelection(0);
             }
@@ -222,7 +251,13 @@ public class MainActivity extends Activity {
     }
 
     private void highlight(TextView tv){
-        removeAllHighlights();
+        highlight(tv, true);
+    }
+
+    private void highlight(TextView tv, boolean onlyHighlight) {
+        if(onlyHighlight){
+            removeAllHighlights();
+        }
 
         tv.setTextColor(Color.parseColor("#ffbb33"));
         SpannableString content = new SpannableString(tv.getText().toString());
@@ -230,6 +265,17 @@ public class MainActivity extends Activity {
         tv.setText(content);
 
         tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 50);
+    }
+
+    private void erase(TextView tv) {
+        if(onlyHighlight){
+            removeAllHighlights();
+        }
+
+        // tv.setTextColor(Color.parseColor("#ffbb33"));
+        // SpannableString content = new SpannableString(tv.getText().toString());
+        // content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+        tv.setText("");
     }
 
     @Override
@@ -246,7 +292,7 @@ public class MainActivity extends Activity {
 
             case R.id.set_plan:
                 Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
-                startActivityForResult(intentSetPref, 0);
+                startActivityForResult(intentSetPref, 1);
                 break;
 
             default:
@@ -254,4 +300,22 @@ public class MainActivity extends Activity {
         }
         return true;
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
+            typeHour = data.getStringExtra("mhour");
+
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putString("TYPE_HOUR", typeHour);
+            if( sdk_version < 9) {
+                editor.commit(); // TODO - Check the return value
+            }
+            else{
+                editor.apply();
+            }
+        }
+    }
+
 }

@@ -27,12 +27,19 @@ along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
 
     <string name="about">Contacto</string>
 
+    <!-- TODO Remove from here and put in array file -->
     <string-array name="plans_array">
         <item>Semanal</item>
         <item>Diário</item>
     </string-array>
 
-    <string-array name="type_of_hours">
+    <string-array name="type_of_hours_values">
+		<item>BI</item>
+		<item>TRI</item>
+    </string-array>
+
+    <!-- Do not change the order -->
+    <string-array name="type_of_hours_descriptive">
 		<item>Bi-horário</item>
 		<item>Tri-horário</item>
     </string-array>

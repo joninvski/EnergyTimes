@@ -13,8 +13,8 @@
 
     <ListPreference
         android:enabled="true"
-        android:entries="@array/type_of_hours"
-        android:entryValues="@array/type_of_hours"
+        android:entries="@array/type_of_hours_descriptive"
+        android:entryValues="@array/type_of_hours_values"
         android:key="@string/hours_preference_key"
         android:persistent="true"
         android:summary="Escolher bi-horário ou tri-horário"
