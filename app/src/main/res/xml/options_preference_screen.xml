@@ -17,8 +17,8 @@
         android:entryValues="@array/type_of_hours_values"
         android:key="@string/hours_preference_key"
         android:persistent="true"
-        android:summary="Escolher bi-horário ou tri-horário"
-        android:title="Horário"
+        android:summary="bi-horário ou tri-horário"
+        android:title="Tipo de horário"
         />
 
 </PreferenceScreen>

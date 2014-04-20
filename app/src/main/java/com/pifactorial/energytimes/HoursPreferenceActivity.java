@@ -1,5 +1,6 @@
 package com.pifactorial.energytimes;
 
+import android.content.Context;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -18,21 +19,22 @@ import android.content.Intent;
 
 public class HoursPreferenceActivity extends Activity {
 
-    String hourValue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
+    protected void onResume() {
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         UserPreferenceFragment mPrefsFragment = new UserPreferenceFragment();
         mFragmentTransaction.add(android.R.id.content, mPrefsFragment);
         mFragmentTransaction.commit();
+        super.onResume();
     }
 
     // Fragment that displays the preference
-    public class UserPreferenceFragment extends PreferenceFragment {
+    public static class UserPreferenceFragment extends PreferenceFragment {
 
         protected static final String TAG = "UserPrefsFragment";
         private SharedPreferences.OnSharedPreferenceChangeListener mListener;
@@ -43,6 +45,9 @@ public class HoursPreferenceActivity extends Activity {
         String mhour_preference_key;
         String mcompany_preference_key;
         Resources res;
+
+        public UserPreferenceFragment() {
+        }
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -57,13 +62,18 @@ public class HoursPreferenceActivity extends Activity {
             mhour_preference_key = getString(R.string.hours_preference_key);
             mcompany_preference_key = getString(R.string.company_preference_key);
             res = getResources();
+            final SharedPreferences mPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
 
             mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    hourValue = sharedPreferences.getString(mhour_preference_key, "None Set");
+                    String hourValue = sharedPreferences.getString(mhour_preference_key, "TRI");
                     mHoursPreference.setSummary((new TypeHourEnum(hourValue)).getHumanString(res));
-                    mCompanyPreference.setSummary(sharedPreferences.getString(mcompany_preference_key, "None Set"));
+                    mCompanyPreference.setSummary(sharedPreferences.getString(mcompany_preference_key, "EDP"));
+
+                    SharedPreferences.Editor editor = mPrefs.edit();
+                    editor.putString(mhour_preference_key, hourValue);
+                    editor.commit(); // TODO - Check the return value
                 }
             };
 
@@ -81,6 +91,10 @@ public class HoursPreferenceActivity extends Activity {
 
     @Override
     public void onBackPressed(){
+
+        SharedPreferences mPrefs = getPreferences(Context.MODE_PRIVATE);
+        String mhour_preference_key = getString(R.string.hours_preference_key);
+        String hourValue = mPrefs.getString(mhour_preference_key, "TRI");
         Intent data = new Intent();
         data.putExtra("mhour", hourValue);
         setResult(RESULT_OK, data);

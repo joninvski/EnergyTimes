@@ -48,7 +48,6 @@ import java.util.TimerTask;
 import junit.runner.Version;
 
 import org.joda.time.DateTime;
-import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
@@ -179,19 +178,18 @@ public class MainActivity extends Activity {
     public void setCurrentTime() {
 
         DateTime now = new DateTime();
-        now = now.minusHours(11);
+        // now = now.minusHours(11);
 
         try {
             // TODO - Fetch the preference for this boolean
             typeHour = mPrefs.getString("TYPE_HOUR", "TRI");
             boolean biHour = (new TypeHourEnum(typeHour)).isBiHour();
 
-            Toast.makeText(getApplicationContext(), "bihour: " + typeHour + biHour, Toast.LENGTH_SHORT).show();
-
             Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
             PricePlan price = s.getPrice();
 
             if(biHour == false){
+                makeAllVisible();
                 if(price.isVazio()) {
                     highlight(tvVazio);
                 }
@@ -204,12 +202,12 @@ public class MainActivity extends Activity {
             }
 
             else if(biHour == true) {
+                erase(tvCheia);
                 if(price.isVazio()) {
                     highlight(tvVazio);
                 }
 
                 else {
-                    erase(tvCheia);
                     highlight(tvPonta);
                 }
             }
@@ -234,6 +232,12 @@ public class MainActivity extends Activity {
         } catch (PlanNotFoundException e) {
             Log.e(Constants.LOG, e.getMessage());
         }
+    }
+
+    private void makeAllVisible() {
+        tvVazio.setVisibility(View.VISIBLE);
+        tvCheia.setVisibility(View.VISIBLE);
+        tvPonta.setVisibility(View.VISIBLE);
     }
 
     private void removeAllHighlights() {
@@ -268,14 +272,7 @@ public class MainActivity extends Activity {
     }
 
     private void erase(TextView tv) {
-        // if(onlyHighlight){
-        //     removeAllHighlights();
-        // }
-
-        // tv.setTextColor(Color.parseColor("#ffbb33"));
-        // SpannableString content = new SpannableString(tv.getText().toString());
-        // content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-        tv.setText("");
+        tv.setVisibility(View.GONE);
     }
 
     @Override
