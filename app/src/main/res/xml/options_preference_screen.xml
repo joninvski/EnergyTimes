@@ -9,6 +9,7 @@
         android:persistent="true"
         android:summary="EDP ou Endesa"
         android:title="Companhia"
+        android:defaultValue="@string/edp"
         />
 
     <ListPreference
@@ -19,6 +20,7 @@
         android:persistent="true"
         android:summary="bi-horário ou tri-horário"
         android:title="Tipo de horário"
+        android:defaultValue="@string/tri"
         />
 
 </PreferenceScreen>

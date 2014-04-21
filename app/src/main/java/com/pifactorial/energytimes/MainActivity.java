@@ -7,7 +7,6 @@ import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import android.graphics.Color;
 
@@ -52,11 +51,10 @@ import org.joda.time.DateTime;
 
 public class MainActivity extends Activity {
     public static final int REFRESH_TIME_IN_MINUTES = 1;
-    public static final String PLAN_SHARED_PREFERENCE = "planPreference";
     public static final String PLAN_TYPE_HOUR = "planHour";
 
     private String selectedPlan = "BTN Ciclo Semanal";
-    private SharedPreferences mPrefs;
+    private ManagePreferences mPrefs;
     private Spinner spinner;
     private int sdk_version;
 
@@ -85,7 +83,7 @@ public class MainActivity extends Activity {
         tvEnd = (TextView) findViewById(R.id.end);
 
         // Get a reference to the preferences
-        mPrefs = getPreferences(Context.MODE_PRIVATE);
+        mPrefs = new ManagePreferences(this);
 
         // Create an update Period thread
         Timer timer = new Timer();
@@ -118,11 +116,11 @@ public class MainActivity extends Activity {
 
                 if(position == 0){
                     selectedPlan = "BTN Ciclo Semanal";
-                    setPlanPreference("BTN Ciclo Semanal");
+                    mPrefs.setPlanPreference("BTN Ciclo Semanal");
                 }
                 else{
                     selectedPlan = "BTN Ciclo Diario";
-                    setPlanPreference("BTN Ciclo Diario");
+                    mPrefs.setPlanPreference("BTN Ciclo Diario");
                 }
         setCurrentTime();
             }
@@ -148,41 +146,20 @@ public class MainActivity extends Activity {
         vto.addOnGlobalLayoutListener(listener);
     }
 
-    private String getPlanPreference(){
-        return mPrefs.getString(PLAN_SHARED_PREFERENCE, "BTN Ciclo Semanal");
-    }
-
-    private String getTypeHourPlan(){
-        String mHoursPreference = mPrefs.getString(getString(R.string.hours_preference_key), "Bi-horário");
-        return mHoursPreference;
-    }
-
-    private void setPlanPreference(String plan) {
-        SharedPreferences.Editor editor = mPrefs.edit();
-        editor.putString(PLAN_SHARED_PREFERENCE, plan);
-        if( sdk_version < 9) {
-            editor.commit(); // TODO - Check the return value
-        }
-        else{
-            editor.apply();
-        }
-    }
-
     @Override
     public void onResume() {
         super.onResume();
-        selectedPlan = getPlanPreference();
+        selectedPlan = mPrefs.getPlanPreference();
         setCurrentTime();
     }
 
     public void setCurrentTime() {
 
         DateTime now = new DateTime();
-        // now = now.minusHours(11);
 
         try {
             // TODO - Fetch the preference for this boolean
-            typeHour = mPrefs.getString("TYPE_HOUR", "TRI");
+            typeHour = mPrefs.getTypeHourPlan();
             boolean biHour = (new TypeHourEnum(typeHour)).isBiHour();
 
             Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
@@ -300,22 +277,4 @@ public class MainActivity extends Activity {
         }
         return true;
     }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == 1) {
-            typeHour = data.getStringExtra("mhour");
-
-            SharedPreferences.Editor editor = mPrefs.edit();
-            editor.putString("TYPE_HOUR", typeHour);
-            if( sdk_version < 9) {
-                editor.commit(); // TODO - Check the return value
-            }
-            else{
-                editor.apply();
-            }
-        }
-    }
-
 }

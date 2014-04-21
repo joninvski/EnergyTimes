@@ -33,19 +33,25 @@ along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
         <item>Diário</item>
     </string-array>
 
+    <string name="bi">BI</string>
+    <string name="tri">TRI</string>
     <string-array name="type_of_hours_values">
-		<item>BI</item>
-		<item>TRI</item>
+        <item>@string/bi</item>
+        <item>@string/tri</item>
     </string-array>
 
     <!-- Do not change the order -->
+    <string name="descriptive_bi">Bi-horário</string>
+    <string name="descriptive_tri">Tri-horário</string>
     <string-array name="type_of_hours_descriptive">
-		<item>Bi-horário</item>
-		<item>Tri-horário</item>
+        <item>@string/descriptive_bi</item>
+        <item>@string/descriptive_tri</item>
     </string-array>
 
+    <string name="edp">EDP</string>
+    <string name="endesa">Endesa</string>
     <string-array name="company">
-		<item>EDP</item>
-		<item>Endesa</item>
+        <item>@string/edp</item>
+        <item>@string/endesa</item>
     </string-array>
 </resources>

@@ -34,20 +34,17 @@ public class HoursPreferenceActivity extends Activity {
     }
 
     // Fragment that displays the preference
-    public static class UserPreferenceFragment extends PreferenceFragment {
+    public static class UserPreferenceFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         protected static final String TAG = "UserPrefsFragment";
-        private SharedPreferences.OnSharedPreferenceChangeListener mListener;
+        private ManagePreferences mPrefs;
         private Preference mHoursPreference;
         private Preference mCompanyPreference;
 
         // These fields have to be outside the OnSharedPreferenceChangeListener as it runs on a different thread
-        String mhour_preference_key;
-        String mcompany_preference_key;
+        private String mhour_preference_key;
+        private String mcompany_preference_key;
         Resources res;
-
-        public UserPreferenceFragment() {
-        }
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -62,42 +59,38 @@ public class HoursPreferenceActivity extends Activity {
             mhour_preference_key = getString(R.string.hours_preference_key);
             mcompany_preference_key = getString(R.string.company_preference_key);
             res = getResources();
-            final SharedPreferences mPrefs = getActivity().getPreferences(Context.MODE_PRIVATE);
 
-            mListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-                @Override
-                public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-                    String hourValue = sharedPreferences.getString(mhour_preference_key, "TRI");
-                    mHoursPreference.setSummary((new TypeHourEnum(hourValue)).getHumanString(res));
-                    mCompanyPreference.setSummary(sharedPreferences.getString(mcompany_preference_key, "EDP"));
-
-                    SharedPreferences.Editor editor = mPrefs.edit();
-                    editor.putString(mhour_preference_key, hourValue);
-                    editor.commit(); // TODO - Check the return value
-                }
-            };
-
-            // Get SharedPreferences object managed by the PreferenceManager for this Fragment
-            SharedPreferences prefs = getPreferenceManager().getSharedPreferences();
-
-            // Register a listener on the SharedPreferences object
-            prefs.registerOnSharedPreferenceChangeListener(mListener);
-
-            // Invoke callback manually to display the current options
-            mListener.onSharedPreferenceChanged(prefs, getString(R.string.company_preference_key));
+            mPrefs = new ManagePreferences(getActivity());
         }
 
-    }
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+            updateTypeHour();
+            updateChoosenCompany();
+        }
 
-    @Override
-    public void onBackPressed(){
+        @Override
+        public void onPause() {
+            super.onPause();
+            getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+        }
 
-        SharedPreferences mPrefs = getPreferences(Context.MODE_PRIVATE);
-        String mhour_preference_key = getString(R.string.hours_preference_key);
-        String hourValue = mPrefs.getString(mhour_preference_key, "TRI");
-        Intent data = new Intent();
-        data.putExtra("mhour", hourValue);
-        setResult(RESULT_OK, data);
-        finish();
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+            updateTypeHour();
+            updateChoosenCompany();
+        }
+
+        private void updateTypeHour() {
+            String choosenTypeHour = mPrefs.getTypeHourPlan();
+            mHoursPreference.setSummary((new TypeHourEnum(choosenTypeHour)).getHumanString(res));
+        }
+
+        private void updateChoosenCompany() {
+            String choosenCompany = mPrefs.getCompany();
+            mCompanyPreference.setSummary(choosenCompany);
+        }
     }
 }
