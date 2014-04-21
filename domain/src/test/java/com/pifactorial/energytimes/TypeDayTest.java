@@ -51,7 +51,7 @@ public class TypeDayTest {
     }
 
     @Test
-    public void testCommonDay(){
+    public void testCommonDay() {
         Set<TypeDay> holiday = new HashSet<TypeDay>();
         Set<TypeDay> weekdayAndSaturday = new HashSet<TypeDay>();
 

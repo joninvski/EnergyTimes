@@ -13,23 +13,23 @@ public enum PricePlan {
         return name;
     }
 
-    public boolean equalsName(String otherName){
+    public boolean equalsName(String otherName) {
         return (otherName == null)? false:name.equals(otherName);
     }
 
-    public boolean isVazio(){
+    public boolean isVazio() {
         return name.equals(VAZIO.getPricePlan()) || name.equals(SUPER_VAZIO.getPricePlan());
     }
 
-    public boolean isCheia(){
+    public boolean isCheia() {
         return name.equals(CHEIA.getPricePlan());
     }
 
-    public boolean isPonta(){
+    public boolean isPonta() {
         return name.equals(PONTA.getPricePlan());
     }
 
-    public boolean equals(PricePlan other, boolean biHour){
+    public boolean equals(PricePlan other, boolean biHour) {
 
         if(biHour == false) {
             return this.equalsName(other.getPricePlan());
@@ -39,12 +39,12 @@ public enum PricePlan {
             return other.isVazio();
         }
 
-        else if (other.isVazio()){
+        else if (other.isVazio()) {
             return false;
         }
 
         // If we get here we are certain that both this and other are cheia or vazio
-        else{
+        else {
             return true;
         }
     }

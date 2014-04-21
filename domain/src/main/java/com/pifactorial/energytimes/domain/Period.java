@@ -48,11 +48,11 @@ public class Period {
         return false;
     }
 
-    public boolean isAfterStart(LocalDate d){
+    public boolean isAfterStart(LocalDate d) {
         return (d.isEqual(_start) || d.isAfter(_start));
     }
 
-    public boolean isBeforeEnd(LocalDate d){
+    public boolean isBeforeEnd(LocalDate d) {
         return (d.isEqual(_end) || d.isBefore(_end));
     }
 
@@ -119,20 +119,20 @@ public class Period {
         return new Period[] {allYear};
     }
 
-    public boolean equals(Object other){
-         if ( this == other) return true;
-         if ( !(other instanceof Period ) ) return false;
-         Period that = (Period) other;
+    public boolean equals(Object other) {
+        if ( this == other) return true;
+        if ( !(other instanceof Period ) ) return false;
+        Period that = (Period) other;
 
-         return this._start.equals(that._start) && this._end.equals(that._end) && this._hours.equals(that._hours) && TypeDay.CommonDay(this._validOnDaySet, that._validOnDaySet);
+        return this._start.equals(that._start) && this._end.equals(that._end) && this._hours.equals(that._hours) && TypeDay.CommonDay(this._validOnDaySet, that._validOnDaySet);
     }
 
-    public String toString(){
+    public String toString() {
         String daysString = "";
         for(TypeDay d : _validOnDaySet)
             daysString = daysString.concat(d.toString());
 
         return String.format("Start:\t%s\tEnd:\t%s\n %s\n hours: %s\nDays: %s", _start.toString(),
-                _end.toString(), _price.toString(), _hours.toString(), daysString);
+                             _end.toString(), _price.toString(), _hours.toString(), daysString);
     }
 }

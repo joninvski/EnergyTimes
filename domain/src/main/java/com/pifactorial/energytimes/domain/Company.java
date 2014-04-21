@@ -25,7 +25,7 @@ public abstract class Company {
         _planSet = planSet;
     }
 
-    public synchronized void addPlan(Plan p){
+    public synchronized void addPlan(Plan p) {
         _planSet.add(p);
     }
 
@@ -34,11 +34,11 @@ public abstract class Company {
             addPlan(p);
     }
 
-    public Set<Plan> getPlanSet(){
+    public Set<Plan> getPlanSet() {
         return _planSet;
     }
 
-    public String toString(){
+    public String toString() {
         String r = this._name;
         for (Plan p : _planSet)
             r = r.concat(String.format("\t %s", p.toString()));
@@ -46,7 +46,7 @@ public abstract class Company {
     }
 
     public Period checkCurrentPeriod(DateTime time, String planName, boolean biHour) throws DayWithoutPlanException, PlanNotFoundException {
-        for(Plan p : _planSet){
+        for(Plan p : _planSet) {
             if(p.getName().equals(planName))
                 return p.searchPeriod(time, biHour);
         }

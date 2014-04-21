@@ -35,8 +35,12 @@ public class LocalTimeInterval {
     }
 
     public boolean isValid() {
-        try { return toInterval() != null; }
-        catch (IllegalArgumentException e) { return false;}
+        try {
+            return toInterval() != null;
+        }
+        catch (IllegalArgumentException e) {
+            return false;
+        }
     }
 
     public boolean overlapsWith(LocalTimeInterval timeInterval) {
@@ -55,7 +59,7 @@ public class LocalTimeInterval {
         return new LocalTimeInterval(0,0, 23, 59);
     }
 
-    public boolean overlapsWith(LocalTime l){
+    public boolean overlapsWith(LocalTime l) {
         return overlapsWith(new LocalTimeInterval(l,l.plusMillis(1)));
     }
 
@@ -69,7 +73,7 @@ public class LocalTimeInterval {
         LocalTime later = to.plusMinutes(1);
 
         // If we pass midnight do not add minutes
-        if(later.isBefore(this.to)){
+        if(later.isBefore(this.to)) {
             return to;
         }
         return later;
@@ -80,11 +84,11 @@ public class LocalTimeInterval {
     }
 
     @Override
-    public boolean equals(Object other){
-         if ( this == other) return true;
-         if ( !(other instanceof LocalTimeInterval ) ) return false;
-         LocalTimeInterval that = (LocalTimeInterval) other;
+    public boolean equals(Object other) {
+        if ( this == other) return true;
+        if ( !(other instanceof LocalTimeInterval ) ) return false;
+        LocalTimeInterval that = (LocalTimeInterval) other;
 
-         return this.from.equals(that.from) && this.to.equals(that.to);
+        return this.from.equals(that.from) && this.to.equals(that.to);
     }
 }

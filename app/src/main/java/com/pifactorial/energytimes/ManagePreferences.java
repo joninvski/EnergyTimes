@@ -17,16 +17,16 @@ public class ManagePreferences {
         mPrefs = PreferenceManager.getDefaultSharedPreferences(c);
     }
 
-    protected String getPlanPreference(){
+    protected String getPlanPreference() {
         return mPrefs.getString(PLAN_SHARED_PREF, "BTN Ciclo Semanal");
     }
 
-    protected String getTypeHourPlan(){
+    protected String getTypeHourPlan() {
         String mHoursPreference = mPrefs.getString(c.getString(R.string.hours_preference_key), "BI");
         return mHoursPreference;
     }
 
-    protected String getCompany(){
+    protected String getCompany() {
         String companyName = mPrefs.getString(c.getString(R.string.company_preference_key), "EDP");
         return companyName;
     }

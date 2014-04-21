@@ -16,7 +16,7 @@ public class PricePlanTest {
     }
 
     @Test
-    public void checkIsVazio(){
+    public void checkIsVazio() {
         assertTrue(v.isVazio());
         assertTrue(sv.isVazio());
         assertFalse(c.isVazio());
@@ -24,14 +24,14 @@ public class PricePlanTest {
     }
 
     @Test
-    public void checkIsCheia(){
+    public void checkIsCheia() {
         assertFalse(v.isCheia());
         assertFalse(p.isCheia());
         assertTrue(c.isCheia());
     }
 
     @Test
-    public void checkIsPonta(){
+    public void checkIsPonta() {
         assertFalse(v.isPonta());
         assertFalse(c.isPonta());
         assertTrue(p.isPonta());

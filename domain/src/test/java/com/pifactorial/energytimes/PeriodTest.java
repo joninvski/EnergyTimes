@@ -100,13 +100,13 @@ public class PeriodTest {
     }
 
     @Test
-    public void testGetMinuteAfter(){
+    public void testGetMinuteAfter() {
         assertEquals(startYearPeriodNight.getMinuteAfterThisPeriod(), new DateTime(2014, 02, 27, 8, 00));
         assertEquals(middleYearPeriodMorning.getMinuteAfterThisPeriod(), new DateTime(2014, 05, 31, 12, 00));
     }
 
     @Test
-    public void testGetWinterPeriod(){
+    public void testGetWinterPeriod() {
         Period winterPart1 = new Period(startYear, endWinterA, morning, TypeDay.Weekday(), PricePlan.CHEIA);
         Period winterPart2 = new Period(startWinterB, endYear, morning, TypeDay.Weekday(), PricePlan.CHEIA);
 
@@ -115,7 +115,7 @@ public class PeriodTest {
     }
 
     @Test
-    public void testGetSummerPeriod(){
+    public void testGetSummerPeriod() {
         Period summer = new Period(startSummer, endSummer, morning, TypeDay.Weekday(), PricePlan.CHEIA);
 
         Period[] p = {summer};
@@ -123,7 +123,7 @@ public class PeriodTest {
     }
 
     @Test
-    public void testAllYear(){
+    public void testAllYear() {
         Period all = new Period(startYear, endYear, morning, TypeDay.Weekday(), PricePlan.CHEIA);
 
         Period[] p = {all};

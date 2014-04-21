@@ -21,11 +21,11 @@ public class Plan {
         return _name;
     }
 
-    public synchronized void addPeriod(Period s){
+    public synchronized void addPeriod(Period s) {
         _periodSet.add(s);
     }
 
-    public synchronized void addPeriod(Period[] sArray){
+    public synchronized void addPeriod(Period[] sArray) {
         for (Period s : sArray)
             addPeriod(s);
     }

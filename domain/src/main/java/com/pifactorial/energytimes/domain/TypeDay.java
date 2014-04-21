@@ -21,7 +21,7 @@ public enum TypeDay {
         return code;
     }
 
-    public static Set<TypeDay> SundayAndHoliday(){
+    public static Set<TypeDay> SundayAndHoliday() {
         Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Sunday);
@@ -29,21 +29,21 @@ public enum TypeDay {
         return s;
     }
 
-    public static Set<TypeDay> Weekday(){
+    public static Set<TypeDay> Weekday() {
         Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Workday);
         return s;
     }
 
-    public static Set<TypeDay> Saturday(){
+    public static Set<TypeDay> Saturday() {
         Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Saturday);
         return s;
     }
 
-    public static Set<TypeDay> All(){
+    public static Set<TypeDay> All() {
         Set<TypeDay> s = new LinkedHashSet<TypeDay>();
 
         s.add(Workday);
@@ -55,7 +55,7 @@ public enum TypeDay {
     }
 
     public static boolean CommonDay(Set<TypeDay> a, Set<TypeDay> b) {
-        for(TypeDay i : a){
+        for(TypeDay i : a) {
             if(b.contains(i))
                 return true;
         }

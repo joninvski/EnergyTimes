@@ -3,7 +3,7 @@ package com.pifactorial.energytimes.domain;
 public class Endesa extends Company {
     public static final int YEAR = 2014;
 
-    public Endesa(){
+    public Endesa() {
         super("Endesa");
     }
 

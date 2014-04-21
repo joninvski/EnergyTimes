@@ -109,25 +109,25 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(
-                new OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                        if(position == 0) {
-                            selectedPlan = "BTN Ciclo Semanal";
-                            mPrefs.setPlanPreference("BTN Ciclo Semanal");
-                        }
-                        else {
-                            selectedPlan = "BTN Ciclo Diario";
-                            mPrefs.setPlanPreference("BTN Ciclo Diario");
-                        }
-                    setCurrentTime();
-                    }
+        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                if(position == 0) {
+                    selectedPlan = "BTN Ciclo Semanal";
+                    mPrefs.setPlanPreference("BTN Ciclo Semanal");
+                }
+                else {
+                    selectedPlan = "BTN Ciclo Diario";
+                    mPrefs.setPlanPreference("BTN Ciclo Diario");
+                }
+                setCurrentTime();
+            }
 
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parentView) {
-                        Log.d(Constants.LOG, "Spinner with nothing selected");
-                    }});
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                Log.d(Constants.LOG, "Spinner with nothing selected");
+            }
+        });
 
         // Make sure that the the current plan time fits in a single line
         ViewTreeObserver vto = tvEnd.getViewTreeObserver();
@@ -163,7 +163,7 @@ public class MainActivity extends Activity {
             Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
             PricePlan price = s.getPrice();
 
-            if(biHour == false){
+            if(biHour == false) {
                 makeAllVisible();
                 if(price.isVazio()) {
                     highlight(tvVazio);
@@ -187,10 +187,10 @@ public class MainActivity extends Activity {
                 }
             }
 
-            if(selectedPlan.equals("BTN Ciclo Semanal")){
+            if(selectedPlan.equals("BTN Ciclo Semanal")) {
                 spinner.setSelection(0);
             }
-            else{
+            else {
                 spinner.setSelection(1);
             }
 
@@ -229,12 +229,12 @@ public class MainActivity extends Activity {
         tvPonta.setTextColor(Color.DKGRAY);
     }
 
-    private void highlight(TextView tv){
+    private void highlight(TextView tv) {
         highlight(tv, true);
     }
 
     private void highlight(TextView tv, boolean onlyHighlight) {
-        if(onlyHighlight){
+        if(onlyHighlight) {
             removeAllHighlights();
         }
 
@@ -265,13 +265,13 @@ public class MainActivity extends Activity {
         // Handle item selection
         switch (item.getItemId()) {
 
-            case R.id.set_plan:
-                Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
-                startActivityForResult(intentSetPref, 1);
-                break;
+        case R.id.set_plan:
+            Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
+            startActivityForResult(intentSetPref, 1);
+            break;
 
-            default:
-                return super.onOptionsItemSelected(item);
+        default:
+            return super.onOptionsItemSelected(item);
         }
         return true;
     }

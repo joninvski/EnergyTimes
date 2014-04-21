@@ -27,27 +27,27 @@ public class LocalTimeIntervalTest {
     }
 
     @Test
-    public void testOverlapWithItself(){
+    public void testOverlapWithItself() {
         assertTrue(i.overlapsWith(i));
     }
 
     @Test
-    public void testOverlapTimeIntervalOneMinuteDurationBeginning(){
+    public void testOverlapTimeIntervalOneMinuteDurationBeginning() {
         assertTrue(i.overlapsWith(instantBeginning));
     }
 
     @Test
-    public void testOverlapTimeIntervalOneMinuteDurationEnd(){
+    public void testOverlapTimeIntervalOneMinuteDurationEnd() {
         assertFalse(i.overlapsWith(instantEnd));
     }
 
     @Test
-    public void testOverlapTimeIntervalWithLocalTimeBeginning(){
+    public void testOverlapTimeIntervalWithLocalTimeBeginning() {
         assertTrue(i.overlapsWith(from));
     }
 
     @Test
-    public void testSimpleMerge(){
+    public void testSimpleMerge() {
         assertEquals(LocalTimeInterval.getMergedTimeInterval(i, h), new LocalTimeInterval(from, toTen));
     }
 
