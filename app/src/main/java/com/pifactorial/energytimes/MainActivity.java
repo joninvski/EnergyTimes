@@ -109,27 +109,25 @@ public class MainActivity extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+        spinner.setOnItemSelectedListener(
+                new OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                        if(position == 0) {
+                            selectedPlan = "BTN Ciclo Semanal";
+                            mPrefs.setPlanPreference("BTN Ciclo Semanal");
+                        }
+                        else {
+                            selectedPlan = "BTN Ciclo Diario";
+                            mPrefs.setPlanPreference("BTN Ciclo Diario");
+                        }
+                    setCurrentTime();
+                    }
 
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id){
-
-                if(position == 0){
-                    selectedPlan = "BTN Ciclo Semanal";
-                    mPrefs.setPlanPreference("BTN Ciclo Semanal");
-                }
-                else{
-                    selectedPlan = "BTN Ciclo Diario";
-                    mPrefs.setPlanPreference("BTN Ciclo Diario");
-                }
-        setCurrentTime();
-            }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parentView){
-            Log.d(Constants.LOG, "Spinner with nothing selected");
-        }
-        });
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parentView) {
+                        Log.d(Constants.LOG, "Spinner with nothing selected");
+                    }});
 
         // Make sure that the the current plan time fits in a single line
         ViewTreeObserver vto = tvEnd.getViewTreeObserver();
