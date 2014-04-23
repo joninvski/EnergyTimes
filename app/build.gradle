@@ -47,16 +47,19 @@ android {
     buildTypes {
         release {
             signingConfig signingConfigs.release
+            runProguard true
+            proguardFile 'proguard-rules.txt'
+            proguardFile getDefaultProguardFile('proguard-android.txt')
         }
     }
 
     // specify signing properties on the command line
     if (project.hasProperty('storeFile')) {
         println 'Generating a signed package.'
-            android.signingConfigs.release.storeFile = file(storeFile)
-            android.signingConfigs.release.storePassword = storePassword
-            android.signingConfigs.release.keyAlias = keyAlias
-            android.signingConfigs.release.keyPassword = keyPassword
+        android.signingConfigs.release.storeFile = file(storeFile)
+        android.signingConfigs.release.storePassword = storePassword
+        android.signingConfigs.release.keyAlias = keyAlias
+        android.signingConfigs.release.keyPassword = keyPassword
     } else {
         android.buildTypes.release.signingConfig = null
     }
