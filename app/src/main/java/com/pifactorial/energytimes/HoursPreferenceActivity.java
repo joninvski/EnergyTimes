@@ -25,12 +25,12 @@ public class HoursPreferenceActivity extends Activity {
     }
 
     protected void onResume() {
+        super.onResume();
         FragmentManager mFragmentManager = getFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         UserPreferenceFragment mPrefsFragment = new UserPreferenceFragment();
         mFragmentTransaction.add(android.R.id.content, mPrefsFragment);
         mFragmentTransaction.commit();
-        super.onResume();
     }
 
     // Fragment that displays the preference
