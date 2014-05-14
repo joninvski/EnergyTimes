@@ -59,7 +59,6 @@ public class MainActivity extends Activity {
     private String selectedPlan = "BTN Ciclo Semanal";
     private ManagePreferences mPrefs;
     private Spinner spinner;
-    private int sdk_version;
 
     Edp edp = new Edp();
 
@@ -74,7 +73,6 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
-        sdk_version = android.os.Build.VERSION.SDK_INT;
 
         // Store view references
         tvVazio = (TextView) findViewById(R.id.vazio);
