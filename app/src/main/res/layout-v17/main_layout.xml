@@ -61,7 +61,7 @@
                     android:id="@+id/vazio"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:text="Vazio"
+                    android:text="@string/vazio_name"
                     android:paddingRight="10dp"
                     android:gravity="bottom"
                     />
@@ -70,7 +70,7 @@
                     android:id="@+id/cheias"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:text="Cheias"
+                    android:text="@string/cheia_name"
                     android:paddingRight="10dp"
                     android:gravity="bottom"
                     />
@@ -79,37 +79,13 @@
                     android:id="@+id/ponta"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
-                    android:text="Ponta"
+                    android:text="@string/ponta_name"
                     android:gravity="bottom"
                     android:paddingRight="10dp"
                     />
             </LinearLayout>
         </LinearLayout>
 
-
-        <!-- <LinearLayout -->
-            <!--     android:layout_width="wrap_content" -->
-            <!--     android:layout_height="wrap_content" -->
-            <!--     android:orientation="horizontal" > -->
-            <!--     > -->
-
-            <!--     <TextView -->
-                <!--         android:layout_width="wrap_content" -->
-                <!--         android:layout_height="fill_parent" -->
-                <!--         android:text="Tarifa: " -->
-                <!--         android:paddingRight="40dp" -->
-                <!--         android:layout_gravity="right" -->
-                <!--         android:textSize="40sp" -->
-                <!--         /> -->
-
-            <!--     <TextView -->
-                <!--         android:id="@+id/plan" -->
-                <!--         android:layout_width="wrap_content" -->
-                <!--         android:layout_height="fill_parent" -->
-                <!--         android:textColor="#ffbb33" -->
-                <!--         android:textSize="40sp" -->
-                <!--         /> -->
-            <!-- </LinearLayout> -->
     </RelativeLayout>
 
 

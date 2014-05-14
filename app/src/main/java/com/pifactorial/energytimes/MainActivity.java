@@ -10,6 +10,8 @@ import android.content.Intent;
 
 import android.graphics.Color;
 
+import android.net.Uri;
+
 import android.os.Build;
 import android.os.Bundle;
 
@@ -115,8 +117,7 @@ public class MainActivity extends Activity {
                 if(position == 0) {
                     selectedPlan = "BTN Ciclo Semanal";
                     mPrefs.setPlanPreference("BTN Ciclo Semanal");
-                }
-                else {
+                } else {
                     selectedPlan = "BTN Ciclo Diario";
                     mPrefs.setPlanPreference("BTN Ciclo Diario");
                 }
@@ -167,11 +168,9 @@ public class MainActivity extends Activity {
                 makeAllVisible();
                 if(price.isVazio()) {
                     highlight(tvVazio);
-                }
-                else if(price.isCheia()) {
+                } else if(price.isCheia()) {
                     highlight(tvCheia);
-                }
-                else if(price.isPonta()) {
+                } else if(price.isPonta()) {
                     highlight(tvPonta);
                 }
             }
@@ -189,8 +188,7 @@ public class MainActivity extends Activity {
 
             if(selectedPlan.equals("BTN Ciclo Semanal")) {
                 spinner.setSelection(0);
-            }
-            else {
+            } else {
                 spinner.setSelection(1);
             }
 
@@ -268,6 +266,13 @@ public class MainActivity extends Activity {
         case R.id.set_plan:
             Intent intentSetPref = new Intent(getApplicationContext(), HoursPreferenceActivity.class);
             startActivityForResult(intentSetPref, 1);
+            break;
+
+        case R.id.about:
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","trindade.joao@gmail.com", null));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "[energytimes] - Feedback");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.feedback_text_body));
+            startActivity(Intent.createChooser(emailIntent, getString(R.string.send_email_chooser)));
             break;
 
         default:

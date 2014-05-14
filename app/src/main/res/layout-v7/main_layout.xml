@@ -24,7 +24,7 @@
     android:layout_gravity="center_vertical"
     android:orientation="vertical" >
 
-    <DigitalClock
+    <com.pifactorial.energytimes.ui.view.CustomDigitalClock
         android:id="@+id/clock"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,48 +40,41 @@
         android:layout_weight="3"
         >
 
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerHorizontal="true"
+            android:weightSum = "3"
+            android:orientation="horizontal"
             >
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:gravity="center"
-                android:layout_height="wrap_content"
-                android:weightSum = "3"
-                android:orientation="horizontal"
-                >
+            <TextView
+                android:id="@+id/vazio"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/vazio_name"
+                android:paddingRight="10dp"
+                android:gravity="bottom"
+                />
 
-                <TextView
-                    android:id="@+id/vazio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="Vazio"
-                    android:paddingRight="10dp"
-                    android:gravity="bottom"
-                    />
+            <TextView
+                android:id="@+id/cheias"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/cheia_name"
+                android:paddingRight="10dp"
+                android:gravity="bottom"
+                />
 
-                <TextView
-                    android:id="@+id/cheias"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="Cheias"
-                    android:paddingRight="10dp"
-                    android:gravity="bottom"
-                    />
-
-                <TextView
-                    android:id="@+id/ponta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"
-                    android:text="Ponta"
-                    android:gravity="bottom"
-                    android:paddingRight="10dp"
-                    />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/ponta"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:text="@string/ponta_name"
+                android:gravity="bottom"
+                android:paddingRight="10dp"
+                />
         </LinearLayout>
 
 

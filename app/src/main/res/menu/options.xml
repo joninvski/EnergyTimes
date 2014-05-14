@@ -3,7 +3,7 @@
 
     <group >
         <item android:id="@+id/set_plan" android:title="@string/more_options" android:showAsAction="collapseActionView"/>
-        <!-- <item android:id="@+id/about" android:title="@string/about" android:showAsAction="collapseActionView"/> -->
+        <item android:id="@+id/about" android:title="@string/about" android:showAsAction="collapseActionView"/>
     </group>
 
 </menu>

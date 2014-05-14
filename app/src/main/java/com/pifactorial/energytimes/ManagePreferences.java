@@ -22,7 +22,7 @@ public class ManagePreferences {
     }
 
     protected String getTypeHourPlan() {
-        String mHoursPreference = mPrefs.getString(c.getString(R.string.hours_preference_key), "BI");
+        String mHoursPreference = mPrefs.getString(c.getString(R.string.hours_preference_key), "TRI");
         return mHoursPreference;
     }
 
@@ -36,8 +36,7 @@ public class ManagePreferences {
         editor.putString(PLAN_SHARED_PREF, plan);
         if(sdk_version < 9) {
             editor.commit();
-        }
-        else {
+        } else {
             editor.apply();
         }
     }
