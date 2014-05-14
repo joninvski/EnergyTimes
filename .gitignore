@@ -3,3 +3,5 @@
 .gradle
 gen
 R.java
+gradle.properties
+local.properties
