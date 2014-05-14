@@ -24,13 +24,16 @@ along with EnergyTimes.  If not, see <http://www.gnu.org/licenses/>.
 
     <string name="company_preference_key">company_preference</string>
     <string name="hours_preference_key">hours_preference</string>
-    
+
     <string name="feedback_text_body">Gostava de dar o seguinte feedback:\n\n</string>
     <string name="send_email_chooser">Enviar email&#8230;</string>
 
     <string name="vazio_name">Vazio</string>
     <string name="cheia_name">Cheia</string>
     <string name="ponta_name">Ponta</string>
+    <string name="cicle_name">Ciclo: </string>
+    <string name="period_description">Periodo da tarifa: </string>
+    <string name="arrow"> &#x2192; </string>
 
     <string name="about">Feedback</string>
 

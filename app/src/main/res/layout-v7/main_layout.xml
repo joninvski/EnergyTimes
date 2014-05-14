@@ -34,19 +34,18 @@
         android:textSize="55sp"
         />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="3"
+        android:orientation="vertical"
         >
-
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:gravity="center"
             android:layout_height="wrap_content"
-            android:weightSum = "3"
             android:orientation="horizontal"
+            android:gravity="center"
             >
 
             <TextView
@@ -72,43 +71,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:text="@string/ponta_name"
-                android:gravity="bottom"
                 android:paddingRight="10dp"
+                android:gravity="bottom"
                 />
         </LinearLayout>
-
-
-        <!-- <LinearLayout -->
-            <!--     android:layout_width="wrap_content" -->
-            <!--     android:layout_height="wrap_content" -->
-            <!--     android:orientation="horizontal" > -->
-            <!--     > -->
-
-            <!--     <TextView -->
-                <!--         android:layout_width="wrap_content" -->
-                <!--         android:layout_height="fill_parent" -->
-                <!--         android:text="Tarifa: " -->
-                <!--         android:paddingRight="40dp" -->
-                <!--         android:layout_gravity="right" -->
-                <!--         android:textSize="40sp" -->
-                <!--         /> -->
-
-            <!--     <TextView -->
-                <!--         android:id="@+id/plan" -->
-                <!--         android:layout_width="wrap_content" -->
-                <!--         android:layout_height="fill_parent" -->
-                <!--         android:textColor="#ffbb33" -->
-                <!--         android:textSize="40sp" -->
-                <!--         /> -->
-            <!-- </LinearLayout> -->
-    </RelativeLayout>
-
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="4"
         >
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
