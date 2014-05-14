@@ -28,5 +28,6 @@ public class PhoneTest extends ActivityInstrumentationTestCase2<MainActivity> {
         // Wait for activity: 'course.labs.fragmentslab.MainActivity'
         assertTrue("MainActivity not found", solo.waitForActivity(
                        com.pifactorial.energytimes.MainActivity.class, 2000));
+
     }
 }

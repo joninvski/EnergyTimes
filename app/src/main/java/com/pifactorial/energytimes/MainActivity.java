@@ -253,12 +253,9 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if( sdk_version >= 14) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.options, menu);
-            return super.onCreateOptionsMenu(menu);
-        }
-        return true;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
