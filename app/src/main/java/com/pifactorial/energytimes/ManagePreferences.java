@@ -1,8 +1,13 @@
 package com.pifactorial.energytimes;
 
+import android.annotation.TargetApi;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import android.os.Build;
+
 import android.preference.PreferenceManager;
 
 public class ManagePreferences {
@@ -34,10 +39,20 @@ public class ManagePreferences {
     public void setPlanPreference(String plan) {
         final Editor editor = mPrefs.edit();
         editor.putString(PLAN_SHARED_PREF, plan);
-        if(sdk_version < 9) {
-            editor.commit();
+        if(sdk_version < Build.VERSION_CODES.GINGERBREAD) {
+            commit(editor);
         } else {
-            editor.apply();
+            apply(editor);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.ECLAIR)
+    private void commit(Editor e) {
+        e.commit();
+    }
+
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
+    private void apply(Editor e) {
+        e.apply();
     }
 }
