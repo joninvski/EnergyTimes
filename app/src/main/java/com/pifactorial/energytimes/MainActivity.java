@@ -48,7 +48,8 @@ import java.util.TimerTask;
 
 import junit.runner.Version;
 
-import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.LocalDate;
 
 
 public class MainActivity extends Activity {
@@ -154,14 +155,15 @@ public class MainActivity extends Activity {
 
     public void setCurrentTime() {
 
-        DateTime now = new DateTime();
+        LocalTime nowHours = new LocalTime();
+        LocalDate nowDate = new LocalDate();
 
         try {
             // TODO - Fetch the preference for this boolean
             typeHour = mPrefs.getTypeHourPlan();
             boolean biHour = (new TypeHourEnum(typeHour)).isBiHour();
 
-            Period s = edp.checkCurrentPeriod(now, selectedPlan, biHour);
+            Period s = edp.checkCurrentPeriod(nowHours, nowDate, selectedPlan, biHour);
             PricePlan price = s.getPrice();
 
             if(biHour == false) {
@@ -199,6 +201,7 @@ public class MainActivity extends Activity {
 
             tvStart.setText(String.format(Locale.US, "%02dh%02dm", startHour, startMinute));
             tvEnd.setText(String.format(Locale.US, "%02dh%02dm", endHour, endMinute));
+            Log.e(Constants.LOG, String.format(Locale.US, "Period: %s", s.toString()));
 
         } catch (DayWithoutPlanException e) {
             Log.e(Constants.LOG, e.getMessage());

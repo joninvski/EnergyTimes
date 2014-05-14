@@ -22,6 +22,8 @@ public class LocalTimeIntervalTest {
     LocalTimeInterval instantBeginning = new LocalTimeInterval(from, from.plusMinutes(1));
     LocalTimeInterval instantEnd = new LocalTimeInterval(to, to.plusMinutes(1));
 
+    LocalTime endDay = new LocalTime(23, 59);
+
     @BeforeClass
     public static void testSetup() {
     }
@@ -59,11 +61,29 @@ public class LocalTimeIntervalTest {
         assertEquals(i.getEndMinute(), 59);
     }
 
+    @Test
     public void testConstructorWithInts() {
         assertEquals(i, new LocalTimeInterval(8,0,8,59));
     }
 
+    @Test
     public void testMidnightOverlaps() {
         assertTrue(j.overlapsWith(midnight));
     }
+
+
+    @Test
+    public void testGetLocalTImeAfterTestNormal() {
+        LocalTime r = i.getLocalTimeAfterEnd();
+        assertEquals(r, new LocalTime(9,00));
+    }
+
+    @Test
+    public void testGetLocalTImeAfterTestPassingDay() {
+        LocalTimeInterval untilElevenFiftyNine = new LocalTimeInterval(from, endDay);
+        LocalTime r = untilElevenFiftyNine.getLocalTimeAfterEnd();
+        assertEquals(r, endDay);
+    }
+
+
 }

@@ -6,7 +6,6 @@ import com.pifactorial.energytimes.domain.TypeDay;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
 import org.junit.*;
@@ -47,21 +46,18 @@ public class PeriodTest {
 
     @Test
     public void testSimpleMatches() {
-        assertTrue(startYearPeriodNight.matches(startYear.toDateTime(threeAM)));
-        assertTrue(startYearPeriodNight.matches(startYear, threeAM));
+        assertTrue(startYearPeriodNight.matches(threeAM, startYear));
     }
 
     @Test
     public void testSimpleMatchesMiddlePeriod() {
-        assertTrue(startYearPeriodNight.matches(middleJanuary.toDateTimeAtStartOfDay()));
-        assertTrue(startYearPeriodNight.matches(middleJanuary, threeAM));
+        assertTrue(startYearPeriodNight.matches(threeAM, middleJanuary));
     }
 
     @Test
     public void testSimpleNotMatches() {
-        assertFalse(startYearPeriodNight.matches(startMarch, eightAM));
-        assertFalse(startYearPeriodNight.matches(startMarch, threeAM));
-        assertFalse(startYearPeriodNight.matches(startMarch.toDateTimeAtStartOfDay()));
+        assertFalse(startYearPeriodNight.matches(eightAM, startMarch));
+        assertFalse(startYearPeriodNight.matches(threeAM, startMarch));
 
         Period middleYearPeriodAfternoonWeekday = new Period(startMarch, endMay, afternoon, TypeDay.Weekday(), PricePlan.PONTA);
         Period middleYearPeriodAfternoonHoliday = new Period(startMarch, endMay, afternoon, TypeDay.SundayAndHoliday(), PricePlan.PONTA);
@@ -101,8 +97,8 @@ public class PeriodTest {
 
     @Test
     public void testGetMinuteAfter() {
-        assertEquals(startYearPeriodNight.getMinuteAfterThisPeriod(), new DateTime(2014, 02, 27, 8, 00));
-        assertEquals(middleYearPeriodMorning.getMinuteAfterThisPeriod(), new DateTime(2014, 05, 31, 12, 00));
+        assertEquals(startYearPeriodNight.getMinuteAfterThisPeriod(), new LocalTime(8, 00));
+        assertEquals(middleYearPeriodMorning.getMinuteAfterThisPeriod(), new LocalTime(12, 00));
     }
 
     @Test

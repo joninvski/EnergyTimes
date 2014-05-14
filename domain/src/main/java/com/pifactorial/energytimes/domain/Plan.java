@@ -2,7 +2,8 @@ package com.pifactorial.energytimes.domain;
 
 import java.util.HashSet;
 import java.util.Set;
-import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.LocalDate;
 
 public class Plan {
     private String _name;
@@ -30,10 +31,10 @@ public class Plan {
             addPeriod(s);
     }
 
-    public Period searchPeriod(DateTime t, boolean biHour) throws DayWithoutPlanException {
+    public Period searchPeriod(LocalTime hour, LocalDate date, boolean biHour) throws DayWithoutPlanException {
         try {
-            Period start = searchPeriodTriHour(t);
-            Period end = getNextPeriodDifferentPrice(start, biHour);
+            Period start = searchPeriodTriHour(hour, date);
+            Period end = getNextPeriodDifferentPrice(start, date, biHour);
             Period merged = Period.getMergedPeriod(start, end);
             return merged;
         }
@@ -43,17 +44,17 @@ public class Plan {
         }
     }
 
-    public Period getNextPeriodDifferentPrice(Period p, boolean biHour) {
+    public Period getNextPeriodDifferentPrice(Period p, LocalDate date, boolean biHour) {
 
-        DateTime followingInstant = p.getMinuteAfterThisPeriod();
+        LocalTime followingInstant = p.getMinuteAfterThisPeriod();
 
         try {
-            Period end = searchPeriodTriHour(followingInstant);
+            Period end = searchPeriodTriHour(followingInstant, date);
 
             // Now let's check if the period is for a different price
             if (p.getPrice().equals(end.getPrice(), biHour)) {
                 //if it is the same we have to look for the next time instant
-                return getNextPeriodDifferentPrice(end, biHour);
+                return getNextPeriodDifferentPrice(end, date, biHour);
             }
 
             // If the price plan has changed, this period is the end
@@ -66,9 +67,9 @@ public class Plan {
         }
     }
 
-    public Period searchPeriodTriHour(DateTime t) throws DayWithoutPlanException {
+    public Period searchPeriodTriHour(LocalTime hour, LocalDate date) throws DayWithoutPlanException {
         for(Period p : _periodSet) {
-            if(p.matches(t)) {
+            if(p.matches(hour, date)) {
                 return p;
             }
         }

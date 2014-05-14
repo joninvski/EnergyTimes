@@ -4,7 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import java.util.Arrays;
-import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
+import org.joda.time.LocalDate;
 
 public abstract class Company {
 
@@ -45,10 +46,10 @@ public abstract class Company {
         return r;
     }
 
-    public Period checkCurrentPeriod(DateTime time, String planName, boolean biHour) throws DayWithoutPlanException, PlanNotFoundException {
+    public Period checkCurrentPeriod(LocalTime hour, LocalDate date, String planName, boolean biHour) throws DayWithoutPlanException, PlanNotFoundException {
         for(Plan p : _planSet) {
             if(p.getName().equals(planName))
-                return p.searchPeriod(time, biHour);
+                return p.searchPeriod(hour, date, biHour);
         }
         throw new PlanNotFoundException(String.format("Plan %s was not found", planName));
     }

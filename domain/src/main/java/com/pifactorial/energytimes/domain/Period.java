@@ -32,14 +32,7 @@ public class Period {
         return _hours;
     }
 
-
-    public boolean matches(DateTime now) {
-        LocalTime nowHours = new LocalTime( now.getHourOfDay(), now.getMinuteOfHour());
-        LocalDate nowDayMonth = new LocalDate(now.getYear(), now.getMonthOfYear(), now.getDayOfMonth());
-        return matches(nowDayMonth, nowHours);
-    }
-
-    public boolean matches(LocalDate daysMonth, LocalTime hours) {
+    public boolean matches(LocalTime hours, LocalDate daysMonth) {
         if(isAfterStart(daysMonth) && isBeforeEnd(daysMonth) && TypeDay.MatchTypeDay(daysMonth, _validOnDaySet)) {
             if(_hours.overlapsWith(hours)) {
                 return true;
@@ -65,13 +58,10 @@ public class Period {
         return new Period(start._start, end._end, mergedHours, start._validOnDaySet, start._price);
     }
 
-    protected DateTime getMinuteAfterThisPeriod() {
+    protected LocalTime getMinuteAfterThisPeriod() {
         LocalTime nextHour = this._hours.getLocalTimeAfterEnd();
 
-        DateTime dateTime = new DateTime(_end.getYear(), _end.getMonthOfYear(), _end.getDayOfMonth(), nextHour.getHourOfDay(), nextHour.getMinuteOfHour());
-        dateTime = dateTime.withFields(nextHour);
-
-        return dateTime;
+        return nextHour;
     }
 
 

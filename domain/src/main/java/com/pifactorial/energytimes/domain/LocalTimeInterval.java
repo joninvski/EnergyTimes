@@ -60,7 +60,7 @@ public class LocalTimeInterval {
     }
 
     public boolean overlapsWith(LocalTime l) {
-        return overlapsWith(new LocalTimeInterval(l,l.plusMillis(1)));
+        return overlapsWith(new LocalTimeInterval(l, l.plusMillis(1)));
     }
 
 
@@ -69,11 +69,10 @@ public class LocalTimeInterval {
     }
 
     public LocalTime getLocalTimeAfterEnd() {
-
         LocalTime later = to.plusMinutes(1);
 
         // If we pass midnight do not add minutes
-        if(later.isBefore(this.to)) {
+        if(later.isBefore(this.to) || later == LocalTime.MIDNIGHT) {
             return to;
         }
         return later;

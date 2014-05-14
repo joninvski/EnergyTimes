@@ -6,7 +6,6 @@ import com.pifactorial.energytimes.domain.TypeDay;
 
 import org.joda.time.DateTimeConstants;
 import org.joda.time.LocalDate;
-import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
 import org.junit.*;
@@ -48,10 +47,11 @@ public class PlanTest {
     @Test
     public void testSimpleSearh() throws Exception {
         p.addPeriod(startYearPeriodNight);
-        assertEquals(startYearPeriodNight, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), trihour));
-        assertEquals(startYearPeriodNight, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), bihour));
+        assertEquals(startYearPeriodNight, p.searchPeriod(new LocalTime(01, 01), new LocalDate(YEAR, 01, 01), trihour));
+        assertEquals(startYearPeriodNight, p.searchPeriod(new LocalTime(01, 01), new LocalDate(YEAR, 01, 01), bihour));
     }
 
+    @Test
     public void testSearhHolidayPriority() throws Exception {
         p.addPeriod(startYearPeriodNightHoliday);
         p.addPeriod(startYearPeriodNightWeekday);
@@ -62,37 +62,37 @@ public class PlanTest {
         p.addPeriod(middleYearPeriodNightHoliday);
         p.addPeriod(middleYearPeriodNightWeekday);
         // This should be the new year that on 2014 was on a wednesday
-        assertEquals(startYearPeriodNightHoliday, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), trihour));
-        assertEquals(startYearPeriodNightHoliday, p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), bihour));
-        assertFalse(startYearPeriodNightWeekday.equals(p.searchPeriod(new DateTime(YEAR, 01, 01, 01, 01), bihour)));
+        assertEquals(startYearPeriodNightHoliday, p.searchPeriod(new LocalTime(01, 01), new LocalDate(YEAR, 01, 01), trihour));
+        assertEquals(startYearPeriodNightHoliday, p.searchPeriod(new LocalTime(01, 01), new LocalDate(YEAR, 01, 01), bihour));
+        assertFalse(startYearPeriodNightWeekday.equals(p.searchPeriod(new LocalTime( 01, 01), new LocalDate(YEAR, 01, 01), bihour)));
 
         // Lets search for easter
-        assertEquals(middleYearPeriodNightHoliday, p.searchPeriod(new DateTime(YEAR, 04, 18, 01, 01), trihour));
+        assertEquals(middleYearPeriodNightHoliday, p.searchPeriod(new LocalTime(01, 01), new LocalDate(YEAR, 04, 18), trihour));
 
     }
 
     @Test(expected = DayWithoutPlanException.class)
     public void testPlanNotFoundBecauseDate() throws Exception {
         p.addPeriod(middleYearPeriodNight);
-        p.searchPeriod(new DateTime(YEAR, 01, 01,  1, 01), trihour);
+        p.searchPeriod(new LocalTime( 1, 01), new LocalDate(YEAR, 01, 01), trihour);
     }
 
     @Test(expected = DayWithoutPlanException.class)
     public void testPlanNotFoundBecauseHour() throws Exception {
         p.addPeriod(startYearPeriodNight);
-        p.searchPeriod(new DateTime(YEAR, 01, 01,  8, 00), trihour);
+        p.searchPeriod(new LocalTime( 8, 00), new LocalDate(YEAR, 01, 01), trihour);
     }
 
     @Test
     public void testSearchEndPeriodTriHourSamePrice() throws Exception {
         p.addPeriod(startYearPeriodNight);
         p.addPeriod(startYearPeriodMorning);
-        Period found = p.getNextPeriodDifferentPrice(startYearPeriodNight, trihour);
+        Period found = p.getNextPeriodDifferentPrice(startYearPeriodNight, startYear, trihour);
         assertEquals(startYearPeriodMorning, found);
         assertFalse(startYearPeriodNight.equals(found));
 
         p.addPeriod(startYearPeriodAfternoon);
-        found = p.getNextPeriodDifferentPrice(startYearPeriodNight, trihour);
+        found = p.getNextPeriodDifferentPrice(startYearPeriodNight, startYear, trihour);
         assertEquals(startYearPeriodAfternoon, found);
     }
 
@@ -103,7 +103,7 @@ public class PlanTest {
         Period startYearPeriodAfternoon = new Period(startYear, endFebruary, afternoon, TypeDay.All(), PricePlan.CHEIA);
         p.addPeriod(startYearPeriodAfternoon);
 
-        Period found = p.getNextPeriodDifferentPrice(startYearPeriodNight, trihour);
+        Period found = p.getNextPeriodDifferentPrice(startYearPeriodNight, startYear, trihour);
         assertEquals(startYearPeriodMorning, found);
         assertFalse(startYearPeriodAfternoon.equals(found));
     }
@@ -112,12 +112,12 @@ public class PlanTest {
     public void testSearchSearchTriHour() throws Exception {
         p.addPeriod(startYearPeriodNight);
         p.addPeriod(startYearPeriodMorning);
-        Period found = p.searchPeriodTriHour(new DateTime(YEAR, 01, 01,  0, 00));
+        Period found = p.searchPeriodTriHour(new LocalTime( 0, 00), new LocalDate(YEAR, 01, 01));
 
         assertEquals(startYearPeriodNight, found);
         assertFalse(startYearPeriodMorning.equals(found));
 
-        found = p.searchPeriodTriHour(new DateTime(YEAR, 01, 01,  9, 00));
+        found = p.searchPeriodTriHour(new LocalTime(9, 00), new LocalDate(YEAR, 01, 01));
         assertEquals(startYearPeriodMorning, found);
         assertFalse(startYearPeriodNight.equals(found));
     }
