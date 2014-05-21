@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_layout);
+        setContentView(R.layout.act_main);
 
         // Store view references
         tvVazio = (TextView) findViewById(R.id.vazio);
