@@ -36,11 +36,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import butterknife.ButterKnife;
+
+import butterknife.InjectView;
+
 import com.pifactorial.energytimes.domain.DayWithoutPlanException;
 import com.pifactorial.energytimes.domain.Edp;
 import com.pifactorial.energytimes.domain.Period;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.PricePlan;
+import com.pifactorial.energytimes.R;
 
 import java.util.Locale;
 import java.util.Timer;
@@ -48,8 +53,8 @@ import java.util.TimerTask;
 
 import junit.runner.Version;
 
-import org.joda.time.LocalTime;
 import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 
 
 public class MainActivity extends Activity {
@@ -58,15 +63,15 @@ public class MainActivity extends Activity {
 
     private String selectedPlan = "BTN Ciclo Semanal";
     private ManagePreferences mPrefs;
-    private Spinner spinner;
 
     Edp edp = new Edp();
 
-    private TextView tvVazio;
-    private TextView tvCheia;
-    private TextView tvPonta;
-    private TextView tvStart;
-    private TextView tvEnd;
+    @InjectView(R.id.vazio) TextView tvVazio;
+    @InjectView(R.id.cheias) TextView tvCheia;
+    @InjectView(R.id.ponta) TextView tvPonta;
+    @InjectView(R.id.start) TextView tvStart;
+    @InjectView(R.id.end) TextView tvEnd;
+    @InjectView(R.id.planets_spinner) Spinner spinner;
 
     String typeHour;
 
@@ -74,21 +79,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.act_main);
 
-        // Store view references
-        tvVazio = (TextView) findViewById(R.id.vazio);
-        tvCheia = (TextView) findViewById(R.id.cheias);
-        tvPonta = (TextView) findViewById(R.id.ponta);
-        spinner = (Spinner) findViewById(R.id.planets_spinner);
-
-        tvStart = (TextView) findViewById(R.id.start);
-        tvEnd = (TextView) findViewById(R.id.end);
-
         // Get a reference to the preferences
         mPrefs = new ManagePreferences(this);
 
+        ButterKnife.inject(this);
+
         // Create an update Period thread
         Timer timer = new Timer();
-        TimerTask hourlyTask = new TimerTask() {
+        TimerTask updateUITask = new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
@@ -101,7 +99,7 @@ public class MainActivity extends Activity {
         };
 
         // Period the task to run starting now and then every hour...
-        timer.schedule(hourlyTask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
+        timer.schedule(updateUITask, 0l, 1000 * 60 * REFRESH_TIME_IN_MINUTES);
 
         // Configure the spinner
         // Create an ArrayAdapter using the string array and a default spinner layout
