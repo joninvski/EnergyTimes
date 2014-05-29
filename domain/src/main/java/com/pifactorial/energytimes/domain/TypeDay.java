@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.joda.time.LocalDate;
-import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 
 public enum TypeDay {

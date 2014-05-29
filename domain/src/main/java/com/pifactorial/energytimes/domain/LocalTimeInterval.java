@@ -1,6 +1,8 @@
 package com.pifactorial.energytimes.domain;
 
-import org.joda.time.*;
+import org.joda.time.Interval;
+import org.joda.time.LocalTime;
+import org.joda.time.Instant;
 import java.util.Locale;
 
 public class LocalTimeInterval {
