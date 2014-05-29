@@ -1,6 +1,8 @@
 Energy Times
 ============
 
+[![Build Status](https://travis-ci.org/joninvski/EnergyTimes.svg?branch=master)](https://travis-ci.org/joninvski/EnergyTimes)
+
 Show the price for the current time from the Portuguese electric suppliers
 
 Compile
