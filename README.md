@@ -44,7 +44,7 @@ Unit tests
 ----------
 
     # Run the unit tests of the domain subproject
-   ./gradlew :domain:test # Check the results in _domain/build/reports/tests/index.html_
+    ./gradlew :domain:test # Check the results in _domain/build/reports/tests/index.html_
 
 Class diagram
 =============
