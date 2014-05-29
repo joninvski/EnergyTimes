@@ -3,17 +3,25 @@ android:
   components:
     - build-tools-19.0.3
 
+env:
+  global:
+    - TERM=dumb
+  matrix:
+      - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+
+
 notifications:
   email: false
 
 before_install:
 
-  # for gradle output style
-  - export TERM=dumb
-
   # environment info
   - ./gradlew -v
   - uname -a
+
+  # Create and start emulator
+  - echo no | android create avd --force -n test -t ${ANDROID_TARGET} --abi ${ANDROID_ABI}
+  - emulator -avd test -no-skin -no-audio -no-window &
 
 
 before_script:
