@@ -32,13 +32,13 @@ Code quality
 ------------
 
     # Runs lint on all variants
-    ./gradlew lint         # results in _app/build/lint-results.html_
+    ./gradlew lint         # results in app/build/lint-results.html
 
     # Run tests and generate Cobertura coverage reports
-    ./gradlew cobertura    # results in _domain/build/reports/cobertura/index.html_
+    ./gradlew cobertura    # results in domain/build/reports/cobertura/index.html
 
     # Checks if the code is accordings with the code style
-    ./gradlew domain:check # results in _domain/build/reports/checkstyle/main.xml_
+    ./gradlew domain:check app:checkstyle # results in [domain|app]/build/reports/checkstyle/main.xml
 
 Unit tests
 ----------

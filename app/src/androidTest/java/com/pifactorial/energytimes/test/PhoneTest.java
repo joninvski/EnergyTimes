@@ -1,6 +1,6 @@
 package com.pifactorial.energytimes.test;
 
-import com.robotium.solo.*;
+import com.robotium.solo.Solo;
 import android.test.ActivityInstrumentationTestCase2;
 import com.pifactorial.energytimes.MainActivity;
 

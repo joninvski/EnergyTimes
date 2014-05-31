@@ -1,9 +1,5 @@
 package com.pifactorial.energytimes;
 
-import android.app.Activity;
-
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.SharedPreferences;
 
@@ -15,7 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.pifactorial.energytimes.TypeHourEnum;
 import com.github.machinarius.preferencefragment.PreferenceFragment;
 
 public class HoursPreferenceActivity extends FragmentActivity {

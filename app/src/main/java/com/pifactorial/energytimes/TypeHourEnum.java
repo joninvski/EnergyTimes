@@ -1,7 +1,5 @@
 package com.pifactorial.energytimes;
 
-import android.content.Context;
-import com.pifactorial.energytimes.R;
 import android.content.res.Resources;
 
 class TypeHourEnum {

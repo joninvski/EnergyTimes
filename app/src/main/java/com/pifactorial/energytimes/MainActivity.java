@@ -1,22 +1,15 @@
 package com.pifactorial.energytimes;
 
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 
 import android.graphics.Color;
 
 import android.net.Uri;
 
-import android.os.Build;
 import android.os.Bundle;
 
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -45,13 +38,10 @@ import com.pifactorial.energytimes.domain.Edp;
 import com.pifactorial.energytimes.domain.Period;
 import com.pifactorial.energytimes.domain.PlanNotFoundException;
 import com.pifactorial.energytimes.domain.PricePlan;
-import com.pifactorial.energytimes.R;
 
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import junit.runner.Version;
 
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
