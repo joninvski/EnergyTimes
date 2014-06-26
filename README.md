@@ -70,6 +70,17 @@ Class diagram
        +–––––––––––––––––––––+
 
 
+Libraries Used
+--------------
+
+- [Robotium](http://code.google.com/p/robotium/)
+- Square's [Spoon](http://square.github.io/spoon/)
+- Jake Wharton's [Butterknife](http://jakewharton.github.io/butterknife/)
+- Google's [Android Support Library v4](http://developer.android.com/reference/android/support/v4/app/package-summary.html)
+- [Joda Time](http://www.joda.org/joda-time/)
+- Machinarius' [PreferenceFragment](https://github.com/Machinarius/PreferenceFragment-Compat)
+
+
 License
 -------
 
