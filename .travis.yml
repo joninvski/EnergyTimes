@@ -1,31 +1,24 @@
 language: android
+
 android:
   components:
-    - build-tools-19.0.3
+    - build-tools-19.1.0
 
 env:
   global:
     - TERM=dumb
   matrix:
-      - ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
+    - ANDROID_SDKS=android-19,sysimg-19  ANDROID_TARGET=android-19  ANDROID_ABI=armeabi-v7a
 
+before_install:
+  - ./gradlew -v
+  - uname -a
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - emulator -avd test -no-skin -no-audio -no-window &
+
+before_script:
+  - adb wait-for-device
+  - adb shell input keyevent 82 &
 
 notifications:
   email: false
-
-before_install:
-
-  # environment info
-  - ./gradlew -v
-  - uname -a
-
-  # Create and start emulator
-  - echo no | android create avd --force -n test -t ${ANDROID_TARGET} --abi ${ANDROID_ABI}
-  - emulator -avd test -no-skin -no-audio -no-window &
-
-
-before_script:
-  - chmod +x ci/wait_for_emulator.sh
-  - ci/wait_for_emulator.sh
-  # Unlock screen
-  - adb shell input keyevent 82 &
