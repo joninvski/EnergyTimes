@@ -4,8 +4,8 @@ buildscript {
     }
     dependencies {
         classpath 'com.stanfy.spoon:spoon-gradle-plugin:0.10.+'
-        classpath 'com.android.tools.build:gradle:0.10.+'
-        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.9.+'
+        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+'
         classpath 'com.github.nrudenko:gradle-android-cq-plugin:0.1+'
     }
 }
@@ -27,14 +27,12 @@ dependencies {
     compile 'com.android.support:support-v4:19.1.+'
     compile 'com.github.machinarius:preferencefragment:0.1.1'
 
-
     compile project(':domain')
 }
 
-
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.1.0"
+    compileSdkVersion  20
+    buildToolsVersion '20.0.0'
 
     lintOptions {
         abortOnError false
