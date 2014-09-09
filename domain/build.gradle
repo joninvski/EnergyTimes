@@ -3,15 +3,15 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "net.saliman:gradle-cobertura-plugin:2.2.2"
+        classpath parent.ext.libraries.cobertura_gradle
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'cobertura'
-
 apply plugin: 'checkstyle'
+
 checkstyle {
     configFile = new File(rootDir, "checkstyle.xml")
     ignoreFailures = true
@@ -22,8 +22,8 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.+'
-    compile 'joda-time:joda-time:2.3'
+    testCompile parent.ext.libraries.junit
+    compile parent.ext.libraries.jodatime
 }
 
 version = '1.0'

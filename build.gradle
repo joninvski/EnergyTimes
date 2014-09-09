@@ -1,1 +1,48 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:0.12.+'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    versionMajor = 0
+    versionMinor = 4
+    versionPatch = 1
+
+    versionCode = versionMajor * 1000 + versionMinor * 100 + versionPatch
+    versionName = versionMajor + "." + versionMinor + "." + versionPatch
+
+    minSdkVersion = 7
+    targetSdkVersion = 20
+    compileSdkVersion = 20
+    buildToolsVersion = '20.0.0'
+}
+
+ext.libraries = [
+        androidtools_gradle : 'com.android.tools.build:gradle:0.12.+',
+        spoon_gradle        : 'com.stanfy.spoon:spoon-gradle-plugin:0.10.+',
+        sdkmanager_gradle   : 'com.jakewharton.sdkmanager:gradle-plugin:0.10.+',
+        android_cq_gradle   : 'com.github.nrudenko:gradle-android-cq-plugin:0.1+',
+        cobertura_gradle    : 'net.saliman:gradle-cobertura-plugin:2.2.2',
+        spoonclient         : 'com.squareup.spoon:spoon-client:1.1.+',
+        preferencefragment  : 'com.github.machinarius:preferencefragment:0.1.1',
+        robotium            : 'com.jayway.android.robotium:robotium-solo:5.+',
+        butterknife         : 'com.jakewharton:butterknife:5.0.+',
+        supportv4           : 'com.android.support:support-v4:19.1.+',
+        junit               : 'junit:junit:4.+',
+        jodatime            : 'joda-time:joda-time:2.3',
+]
