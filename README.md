@@ -3,7 +3,10 @@ Energy Times
 
 [![Build Status](https://travis-ci.org/joninvski/EnergyTimes.svg?branch=master)](https://travis-ci.org/joninvski/EnergyTimes)
 
-Show the price for the current time from the Portuguese electric suppliers
+Show the price (according to the current hour) of the electricity by portuguese electric suppliers (EDP and Endesa).
+Respects daylight savings changes to the plans.
+
+<a href="https://play.google.com/store/apps/details?id=com.pifactorial.energytimes"><img src="http://developer.android.com/images/brand/en_app_rgb_wo_45.png" alt="Play Store Horario Energia" width="180px"></a>
 
 Compile
 -------
